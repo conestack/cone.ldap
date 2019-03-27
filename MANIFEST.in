@@ -1,0 +1,12 @@
+include *.rst
+include *.mo
+include *.po
+include buildout.cfg
+include ldap_groupOfNames_10_10.ini
+include ldap_groupOfNames_100_100.ini
+include ldap_posix.ini
+include bootstrap.py
+recursive-include etc *
+recursive-include cfgin *
+recursive-include src *
+recursive-exclude src *.pyc *.pyo

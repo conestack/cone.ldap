@@ -1,0 +1,828 @@
+# English translations for cone.ldap.
+# Copyright (C) 2012 ORGANIZATION
+# This file is distributed under the same license as the cone.ldap project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cone.ldap 0.9.4dev\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2012-04-24 12:34+0200\n"
+"PO-Revision-Date: 2012-07-30 14:02+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.4\n"
+
+#. Default: Deleted user '${uid}' from database.
+#: src/cone/ldap/browser/actions.py:75
+msgid "delete_user_from_database"
+msgstr "Deleted user '${uid}' from database."
+
+#. Default: Added user '${uid}' to group '${gid}'.
+#: src/cone/ldap/browser/actions.py:105 src/cone/ldap/browser/actions.py:223
+msgid "added_user_to_group"
+msgstr "Added user '${uid}' to group '${gid}'."
+
+#. Default: Failed adding user '${uid}' to group '${gid}'. Manage membership
+#. denied
+#. for target group.
+#: src/cone/ldap/browser/actions.py:116
+msgid "lm_add_target_gid_not_allowed"
+msgstr ""
+"Failed adding user '${uid}' to group '${gid}'. Manage membership "
+"denied for target group."
+
+#. Default: Removed user '${uid}' from group '${gid}'.
+#: src/cone/ldap/browser/actions.py:148 src/cone/ldap/browser/actions.py:265
+msgid "removed_user_from_group"
+msgstr "Removed user '${uid}' from group '${gid}'."
+
+#. Default: Failed removing user '${uid}' from group '${gid}'. Manage
+#. membership
+#. denied for target group.
+#: src/cone/ldap/browser/actions.py:158
+msgid "lm_remove_target_gid_not_allowed"
+msgstr ""
+"Failed removing user '${uid}' from group '${gid}'. Manage "
+"membership denied for target group."
+
+#. Default: Failed removing user '${uid}' from group '${gid}'. Target group is
+#. default group of user.
+#: src/cone/ldap/browser/actions.py:165 src/cone/ldap/browser/actions.py:282
+msgid "lm_remove_target_gid_is_default"
+msgstr ""
+"Failed removing user '${uid}' from group '${gid}'. Target group is "
+"default group of user."
+
+#. Default: Deleted group from database
+#: src/cone/ldap/browser/actions.py:198
+msgid "deleted_group"
+msgstr "Deleted group from database"
+
+#. Default: Failed adding user '${uid}' to group '${gid}'. Manage membership
+#. denied
+#. for user.
+#: src/cone/ldap/browser/actions.py:234
+msgid "lm_add_target_uid_not_allowed"
+msgstr ""
+"Failed adding user '${uid}' to group '${gid}'. Manage membership "
+"denied for user."
+
+#. Default: Failed removing user '${uid}' from group '${gid}'. Manage
+#. membership
+#. denied for user.
+#: src/cone/ldap/browser/actions.py:275
+msgid "lm_remove_target_uid_not_allowed"
+msgstr ""
+"Failed removing user '${uid}' from group '${gid}'. Manage "
+"membership denied for user."
+
+#. Default: auto incremented
+#: src/cone/ldap/browser/autoincrement.py:62
+msgid "auto_incremented"
+msgstr "auto incremented"
+
+#. Default: Active
+#: src/cone/ldap/browser/expires.py:162
+msgid "active"
+msgstr "Active"
+
+#. Default: Add Group
+#: src/cone/ldap/browser/group.py:42 src/cone/ldap/browser/groups.py:23
+msgid "add_group"
+msgstr "Add Group"
+
+#. Default: Add user to selected group
+#: src/cone/ldap/browser/group.py:129 src/cone/ldap/browser/user.py:137
+msgid "add_user_to_selected_group"
+msgstr "Add user to selected group"
+
+#. Default: Remove user from selected group
+#: src/cone/ldap/browser/group.py:137 src/cone/ldap/browser/user.py:145
+msgid "remove_user_from_selected_group"
+msgstr "Remove user from selected group"
+
+#. Default: Group ${gid} already exists.
+#: src/cone/ldap/browser/group.py:222
+msgid "group_already_exists"
+msgstr "Group ${gid} already exists."
+
+#. Default: Delete Group
+#: src/cone/ldap/browser/groups.py:54
+msgid "delete_group"
+msgstr "Delete Group"
+
+#. Default: Delete Principal
+#: src/cone/ldap/browser/listing.py:194
+msgid "delete_principal"
+msgstr "Delete Principal"
+
+#. Default: Portrait
+#: src/cone/ldap/browser/portrait.py:80 src/cone/ldap/browser/portrait.py:82
+msgid "portrait"
+msgstr "Portrait"
+
+#. Default: No ${field} defined
+#: src/cone/ldap/browser/principal.py:55
+msgid "no_field_value_defined"
+msgstr "No ${field} defined"
+
+#. Default: Save
+#: src/cone/ldap/browser/principal.py:98
+msgid "save"
+msgstr "Save"
+
+#. Default: Cancel
+#: src/cone/ldap/browser/principal.py:108
+msgid "cancel"
+msgstr "Cancel"
+
+#. Default: Roles
+#: src/cone/ldap/browser/roles.py:46
+msgid "roles"
+msgstr "Roles"
+
+#. Default: Can't create container: ${error}
+#: src/cone/ldap/browser/settings.py:103
+msgid "cannot_create_container"
+msgstr "Can't create container: ${error}"
+
+#. Default: No container DN defined.
+#: src/cone/ldap/browser/settings.py:114
+msgid "no_container_dn_defined"
+msgstr "No container DN defined."
+
+#. Default: Expected 'ou' as RDN Attribute.
+#: src/cone/ldap/browser/settings.py:118
+msgid "expected_ou_as_rdn"
+msgstr "Expected 'ou' as RDN Attribute."
+
+#. Default: Invalid DN.
+#: src/cone/ldap/browser/settings.py:124
+msgid "invalid_dn"
+msgstr "Invalid DN."
+
+#. Default: Parent not found. Can't continue.
+#: src/cone/ldap/browser/settings.py:130
+msgid "parent_not_found"
+msgstr "Parent not found. Can't continue."
+
+#. Default: Created ${rdn}
+#: src/cone/ldap/browser/settings.py:137
+msgid "created_principal_container"
+msgstr "Created ${rdn}"
+
+#. Default: Down
+#: src/cone/ldap/browser/settings.py:193
+msgid "server_down"
+msgstr "Down"
+
+#. Default: Inexistent
+#: src/cone/ldap/browser/settings.py:235 src/cone/ldap/browser/settings.py:300
+#: src/cone/ldap/browser/settings.py:363
+msgid "inexistent"
+msgstr "Inexistent"
+
+#: src/cone/ldap/browser/settings.py:468
+msgid "localmanager_duplicate_rule_error"
+msgstr "Duplicate access rule"
+
+#: src/cone/ldap/browser/settings.py:477
+msgid "localmanager_target_is_source_error"
+msgstr "Target GID equates source GID"
+
+#. Default: Add User
+#: src/cone/ldap/browser/user.py:48 src/cone/ldap/browser/users.py:23
+msgid "add_user"
+msgstr "Add User"
+
+#. Default: User ${uid} already exists.
+#: src/cone/ldap/browser/user.py:242
+msgid "user_already_exists"
+msgstr "User ${uid} already exists."
+
+#. Default: User login ${login} not unique.
+#: src/cone/ldap/browser/user.py:258
+msgid "user_login_not_unique"
+msgstr "User login ${login} not unique."
+
+#. Default: Delete User
+#: src/cone/ldap/browser/users.py:54
+msgid "delete_user"
+msgstr "Delete User"
+
+#. Default: Sorting
+#: src/cone/ldap/browser/templates/column_listing.pt:16
+msgid "sort_by"
+msgstr "Sorting"
+
+#. Default: Groups Settings
+#: src/cone/ldap/browser/templates/groups_settings.pt:8
+msgid "group_settings"
+msgstr "Groups Settings"
+
+#. Default: Check Groups DN:
+#: src/cone/ldap/browser/templates/groups_settings.pt:11
+msgid "check_groups_dn"
+msgstr "Check Groups DN:"
+
+#. Default: Server not reachable
+#: src/cone/ldap/browser/templates/groups_settings.pt:17
+#: src/cone/ldap/browser/templates/roles_settings.pt:17
+#: src/cone/ldap/browser/templates/users_settings.pt:17
+msgid "server_not_reachable"
+msgstr "Server not reachable"
+
+#. Default: Create groups container?
+#: src/cone/ldap/browser/templates/groups_settings.pt:25
+msgid "create_groups_container"
+msgstr "Create groups container?"
+
+#. Default: The groups container DN does not exist. The Application can try to
+#. create it. This only works if the parent entry of defined DN exists. The
+#. groups
+#. container will be created with objectClass 'organizationalUnit'. Thus, the
+#. RDN
+#. name of DN must be 'ou'.
+#: src/cone/ldap/browser/templates/groups_settings.pt:28
+msgid "create_groups_container_description"
+msgstr ""
+"The groups container DN does not exist. The Application can try to create"
+" it. This only works if the parent entry of defined DN exists. The groups"
+" container will be created with objectClass 'organizationalUnit'. Thus, "
+"the RDN name of DN must be 'ou'."
+
+#. Default: Create groups container now
+#: src/cone/ldap/browser/templates/groups_settings.pt:35
+msgid "create_groups_container_now"
+msgstr "Create groups container now"
+
+#. Default: Available
+#: src/cone/ldap/browser/templates/in_out.pt:9
+msgid "available"
+msgstr "Available"
+
+#. Default: Recent
+#: src/cone/ldap/browser/templates/in_out.pt:17
+msgid "recent"
+msgstr "Recent"
+
+#. Default: Local User Management is not enabled.
+#: src/cone/ldap/browser/templates/localmanager_settings.pt:9
+msgid "localmanager_disabled_warning"
+msgstr "Local User Management is not enabled."
+
+#. Default: List all
+#: src/cone/ldap/browser/templates/right_column.pt:31
+msgid "list_all"
+msgstr "List all"
+
+#. Default: Roles Settings
+#: src/cone/ldap/browser/templates/roles_settings.pt:8
+msgid "roles_settings"
+msgstr "Roles Settings"
+
+#. Default: Check Roles DN:
+#: src/cone/ldap/browser/templates/roles_settings.pt:11
+msgid "check_roles_dn"
+msgstr "Check Roles DN:"
+
+#. Default: Create roles container?
+#: src/cone/ldap/browser/templates/roles_settings.pt:25
+msgid "create_roles_container"
+msgstr "Create roles container?"
+
+#. Default: The roles container DN does not exist. The Application can try to
+#. create it. This only works if the parent entry of defined DN exists. The
+#. roles
+#. container will be created with objectClass 'organizationalUnit'. Thus, the
+#. RDN
+#. name of DN must be 'ou'.
+#: src/cone/ldap/browser/templates/roles_settings.pt:28
+msgid "create_roles_container_description"
+msgstr ""
+"The roles container DN does not exist. The Application can try to create "
+"it. This only works if the parent entry of defined DN exists. The roles "
+"container will be created with objectClass 'organizationalUnit'. Thus, "
+"the RDN name of DN must be 'ou'."
+
+#. Default: Create roles container now
+#: src/cone/ldap/browser/templates/roles_settings.pt:35
+msgid "create_roles_container_now"
+msgstr "Create roles container now"
+
+#. Default: LDAP Server Settings
+#: src/cone/ldap/browser/templates/server_settings.pt:7
+msgid "ldap_server_settings"
+msgstr "LDAP Server Settings"
+
+#. Default: Server Connection:
+#: src/cone/ldap/browser/templates/server_settings.pt:10
+msgid "server_connection"
+msgstr "Server Connection:"
+
+#. Default: Users Settings
+#: src/cone/ldap/browser/templates/users_settings.pt:8
+msgid "users_settings"
+msgstr "Users Settings"
+
+#. Default: Check Users DN:
+#: src/cone/ldap/browser/templates/users_settings.pt:11
+msgid "check_users_dn"
+msgstr "Check Users DN:"
+
+#. Default: Create users container?
+#: src/cone/ldap/browser/templates/users_settings.pt:25
+msgid "create_users_container"
+msgstr "Create users container?"
+
+#. Default: The users container DN does not exist. The Application can try to
+#. create it. This only works if the parent entry of defined DN exists. The
+#. users
+#. container will be created with objectClass 'organizationalUnit'. Thus, the
+#. RDN
+#. name of DN must be 'ou'.
+#: src/cone/ldap/browser/templates/users_settings.pt:28
+msgid "create_users_container_description"
+msgstr ""
+"The users container DN does not exist. The Application can try to create "
+"it. This only works if the parent entry of defined DN exists. The users "
+"container will be created with objectClass 'organizationalUnit'. Thus, "
+"the RDN name of DN must be 'ou'."
+
+#. Default: Create users container now
+#: src/cone/ldap/browser/templates/users_settings.pt:35
+msgid "create_users_container_now"
+msgstr "Create users container now"
+
+#. Default: Group
+#: src/cone/ldap/model/group.py:31 src/cone/ldap/model/group.py:41
+msgid "group_node"
+msgstr "Group"
+
+#. Default: Group
+#: src/cone/ldap/model/group.py:32 src/cone/ldap/model/group.py:42
+msgid "group_node_description"
+msgstr "Group"
+
+#. Default: Groups
+#: src/cone/ldap/model/groups.py:41 src/cone/ldap/model/groups.py:94
+msgid "groups_node"
+msgstr "Groups"
+
+#. Default: Container for Groups
+#: src/cone/ldap/model/groups.py:42 src/cone/ldap/model/groups.py:95
+msgid "groups_node_description"
+msgstr "Container for Groups"
+
+#. Default: UGM Settings
+#: src/cone/ldap/model/settings.py:80
+msgid "ldap_settings_node"
+msgstr "UGM Settings"
+
+#. Default: General user and group management settings
+#: src/cone/ldap/model/settings.py:81
+msgid "ldap_settings_node_description"
+msgstr "General user and group management settings"
+
+#. Default: LDAP Props
+#: src/cone/ldap/model/settings.py:91
+msgid "ldap_props_node"
+msgstr "LDAP Props"
+
+#. Default: LDAP properties
+#: src/cone/ldap/model/settings.py:92
+msgid "ldap_props_node_description"
+msgstr "LDAP properties"
+
+#. Default: Users Settings
+#: src/cone/ldap/model/settings.py:121
+msgid "user_settings_node"
+msgstr "Users Settings"
+
+#. Default: LDAP users settings
+#: src/cone/ldap/model/settings.py:122
+msgid "user_settings_node_description"
+msgstr "LDAP users settings"
+
+#. Default: Groups Settings
+#: src/cone/ldap/model/settings.py:179
+msgid "group_settings_node"
+msgstr "Groups Settings"
+
+#. Default: LDAP groups settings
+#: src/cone/ldap/model/settings.py:180
+msgid "group_settings_node_description"
+msgstr "LDAP groups settings"
+
+#. Default: Roles Settings
+#: src/cone/ldap/model/settings.py:222
+msgid "role_settings_node"
+msgstr "Roles Settings"
+
+#. Default: LDAP roles settings
+#: src/cone/ldap/model/settings.py:223
+msgid "role_settings_node_description"
+msgstr "LDAP roles settings"
+
+#. Default: Local Manager Settings
+#: src/cone/ldap/model/settings.py:268
+msgid "localmanager_settings_node"
+msgstr "Local Manager Settings"
+
+#. Default: Local Manager Settings
+#: src/cone/ldap/model/settings.py:270
+msgid "localmanager_settings_node_description"
+msgstr "Local Manager Settings"
+
+#. Default: User
+#: src/cone/ldap/model/user.py:31 src/cone/ldap/model/user.py:41
+msgid "user_node"
+msgstr "User"
+
+#. Default: User
+#: src/cone/ldap/model/user.py:32 src/cone/ldap/model/user.py:42
+msgid "user_node_description"
+msgstr "User"
+
+#. Default: Users
+#: src/cone/ldap/model/users.py:41 src/cone/ldap/model/users.py:94
+msgid "users_node"
+msgstr "Users"
+
+#. Default: Container for Users
+#: src/cone/ldap/model/users.py:42 src/cone/ldap/model/users.py:95
+msgid "users_node_description"
+msgstr "Container for Users"
+
+# #############################################################################
+# manually created message strings
+# filter listing
+msgid "filter_listing"
+msgstr "filter listing"
+
+# Default membership assignment widget
+msgid "default_membership_assignment_widget"
+msgstr "Default membership assignment widget"
+
+# User display name attribute
+msgid "user_display_name_attribute"
+msgstr "User display name attribute"
+
+# Group display name attribute
+msgid "group_display_name_attribute"
+msgstr "Group display name attribute"
+
+# User Accounts expires?
+msgid "user_accounts_expires"
+msgstr "User Accounts expires?"
+
+# Flag whether to consider user expiration
+msgid "user_accounts_expires_help"
+msgstr "Flag whether to consider user expiration"
+
+# Attribute containing expiration Time
+msgid "attribute_containing_expiration_time"
+msgstr "Attribute containing expiration Time"
+
+# LDAP attribute name containing expires information
+msgid "attribute_containing_expiration_time_help"
+msgstr "LDAP attribute name containing expires information"
+
+# Account expiration unit
+msgid "account_expiration_unit"
+msgstr "Account expiration unit"
+
+# Unit of expiration value
+msgid "account_expiration_unit_help"
+msgstr "Unit of expiration value"
+
+# Autoincrement user id
+msgid "autoincrement_user_id"
+msgstr "Autoincrement user id"
+
+# Flag whether to autoincrement user ids at user creation time.
+# This feature only works for systems using numeric user ID's
+msgid "autoincrement_user_id_help"
+msgstr ""
+"Flag whether to autoincrement user ids at user creation time. This "
+"feature only works for systems using numeric user ID's"
+
+# Autoincrement user id prefix
+msgid "autoincrement_user_id_prefix"
+msgstr "Autoincrement user id prefix"
+
+# Prefix for autogenerated user ID's
+msgid "autoincrement_user_id_prefix_help"
+msgstr "Prefix for autogenerated user ID's"
+
+# Autoincrement initial user number
+msgid "autoincrement_initial_user_number"
+msgstr "Autoincrement initial user number"
+
+# User number to start from
+msgid "autoincrement_initial_user_number_help"
+msgstr "User number to start from"
+
+# Portrait Support
+msgid "portrait_support"
+msgstr "Portrait Support"
+
+# Flag whether users can have a portrait
+msgid "portrait_support_help"
+msgstr "Flag whether users can have a portrait"
+
+# Attribute containing portrait image
+msgid "attribute_containing_portrait_image"
+msgstr "Attribute containing portrait image"
+
+# LDAP attribute name containing portrait image
+msgid "attribute_containing_portrait_image_help"
+msgstr "LDAP attribute name containing portrait image"
+
+# Portrait mimetype
+msgid "portrait_mimetype"
+msgstr "Portrait mimetype"
+
+# Accepted Image mimetype for portrait property
+msgid "portrait_mimetype_help"
+msgstr "Accepted Image mimetype for portrait property"
+
+# Portrait width
+msgid "portrait_width"
+msgstr "Portrait width"
+
+# Width in pixel portrait gets scaled to
+msgid "portrait_width_help"
+msgstr "Width in pixel portrait gets scaled to"
+
+# Portrait height
+msgid "portrait_height"
+msgstr "Portrait height"
+
+# Height in pixel portrait gets scaled to
+msgid "portrait_height_help"
+msgstr "Height in pixel portrait gets scaled to"
+
+# Local User Management
+msgid "users_local_management_enabled"
+msgstr "Local User Management"
+
+# Enable local User Management
+msgid "users_local_management_enabled_help"
+msgstr "Enable local User Management"
+
+# Groups container DN
+msgid "groups_container_dn"
+msgstr "Groups container DN"
+
+# No Groups DN defined
+msgid "groups_container_dn_required"
+msgstr "No Groups DN defined"
+
+# Groups search scope
+msgid "groups_search_scope"
+msgstr "Groups search scope"
+
+# Groups search query filter
+msgid "groups_search_query_filter"
+msgstr "Groups search query filter"
+
+# Object classes for Group creation
+msgid "object_classes_for_group_creation"
+msgstr "Object classes for Group creation"
+
+# Group attribute aliases
+msgid "group_attribute_aliases"
+msgstr "Group attribute aliases"
+
+# Group attribute aliases values are mandatory
+msgid "group_attribute_aliases_required"
+msgstr "Group attribute aliases values are mandatory"
+
+# Reserved key
+msgid "reserved_key"
+msgstr "Reserved key"
+
+# LDAP attr name
+msgid "ldap_attr_name"
+msgstr "LDAP attr name"
+
+# Group form attributes
+msgid "group_form_attributes"
+msgstr "Group form attributes"
+
+# Form label
+msgid "form_label"
+msgstr "Form label"
+
+# Column configuration for groups listings
+msgid "column_configuration_for_groups_listings"
+msgstr "Column configuration for groups listings"
+
+# Column configuration for group listings value is mandatory
+msgid "column_configuration_for_groups_listings_required"
+msgstr "Column configuration for group listings value is mandatory"
+
+# Attr name
+msgid "attr_name"
+msgstr "Attr name"
+
+# Display name
+msgid "display_name"
+msgstr "Display name"
+
+# Groups listing default column
+msgid "groups_listing_default_column"
+msgstr "Groups listing default column"
+
+# Roles container DN
+msgid "roles_container_dn"
+msgstr "Roles container DN"
+
+# No Roles DN defined
+msgid "roles_container_dn_required"
+msgstr "No Roles DN defined"
+
+# Roles search scope
+msgid "roles_search_scope"
+msgstr "Roles search scope"
+
+# Roles search query filter
+msgid "roles_search_query_filter"
+msgstr "Roles search query filter"
+
+# Object classes for Role creation
+msgid "roles_object_classes"
+msgstr "Object classes for Role creation"
+
+# Role attribute aliases
+msgid "role_attribute_aliases"
+msgstr "Role attribute aliases"
+
+# Role attribute aliases values are mandatory
+msgid "role_attribute_aliases_required"
+msgstr "Role attribute aliases values are mandatory"
+
+# Role form attributes
+msgid "role_form_attributes"
+msgstr "Role form attributes"
+
+# LDAP URI
+msgid "ldap_uri"
+msgstr "LDAP URI"
+
+# No URI defined
+msgid "ldap_uri_required"
+msgstr "No URI defined"
+
+# LDAP Manager User
+msgid "ldap_manager_user"
+msgstr "LDAP Manager User"
+
+# No user defined
+msgid "ldap_manager_user_required"
+msgstr "No user defined"
+
+# LDAP Manager Password
+msgid "ldap_manager_password"
+msgstr "LDAP Manager Password"
+
+# No password defined
+msgid "ldap_manager_password_required"
+msgstr "No password defined"
+
+# Use cache for LDAP queries?
+msgid "use_cache_for_ldap_queries"
+msgstr "Use cache for LDAP queries?"
+
+# Users container DN
+msgid "users_container_dn"
+msgstr "Users container DN"
+
+# LDAP DN of container with users
+msgid "users_container_dn_help"
+msgstr "LDAP DN of container with users"
+
+# No Users DN defined
+msgid "users_container_dn_required"
+msgstr "No Users DN defined"
+
+# Users search scope
+msgid "users_search_scope"
+msgstr "Users search scope"
+
+# LDAP Search scope for users
+msgid "users_search_scope_help"
+msgstr "LDAP Search scope for users"
+
+# Users search query filter
+msgid "users_search_query_filter"
+msgstr "Users search query filter"
+
+# Custom LDAP query for user objects
+msgid "users_search_query_filter_help"
+msgstr "Custom LDAP query for user objects"
+
+# Object classes for User creation
+msgid "user_object_classes"
+msgstr "Object classes for User creation"
+
+# LDAP object classes
+msgid "user_object_classes_help"
+msgstr "LDAP object classes"
+
+# User attribute aliases
+msgid "user_attribute_aliases"
+msgstr "User attribute aliases"
+
+# Aliases for reserved attribute keys
+msgid "user_attribute_aliases_help"
+msgstr "Aliases for reserved attribute keys"
+
+# User attribute aliases values are mandatory
+msgid "user_attribute_aliases_required"
+msgstr "User attribute aliases values are mandatory"
+
+# User form attributes
+msgid "user_form_attributes"
+msgstr "User form attributes"
+
+# Attributes exposed in user form
+msgid "user_form_attributes_help"
+msgstr "Attributes exposed in user form"
+
+# Column configuration for user listings
+msgid "column_configuration_for_user_listings"
+msgstr "Column configuration for user listings"
+
+# Attributes shown in user listing
+msgid "column_configuration_for_user_listings_help"
+msgstr "Attributes shown in user listing"
+
+# Column configuration for user listings values are mandatory
+msgid "column_configuration_for_user_listings_required"
+msgstr "Column configuration for user listings values are mandatory"
+
+# Users listing default column
+msgid "users_listing_default_column"
+msgstr "Users listing default column"
+
+# Default sort column in user listing
+msgid "users_listing_default_column_help"
+msgstr "Default sort column in user listing"
+
+# User attributes exposed to attribute map
+msgid "exposed_attributes_label"
+msgstr "User attributes exposed to attribute map"
+
+# Click '+' to add attributes
+msgid "exposed_attributes_array"
+msgstr "Click '+' to add attributes"
+
+# Attributes which can be set via remote API
+msgid "exposed_attributes_help"
+msgstr "Attributes which can be set via remote API"
+
+# Attribute
+msgid "exposed_attributes_attribute"
+msgstr "Attribute"
+
+# No attribute given
+msgid "exposed_attributes_attribute_required"
+msgstr "No attribute given"
+
+# Rules
+msgid "localmanager_rules"
+msgstr "Access rules"
+
+# Source GID
+msgid "localmanager_rule_source"
+msgstr "Source GID"
+
+# Target GID [default]
+msgid "localmanager_rule_target"
+msgstr "Target GID [default]"
+
+# No target GID's defined for source GID
+msgid "localmanager_no_targets_for_source"
+msgstr "No target GID's defined for source GID"
+
+# No source GID defined
+msgid "localmanager_source_empty"
+msgstr "No source GID defined"
+
+# No target GID defined
+msgid "localmanager_target_empty"
+msgstr "No target GID defined"
+
+#~ msgid "group_added_user"
+#~ msgstr "Added user to group"
+
+#~ msgid "group_removed_user"
+#~ msgstr "Removed user from group"
+
