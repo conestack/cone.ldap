@@ -51,6 +51,5 @@ setup(
             'cone.app[test]',
             'cone.ugm[test]'
         ]
-    ),
-    test_suite='cone.ldap.tests.test_suite'
+    )
 )

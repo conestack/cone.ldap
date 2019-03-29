@@ -1,48 +1,26 @@
-from cone.ldap.testing import ldap_layer
-import doctest
-import interlude
-import pprint
-import unittest
+from cone.app import get_root
+from cone.ldap import testing
+from cone.ldap.settings import ldap_cfg
+from cone.ldap.settings import LDAPGroupsSettings
+from cone.ldap.settings import LDAPRolesSettings
+from cone.ldap.settings import LDAPServerSettings
+from cone.ldap.settings import LDAPUsersSettings
+from node.tests import NodeTestCase
 
 
-DOCFILES = [
-]
+class TestLdap(NodeTestCase):
+    layer = testing.ldap_layer
 
+    def test_main_hook(self):
+        root = get_root()
+        settings = root['settings']
 
-optionflags = (
-    doctest.NORMALIZE_WHITESPACE |
-    doctest.ELLIPSIS |
-    doctest.REPORT_ONLY_FIRST_FAILURE
-)
+        self.assertTrue(isinstance(settings['ldap_groups'], LDAPGroupsSettings))
+        self.assertTrue(isinstance(settings['ldap_roles'], LDAPRolesSettings))
+        self.assertTrue(isinstance(settings['ldap_server'], LDAPServerSettings))
+        self.assertTrue(isinstance(settings['ldap_users'], LDAPUsersSettings))
 
-
-print """
-*******************************************************************************
-If testing while development fails, please check if memcached is installed and
-stop it if running.
-*******************************************************************************
-"""
-
-
-def test_suite():
-    suite = unittest.TestSuite()
-    suite.layer = ldap_layer
-    globs = {
-        'interact': interlude.interact,
-        'pprint': pprint.pprint,
-        'pp': pprint.pprint,
-        'layer': ldap_layer
-    }
-    suite.addTests([
-        doctest.DocFileSuite(
-            docfile,
-            globs=globs,
-            optionflags=optionflags
-        )
-        for docfile in DOCFILES
-    ])
-    return suite
-
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
+        self.assertTrue(ldap_cfg.server_config.endswith('ldap_server.xml') > -1)
+        self.assertTrue(ldap_cfg.users_config.endswith('ldap_users.xml') > -1)
+        self.assertTrue(ldap_cfg.groups_config.endswith('ldap_groups.xml') > -1)
+        self.assertTrue(ldap_cfg.roles_config.endswith('ldap_roles.xml') > -1)
