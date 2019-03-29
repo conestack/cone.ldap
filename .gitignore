@@ -1,0 +1,11 @@
+/.installed.cfg
+/.mr.developer.cfg
+/bin/
+/develop-eggs/
+/devsrc/
+/include/
+/lib/
+/local/
+/parts/
+/share/
+/src/cone.ldap.egg-info/
