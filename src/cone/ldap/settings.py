@@ -153,16 +153,17 @@ class LDAPUsersSettings(XMLSettings):
 
     @instance_property
     def ldap_ucfg(self):
+        ugm_config = self.parent['ugm'].attrs
         config = self.attrs
         map = dict()
         for key in config.users_aliases_attrmap.keys():
             map[key] = config.users_aliases_attrmap[key]
-        for key in config.users_form_attrmap.keys():
+        for key in ugm_config.users_form_attrmap.keys():
             if key in ['id', 'login']:
                 continue
             map[key] = key
-        if config.users_exposed_attributes:
-            for key in config.users_exposed_attributes:
+        if ugm_config.users_exposed_attributes:
+            for key in ugm_config.users_exposed_attributes:
                 map[key] = key
         expiresAttr = None
         expiresUnit = EXPIRATION_DAYS
@@ -170,12 +171,12 @@ class LDAPUsersSettings(XMLSettings):
         # currently available on ``self.attrs``. This might change in
         # future and below settings must be read from general settings
         # then.
-        if config.users_account_expiration == 'True':
-            expiresAttr = config.users_expires_attr
-            expiresUnit = int(config.users_expires_unit)
+        if ugm_config.users_account_expiration == 'True':
+            expiresAttr = ugm_config.users_expires_attr
+            expiresUnit = int(ugm_config.users_expires_unit)
             map[expiresAttr] = expiresAttr
-        if config.users_portrait == 'True':
-            imageAttr = config.users_portrait_attr
+        if ugm_config.users_portrait == 'True':
+            imageAttr = ugm_config.users_portrait_attr
             map[imageAttr] = imageAttr
         return UsersConfig(
             baseDN=config.users_dn,
@@ -222,11 +223,12 @@ class LDAPGroupsSettings(XMLSettings):
 
     @property
     def ldap_gcfg(self):
+        ugm_config = self.parent['ugm'].attrs
         config = self.attrs
         map = dict()
         for key in config.groups_aliases_attrmap.keys():
             map[key] = config.groups_aliases_attrmap[key]
-        for key in config.groups_form_attrmap.keys():
+        for key in ugm_config.groups_form_attrmap.keys():
             if key in ['id']:
                 continue
             map[key] = key
@@ -278,11 +280,7 @@ class LDAPRolesSettings(XMLSettings):
         map = dict()
         for key in config.roles_aliases_attrmap.keys():
             map[key] = config.roles_aliases_attrmap[key]
-        for key in config.roles_form_attrmap.keys():
-            if key in ['id']:
-                continue
-            map[key] = key
-        self._ldap_rcfg = RolesConfig(
+        return RolesConfig(
             baseDN=config.roles_dn,
             attrmap=map,
             scope=int(config.roles_scope),
