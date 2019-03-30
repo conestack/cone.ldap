@@ -2,6 +2,7 @@ from cone.app.model import BaseNode
 from cone.app.model import Metadata
 from cone.app.model import Properties
 from cone.app.model import XMLProperties
+from cone.app.utils import format_traceback
 from cone.ugm.model import factory_defaults
 from node.ext.ldap import LDAPNode
 from node.ext.ldap import LDAPProps
@@ -12,10 +13,11 @@ from node.ext.ldap.ugm import UsersConfig
 from node.ext.ldap.ugm._api import EXPIRATION_DAYS
 from node.utils import instance_property
 from pyramid.i18n import TranslationStringFactory
-import ldap
+import logging
 import os
 
 
+logger = logging.getLogger('cone.ldap')
 _ = TranslationStringFactory('cone.ldap')
 
 
@@ -104,7 +106,8 @@ class LDAPServerSettings(XMLSettings):
     def ldap_connectivity(self):
         try:
             props = self.ldap_props
-        except ValueError:
+        except Exception:
+            logger.error(format_traceback())
             return False
         return testLDAPConnectivity(props=props) == 'success'
 
@@ -146,9 +149,10 @@ class LDAPUsersSettings(XMLSettings):
         try:
             return LDAPNode(
                 self.attrs.users_dn,
-                self.parent['ugm_server'].ldap_props
+                self.parent['ldap_server'].ldap_props
             ).exists
-        except ldap.LDAPError:
+        except Exception:
+            logger.error(format_traceback())
             return False
 
     @instance_property
@@ -212,9 +216,10 @@ class LDAPGroupsSettings(XMLSettings):
         try:
             return LDAPNode(
                 self.attrs.groups_dn,
-                self.parent['ugm_server'].ldap_props
+                self.parent['ldap_server'].ldap_props
             ).exists
-        except ldap.LDAPError:
+        except Exception:
+            logger.error(format_traceback())
             return False
 
     @instance_property
@@ -265,9 +270,10 @@ class LDAPRolesSettings(XMLSettings):
         try:
             return LDAPNode(
                 self.attrs.roles_dn,
-                self.parent['ugm_server'].ldap_props
+                self.parent['ldap_server'].ldap_props
             ).exists
-        except ldap.LDAPError:
+        except Exception:
+            logger.error(format_traceback())
             return False
 
     @instance_property

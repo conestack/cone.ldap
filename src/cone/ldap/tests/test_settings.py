@@ -58,6 +58,7 @@ class TestSettings(NodeTestCase):
     def test_UGMGeneralSettings(self):
         settings = get_root()['settings']['ugm']
         self.assertTrue(isinstance(settings, UGMGeneralSettings))
+        settings.invalidate()
 
         md = settings.metadata
         self.assertEqual(md.title, 'ugm_settings_node')
@@ -96,6 +97,7 @@ class TestSettings(NodeTestCase):
     def test_LDAPServerSettings(self):
         settings = get_root()['settings']['ldap_server']
         self.assertTrue(isinstance(settings, LDAPServerSettings))
+        settings.invalidate()
 
         md = settings.metadata
         self.assertEqual(md.title, 'server_settings_node')
@@ -127,9 +129,21 @@ class TestSettings(NodeTestCase):
         self.assertFalse(settings.attrs is attrs)
         self.assertFalse(settings.ldap_props is ldap_props)
 
+        settings.invalidate()
+        self.assertTrue(settings.ldap_connectivity)
+
+        settings.invalidate()
+        settings.attrs.uri = ''
+        self.assertFalse(settings.ldap_connectivity)
+
+        settings.invalidate()
+        settings.attrs.cache = None
+        self.assertFalse(settings.ldap_connectivity)
+
     def test_LDAPUsersSettings(self):
         settings = get_root()['settings']['ldap_users']
         self.assertTrue(isinstance(settings, LDAPUsersSettings))
+        settings.invalidate()
 
         md = settings.metadata
         self.assertEqual(md.title, 'user_settings_node')
@@ -168,7 +182,7 @@ class TestSettings(NodeTestCase):
             'sn': 'Surname',
             'mail': 'Email'
         }
-        ugm_attrs.users_exposed_attributes = []
+        ugm_attrs.users_exposed_attributes = ['homePhone']
         ugm_attrs.users_account_expiration = 'True'
         ugm_attrs.users_expires_attr = 'shadowExpire'
         ugm_attrs.users_expires_unit = '0'
@@ -190,7 +204,8 @@ class TestSettings(NodeTestCase):
             'mail': 'mail',
             'login': 'uid',
             'rdn': 'uid',
-            'id': 'uid'
+            'id': 'uid',
+            'homePhone': 'homePhone'
         })
         self.assertEqual(ldap_ucfg.scope, 1)
         self.assertEqual(ldap_ucfg.queryFilter, '')
@@ -210,11 +225,20 @@ class TestSettings(NodeTestCase):
         self.assertFalse(settings.attrs is attrs)
         self.assertFalse(settings.ldap_ucfg is ldap_ucfg)
 
-        ugm_settings.invalidate()
+        ldap_settings = settings.parent['ldap_server']
+        ldap_settings.invalidate()
+        settings.invalidate()
+        self.assertTrue(settings.ldap_users_container_valid)
+
+        ldap_settings.invalidate()
+        settings.invalidate()
+        ldap_settings.attrs.cache = None
+        self.assertFalse(settings.ldap_users_container_valid)
 
     def test_LDAPGroupsSettings(self):
         settings = get_root()['settings']['ldap_groups']
         self.assertTrue(isinstance(settings, LDAPGroupsSettings))
+        settings.invalidate()
 
         md = settings.metadata
         self.assertEqual(md.title, 'group_settings_node')
@@ -242,7 +266,10 @@ class TestSettings(NodeTestCase):
 
         ugm_settings = settings.parent['ugm']
         ugm_attrs = ugm_settings.attrs
-        ugm_attrs.groups_form_attrmap = {'id': 'Id'}
+        ugm_attrs.groups_form_attrmap = {
+            'id': 'Id',
+            'description': 'Description'
+        }
 
         ldap_gcfg = settings.ldap_gcfg
         self.assertEqual(isinstance(ldap_gcfg, GroupsConfig), True)
@@ -253,7 +280,8 @@ class TestSettings(NodeTestCase):
         )
         self.assertEqual(ldap_gcfg.attrmap, {
             'rdn': 'cn',
-            'id': 'cn'
+            'id': 'cn',
+            'description': 'description'
         })
         self.assertEqual(ldap_gcfg.scope, 1)
         self.assertEqual(ldap_gcfg.queryFilter, '')
@@ -266,11 +294,20 @@ class TestSettings(NodeTestCase):
         self.assertFalse(settings.attrs is attrs)
         self.assertFalse(settings.ldap_gcfg is ldap_gcfg)
 
-        ugm_settings.invalidate()
+        ldap_settings = settings.parent['ldap_server']
+        ldap_settings.invalidate()
+        settings.invalidate()
+        self.assertTrue(settings.ldap_groups_container_valid)
+
+        ldap_settings.invalidate()
+        settings.invalidate()
+        ldap_settings.attrs.cache = None
+        self.assertFalse(settings.ldap_groups_container_valid)
 
     def test_LDAPRolesSettings(self):
         settings = get_root()['settings']['ldap_roles']
         self.assertTrue(isinstance(settings, LDAPRolesSettings))
+        settings.invalidate()
 
         md = settings.metadata
         self.assertEqual(md.title, 'role_settings_node')
@@ -317,3 +354,13 @@ class TestSettings(NodeTestCase):
         settings.invalidate()
         self.assertFalse(settings.attrs is attrs)
         self.assertFalse(settings.ldap_rcfg is ldap_rcfg)
+
+        ldap_settings = settings.parent['ldap_server']
+        ldap_settings.invalidate()
+        settings.invalidate()
+        self.assertTrue(settings.ldap_roles_container_valid)
+
+        ldap_settings.invalidate()
+        settings.invalidate()
+        ldap_settings.attrs.cache = None
+        self.assertFalse(settings.ldap_roles_container_valid)
