@@ -167,10 +167,6 @@ class LDAPUsersSettings(XMLSettings):
                 map[key] = key
         expiresAttr = None
         expiresUnit = EXPIRATION_DAYS
-        # from general settings. be aware that all config options are
-        # currently available on ``self.attrs``. This might change in
-        # future and below settings must be read from general settings
-        # then.
         if ugm_config.users_account_expiration == 'True':
             expiresAttr = ugm_config.users_expires_attr
             expiresUnit = int(ugm_config.users_expires_unit)
@@ -221,7 +217,7 @@ class LDAPGroupsSettings(XMLSettings):
         except ldap.LDAPError:
             return False
 
-    @property
+    @instance_property
     def ldap_gcfg(self):
         ugm_config = self.parent['ugm'].attrs
         config = self.attrs
@@ -274,7 +270,7 @@ class LDAPRolesSettings(XMLSettings):
         except ldap.LDAPError:
             return False
 
-    @property
+    @instance_property
     def ldap_rcfg(self):
         config = self.attrs
         map = dict()
