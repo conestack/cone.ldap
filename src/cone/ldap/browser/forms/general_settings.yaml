@@ -1,5 +1,5 @@
 factory: form
-name: ugm_general
+name: ugm_general_settings
 props:
     action: context.form_action
     class: ajax
@@ -85,6 +85,20 @@ widgets:
     props:
         label: i18n:users_local_management_enabled
         help: i18n:users_local_management_enabled_help
+- users_exposed_attributes:
+    factory: field:label:array
+    value: expr:context.model.attrs.users_exposed_attributes
+    props:
+        label.label: i18n:exposed_attributes_label
+        array.label: i18n:exposed_attributes_array
+        help: i18n:exposed_attributes_help
+        sort: False
+    widgets:
+    - exposed:
+        factory: error:text
+        props:
+            label: i18n:exposed_attributes_attribute
+            required: i18n:exposed_attributes_attribute_required
 - users_form_attrmap:
     factory: field:label:dict
     value: expr:context.model.attrs.users_form_attrmap
@@ -108,20 +122,6 @@ widgets:
     props:
         label: i18n:users_listing_default_column
         help: i18n:users_listing_default_column_help
-- users_exposed_attributes:
-    factory: field:label:array
-    value: expr:context.model.attrs.users_exposed_attributes
-    props:
-        label.label: i18n:exposed_attributes_label
-        array.label: i18n:exposed_attributes_array
-        help: i18n:exposed_attributes_help
-        sort: False
-    widgets:
-    - exposed:
-        factory: error:text
-        props:
-            label: i18n:exposed_attributes_attribute
-            required: i18n:exposed_attributes_attribute_required
 - groups_heading:
     factory: tag
     props:
@@ -147,11 +147,6 @@ widgets:
     value: expr:context.model.attrs.groups_listing_default_column
     props:
         label: i18n:groups_listing_default_column
-- roles_heading:
-    factory: tag
-    props:
-        tag: h3
-        text: i18n:roles_properties_heading:Roles Properties
 - save:
     factory: submit
     props:
