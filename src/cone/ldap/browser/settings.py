@@ -75,7 +75,7 @@ class CreateContainerAction(Tile):
 
 @tile(
     name='content',
-    path='cone.ugm:browser/templates/general_settings.pt',
+    path='templates/general_settings.pt',
     interface=UGMGeneralSettings,
     permission='manage')
 class GeneralSettingsContent(ProtectedContentTile):
@@ -86,7 +86,7 @@ class GeneralSettingsContent(ProtectedContentTile):
 @plumbing(SettingsBehavior, YAMLForm)
 class GeneralSettingsForm(Form):
     action_resource = u'edit'
-    form_template = 'cone.ugm.browser:forms/general_settings.yaml'
+    form_template = 'cone.ldap.browser:forms/general_settings.yaml'
 
     @property
     def message_factory(self):
@@ -119,7 +119,7 @@ class ServerSettingsTile(ProtectedContentTile):
 @plumbing(SettingsBehavior, YAMLForm)
 class ServerSettingsForm(Form):
     action_resource = u'edit'
-    form_template = 'cone.ugm.browser:forms/server_settings.yaml'
+    form_template = 'cone.ldap.browser:forms/server_settings.yaml'
 
     @property
     def message_factory(self):
@@ -154,14 +154,14 @@ class UsersCreateContainerAction(CreateContainerAction):
     @property
     def continuation(self):
         url = make_url(self.request, node=self.model)
-        return AjaxAction(url, 'content', 'inner', '.ugm_users')
+        return AjaxAction(url, 'content', 'inner', '.ldap_users')
 
 
 @tile(name='editform', interface=LDAPUsersSettings, permission='manage')
 @plumbing(SettingsBehavior, YAMLForm)
 class UsersSettingsForm(Form, ScopeVocabMixin):
     action_resource = u'edit'
-    form_template = 'cone.ugm.browser:forms/users_settings.yaml'
+    form_template = 'cone.ldap.browser:forms/users_settings.yaml'
 
     @property
     def message_factory(self):
@@ -203,14 +203,14 @@ class GroupsCreateContainerAction(CreateContainerAction):
     @property
     def continuation(self):
         url = make_url(self.request, node=self.model)
-        return AjaxAction(url, 'content', 'inner', '.ugm_groups')
+        return AjaxAction(url, 'content', 'inner', '.ldap_groups')
 
 
 @tile(name='editform', interface=LDAPGroupsSettings, permission='manage')
 @plumbing(SettingsBehavior, YAMLForm)
 class GroupsSettingsForm(Form, ScopeVocabMixin):
     action_resource = u'edit'
-    form_template = 'cone.ugm.browser:forms/groups_settings.yaml'
+    form_template = 'cone.ldap.browser:forms/groups_settings.yaml'
 
     @property
     def message_factory(self):
@@ -250,14 +250,14 @@ class RolesCreateContainerAction(CreateContainerAction):
     @property
     def continuation(self):
         url = make_url(self.request, node=self.model)
-        return AjaxAction(url, 'content', 'inner', '.ugm_roles')
+        return AjaxAction(url, 'content', 'inner', '.ldap_roles')
 
 
 @tile(name='editform', interface=LDAPRolesSettings, permission='manage')
 @plumbing(SettingsBehavior, YAMLForm)
 class RolesSettingsForm(Form, ScopeVocabMixin):
     action_resource = u'edit'
-    form_template = 'cone.ugm.browser:forms/roles_settings.yaml'
+    form_template = 'cone.ldap.browser:forms/roles_settings.yaml'
 
     @property
     def message_factory(self):

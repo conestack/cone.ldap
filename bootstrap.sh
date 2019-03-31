@@ -1,5 +1,5 @@
 #!/bin/sh
-for dir in lib include local bin share; do
+for dir in lib include local bin share parts; do
     if [ -d "$dir" ]; then
         rm -r "$dir"
     fi

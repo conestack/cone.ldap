@@ -63,25 +63,29 @@ class LDAPUGMFactory(UGMFactory):
         settings = get_root()['settings']
         server_settings = settings['ldap_server']
         if not server_settings.ldap_connectivity:
-            logger.error(u"Could not initialize authentication implementation. "
-                         u"LDAP Server is not available or invalid credentials.")
+            logger.error(
+                'Could not initialize authentication implementation. '
+                'LDAP Server is not available or invalid credentials.'
+            )
             return
         props = server_settings.ldap_props
         users_settings = settings['ldap_users']
-        if not users_settings.ldap_users_container_valid:
-            logger.error(u"Could not initialize authentication implementation. "
-                         u"Configured users container invalid.")
+        if not users_settings.container_exists:
+            logger.error(
+                'Could not initialize authentication implementation. '
+                'Configured users container invalid.'
+            )
             return
         ucfg = users_settings.ldap_ucfg
         groups_settings = settings['ldap_groups']
         gcfg = None
-        if groups_settings.ldap_groups_container_valid:
+        if groups_settings.container_exists:
             gcfg = groups_settings.ldap_gcfg
         else:
             logger.warning(u"Configured groups container invalid.")
         roles_settings = settings['ldap_roles']
         rcfg = None
-        if roles_settings.ldap_roles_container_valid:
+        if roles_settings.container_exists:
             rcfg = roles_settings.ldap_rcfg
         else:
             logger.warning(u"Configured roles container invalid.")

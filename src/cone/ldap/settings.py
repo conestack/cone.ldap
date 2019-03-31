@@ -3,7 +3,6 @@ from cone.app.model import Metadata
 from cone.app.model import Properties
 from cone.app.model import XMLProperties
 from cone.app.utils import format_traceback
-from cone.ugm.model import factory_defaults
 from ldap.functions import explode_dn
 from node.ext.ldap import LDAPNode
 from node.ext.ldap import LDAPProps
@@ -31,6 +30,12 @@ ldap_cfg.users_config = ''
 ldap_cfg.groups_config = ''
 ldap_cfg.roles_config = ''
 
+# user and group factory defaults
+factory_defaults = Properties()
+factory_defaults.user = dict()
+factory_defaults.group = dict()
+factory_defaults.role = dict()
+
 
 class XMLSettings(BaseNode):
     config_file = None
@@ -56,8 +61,6 @@ class XMLSettings(BaseNode):
 
 ########################
 # XXX: move to cone.ugm
-
-# users_aliases_attrmap user.py
 
 ugm_cfg = Properties()
 ugm_cfg.ugm_settings = ''
