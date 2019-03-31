@@ -5,33 +5,33 @@ props:
     class: ajax
 widgets:
 - users_dn:
-    factory: field:label:error:text
+    factory: field:label:help:error:text
     value: expr:context.model.attrs.users_dn
     props:
         label: i18n:users_dn:Users container DN
         help: i18n:users_dn_help:LDAP DN of container with users
         required: i18n:users_dn_required:No users DN defined
 - users_scope:
-    factory: field:label:select
+    factory: field:label:help:select
     value: expr:context.model.attrs.users_scope
     props:
         label: i18n:users_scope:Users search scope
         help: i18n:users_scope_help:LDAP search scope for users
         vocabulary: expr:context.scope_vocab
 - users_query:
-    factory: field:label:text
+    factory: field:label:help:text
     value: expr:context.model.attrs.users_query
     props:
         label: i18n:users_query:Users search query filter
         help: i18n:users_query_help:Custom LDAP query for user objects
 - users_object_classes:
-    factory: field:label:text
+    factory: field:label:help:text
     value: expr:u', '.join(context.model.attrs.get('users_object_classes', []))
     props:
         label: i18n:users_object_classes:Object classes for user creation
         help: i18n:users_object_classes_help:LDAP object class names
 - users_aliases_attrmap:
-    factory: field:label:error:dict
+    factory: field:label:help:error:dict
     value: expr:context.users_aliases_attrmap
     props:
         label: i18n:users_aliases_attrmap:User attribute aliases

@@ -5,33 +5,33 @@ props:
     class: ajax
 widgets:
 - groups_dn:
-    factory: field:label:error:text
+    factory: field:label:help:error:text
     value: expr:context.model.attrs.groups_dn
     props:
         label: i18n:groups_dn:Groups container DN
         help: i18n:groups_dn_help:LDAP DN of container with groups
         required: i18n:groups_dn_required:No groups DN defined
 - groups_scope:
-    factory: field:label:select
+    factory: field:label:help:select
     value: expr:context.model.attrs.groups_scope
     props:
         label: i18n:groups_scope:Groups search scope
         help: i18n:groups_scope_help:LDAP search scope for groups
         vocabulary: expr:context.scope_vocab
 - groups_query:
-    factory: field:label:text
+    factory: field:label:help:text
     value: expr:context.model.attrs.groups_query
     props:
         label: i18n:groups_query:Groups search query filter
         help: i18n:groups_query_help:Custom LDAP query for group objects
 - groups_object_classes:
-    factory: field:label:text
+    factory: field:label:help:text
     value: expr:u', '.join(context.model.attrs.get('groups_object_classes', []))
     props:
         label: i18n:groups_object_classes:Object classes for group creation
         help: i18n:groups_object_classes_help:LDAP object class names
 - groups_aliases_attrmap:
-    factory: field:label:error:dict
+    factory: field:label:help:error:dict
     value: expr:context.groups_aliases_attrmap
     props:
         label: i18n:groups_aliases_attrmap:Group attribute aliases
