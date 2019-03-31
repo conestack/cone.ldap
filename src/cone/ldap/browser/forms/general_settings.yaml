@@ -91,7 +91,7 @@ widgets:
     props:
         label: i18n:user_form_attributes
         help: i18n:user_form_attributes_help
-        key_label: i18n:ldap_attr_name
+        key_label: i18n:principal_attr_name
         value_label: i18n:form_label
 - users_listing_columns:
     factory: field:label:dict
@@ -100,7 +100,7 @@ widgets:
         label: i18n:column_configuration_for_user_listings
         help: i18n:column_configuration_for_user_listings_help
         required: i18n:column_configuration_for_user_listings_required
-        key_label: i18n:attr_name
+        key_label: i18n:principal_attr_name
         value_label: i18n:display_name
 - users_listing_default_column:
     factory: field:label:text
@@ -132,7 +132,7 @@ widgets:
     value: expr:context.model.attrs.groups_form_attrmap
     props:
         label: i18n:group_form_attributes
-        key_label: i18n:ldap_attr_name
+        key_label: i18n:principal_attr_name
         value_label: i18n:form_label
 - groups_listing_columns:
     factory: field:label:dict
@@ -140,7 +140,7 @@ widgets:
     props:
         label: i18n:column_configuration_for_groups_listings
         required: i18n:column_configuration_for_groups_listings_required
-        key_label: i18n:attr_name
+        key_label: i18n:principal_attr_name
         value_label: i18n:display_name
 - groups_listing_default_column:
     factory: field:label:text
@@ -152,13 +152,6 @@ widgets:
     props:
         tag: h3
         text: i18n:roles_properties_heading:Roles Properties
-- roles_form_attrmap:
-    factory: field:label:dict
-    value: expr:context.model.attrs.roles_form_attrmap
-    props:
-        label: i18n:role_form_attributes
-        key_label: i18n:ldap_attr_name
-        value_label: i18n:form_label
 - save:
     factory: submit
     props:
