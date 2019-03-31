@@ -3,6 +3,7 @@ from cone.app import main_hook
 from cone.app import register_plugin_config
 from cone.app.ugm import ugm_backend
 from cone.app.ugm import UGMFactory
+from cone.ldap import browser
 from cone.ldap.settings import ldap_cfg
 from cone.ldap.settings import LDAPGroupsSettings
 from cone.ldap.settings import LDAPRolesSettings
@@ -45,6 +46,8 @@ def initialize_ldap(config, global_config, settings):
         register_plugin_config('ldap_users', LDAPUsersSettings)
         register_plugin_config('ldap_groups', LDAPGroupsSettings)
         register_plugin_config('ldap_roles', LDAPRolesSettings)
+
+    config.scan(browser)
 
 
 @ugm_backend('ldap')

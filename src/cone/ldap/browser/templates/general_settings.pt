@@ -1,0 +1,13 @@
+<tal:block xmlns:tal="http://xml.zope.org/namespaces/tal"
+           xmlns:ajax="http://namesspaces.bluedynamics.eu/ajax"
+           xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+           i18n:domain="cone.ugm"
+           omit-tag="True">
+  <div>
+
+    <h1>UGM Settings</h1>
+
+    <tal:settings replace="structure tile('editform')" />
+
+  </div>
+</tal:block>

@@ -80,6 +80,7 @@ class UGMGeneralSettings(XMLSettings):
             default='General user and group management settings'
         )
         return metadata
+
 # XXX: end move to cone.ugm
 ###########################
 

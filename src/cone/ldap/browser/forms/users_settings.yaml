@@ -1,0 +1,50 @@
+factory: form
+name: ldap_users_settings
+props:
+    action: context.form_action
+    class: ajax
+widgets:
+- users_dn:
+    factory: field:label:error:text
+    value: expr:context.model.attrs.users_dn
+    props:
+        label: i18n:users_container_dn
+        help: i18n:users_container_dn_help
+        required: i18n:users_container_dn_required
+- users_scope:
+    factory: field:label:select
+    value: expr:context.model.attrs.users_scope
+    props:
+        label: i18n:users_search_scope
+        help: i18n:users_search_scope_help
+        vocabulary: expr:context.scope_vocab
+- users_query:
+    factory: field:label:text
+    value: expr:context.model.attrs.users_query
+    props:
+        label: i18n:users_search_query_filter
+        help: i18n:users_search_query_filter_help
+- users_object_classes:
+    factory: field:label:text
+    value: expr:u', '.join(context.model.attrs.get('users_object_classes', []))
+    props:
+        label: i18n:user_object_classes
+        help: i18n:user_object_classes_help
+- users_aliases_attrmap:
+    factory: field:label:error:dict
+    value: expr:context.users_aliases_attrmap
+    props:
+        label: i18n:user_attribute_aliases
+        help: i18n:user_attribute_aliases_help
+        required: i18n:user_attribute_aliases_required
+        static: True
+        key_label: i18n:reserved_key
+        value_label: i18n:ldap_attr_name
+- save:
+    factory: submit
+    props:
+        action: save
+        expression: True
+        handler: context.save
+        next: context.next
+        label: i18n:save
