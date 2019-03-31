@@ -8,33 +8,38 @@ widgets:
     factory: field:label:error:text
     value: expr:context.model.attrs.roles_dn
     props:
-        label: i18n:roles_container_dn
-        required: i18n:roles_container_dn_required
+        label: i18n:roles_dn:Roles container DN
+        help: i18n:roles_dn_help:LDAP DN of container with roles
+        required: i18n:roles_dn_required:No Roles DN defined
 - roles_scope:
     factory: field:label:select
     value: expr:context.model.attrs.roles_scope
     props:
-        label: i18n:roles_search_scope
+        label: i18n:roles_scope:Roles search scope
+        help: i18n:roles_scope_help:LDAP search scope for roles
         vocabulary: expr:context.scope_vocab
 - roles_query:
     factory: field:label:text
     value: expr:context.model.attrs.roles_query
     props:
-        label: i18n:roles_search_query_filter
+        label: i18n:roles_query:Roles search query filter
+        help: i18n:roles_query_help:Custom LDAP query for role objects
 - roles_object_classes:
     factory: field:label:text
     value: expr:u', '.join(context.model.attrs.get('roles_object_classes', []))
     props:
-        label: i18n:roles_object_classes
+        label: i18n:roles_object_classes:Object classes for role creation
+        help: i18n:roles_object_classes_help:LDAP object class names
 - roles_aliases_attrmap:
     factory: field:label:error:dict
     value: expr:context.roles_aliases_attrmap
     props:
-        label: i18n:role_attribute_aliases
-        required: i18n:role_attribute_aliases_required
+        label: i18n:roles_aliases_attrmap:Role attribute aliases
+        help: i18n:roles_aliases_attrmap_help:Aliases for reserved attribute keys
+        required: i18n:roles_aliases_attrmap_required:Role attribute aliases values are mandatory
         static: True
-        key_label: i18n:reserved_key
-        value_label: i18n:ldap_attr_name
+        key_label: i18n:reserved_key:Reserved key
+        value_label: i18n:ldap_attr_name:LDAP attribute name
 #- roles_relation:
 #    factory: field:label:text
 #    value: expr:context.model.attrs.roles_relation
@@ -47,4 +52,4 @@ widgets:
         expression: True
         handler: context.save
         next: context.next
-        label: i18n:save
+        label: i18n:save:Save

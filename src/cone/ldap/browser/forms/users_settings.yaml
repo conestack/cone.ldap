@@ -8,38 +8,38 @@ widgets:
     factory: field:label:error:text
     value: expr:context.model.attrs.users_dn
     props:
-        label: i18n:users_container_dn
-        help: i18n:users_container_dn_help
-        required: i18n:users_container_dn_required
+        label: i18n:users_dn:Users container DN
+        help: i18n:users_dn_help:LDAP DN of container with users
+        required: i18n:users_dn_required:No users DN defined
 - users_scope:
     factory: field:label:select
     value: expr:context.model.attrs.users_scope
     props:
-        label: i18n:users_search_scope
-        help: i18n:users_search_scope_help
+        label: i18n:users_scope:Users search scope
+        help: i18n:users_scope_help:LDAP search scope for users
         vocabulary: expr:context.scope_vocab
 - users_query:
     factory: field:label:text
     value: expr:context.model.attrs.users_query
     props:
-        label: i18n:users_search_query_filter
-        help: i18n:users_search_query_filter_help
+        label: i18n:users_query:Users search query filter
+        help: i18n:users_query_help:Custom LDAP query for user objects
 - users_object_classes:
     factory: field:label:text
     value: expr:u', '.join(context.model.attrs.get('users_object_classes', []))
     props:
-        label: i18n:user_object_classes
-        help: i18n:user_object_classes_help
+        label: i18n:users_object_classes:Object classes for user creation
+        help: i18n:users_object_classes_help:LDAP object class names
 - users_aliases_attrmap:
     factory: field:label:error:dict
     value: expr:context.users_aliases_attrmap
     props:
-        label: i18n:user_attribute_aliases
-        help: i18n:user_attribute_aliases_help
-        required: i18n:user_attribute_aliases_required
+        label: i18n:users_aliases_attrmap:User attribute aliases
+        help: i18n:users_aliases_attrmap_help:Aliases for reserved attribute keys
+        required: i18n:users_aliases_attrmap_required:User attribute aliases values are mandatory
         static: True
-        key_label: i18n:reserved_key
-        value_label: i18n:ldap_attr_name
+        key_label: i18n:reserved_key:Reserved key
+        value_label: i18n:ldap_attr_name:LDAP attribute name
 - save:
     factory: submit
     props:
@@ -47,4 +47,4 @@ widgets:
         expression: True
         handler: context.save
         next: context.next
-        label: i18n:save
+        label: i18n:save:Save

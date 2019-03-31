@@ -8,33 +8,38 @@ widgets:
     factory: field:label:error:text
     value: expr:context.model.attrs.groups_dn
     props:
-        label: i18n:groups_container_dn
-        required: i18n:groups_container_dn_required
+        label: i18n:groups_dn:Groups container DN
+        help: i18n:groups_dn_help:LDAP DN of container with groups
+        required: i18n:groups_dn_required:No groups DN defined
 - groups_scope:
     factory: field:label:select
     value: expr:context.model.attrs.groups_scope
     props:
-        label: i18n:groups_search_scope
+        label: i18n:groups_scope:Groups search scope
+        help: i18n:groups_scope_help:LDAP search scope for groups
         vocabulary: expr:context.scope_vocab
 - groups_query:
     factory: field:label:text
     value: expr:context.model.attrs.groups_query
     props:
-        label: i18n:groups_search_query_filter
+        label: i18n:groups_query:Groups search query filter
+        help: i18n:groups_query_help:Custom LDAP query for group objects
 - groups_object_classes:
     factory: field:label:text
     value: expr:u', '.join(context.model.attrs.get('groups_object_classes', []))
     props:
-        label: i18n:object_classes_for_group_creation
+        label: i18n:groups_object_classes:Object classes for group creation
+        help: i18n:groups_object_classes_help:LDAP object class names
 - groups_aliases_attrmap:
     factory: field:label:error:dict
     value: expr:context.groups_aliases_attrmap
     props:
-        label: i18n:group_attribute_aliases
-        required: i18n:group_attribute_aliases_required
+        label: i18n:groups_aliases_attrmap:Group attribute aliases
+        help: i18n:groups_aliases_attrmap_help:Aliases for reserved attribute keys
+        required: i18n:groups_aliases_attrmap_required:Group attribute aliases values are mandatory
         static: True
-        key_label: i18n:reserved_key
-        value_label: i18n:ldap_attr_name
+        key_label: i18n:reserved_key:Reserved key
+        value_label: i18n:ldap_attr_name:LDAP attribute name
 #- groups_relation:
 #    factory: field:label:text
 #    value: expr:context.model.attrs.groups_relation
@@ -47,4 +52,4 @@ widgets:
         expression: True
         handler: context.save
         next: context.next
-        label: i18n:save
+        label: i18n:save:Save
