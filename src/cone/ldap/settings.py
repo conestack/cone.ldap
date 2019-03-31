@@ -4,6 +4,7 @@ from cone.app.model import Properties
 from cone.app.model import XMLProperties
 from cone.app.utils import format_traceback
 from cone.ugm.model import factory_defaults
+from ldap.functions import explode_dn
 from node.ext.ldap import LDAPNode
 from node.ext.ldap import LDAPProps
 from node.ext.ldap import testLDAPConnectivity
@@ -125,11 +126,90 @@ class LDAPServerSettings(XMLSettings):
         super(LDAPServerSettings, self).invalidate(attrs=['ldap_props'])
 
 
-class LDAPUsersSettings(XMLSettings):
+class LDAPContainerError(Exception):
+    """Error thrown if creating a LDAP container fails.
+
+    ``error_message`` containes a translation string.
+    """
+
+    def __init__(self, error_message):
+        super(LDAPContainerError, self).__init__()
+        self.error_message = error_message
+
+
+class LDAPContainerSettings(XMLSettings):
+    container_dn = None
+
+    @property
+    def server_settings(self):
+        return self.root['settings']['ldap_server']
+
+    @property
+    def container_exists(self):
+        try:
+            return LDAPNode(
+                self.container_dn,
+                self.server_settings.ldap_props
+            ).exists
+        except Exception:
+            logger.error(format_traceback())
+            return False
+
+    def create_container(self):
+        """Create LDAP container by dn.
+
+        Currently this only supports ou container type.
+
+        XXX: Do we need to support c and dc?
+        XXX: Should we create parents as well if missing?
+        """
+        dn = self.container_dn
+        if not dn:
+            raise LDAPContainerError(_(
+                'no_container_dn_defined',
+                default='No container DN defined.'
+            ))
+        if not dn.startswith('ou='):
+            raise LDAPContainerError(_(
+                'expected_ou_as_rdn',
+                default="Expected 'ou' as RDN Attribute."
+            ))
+        props = self.server_settings.ldap_props
+        try:
+            parent_dn = ','.join(explode_dn(dn)[1:])
+        except Exception:
+            raise LDAPContainerError(_(
+                'invalid_dn',
+                default='Invalid DN.'
+            ))
+        rdn = explode_dn(dn)[0]
+        parent = LDAPNode(parent_dn, props)
+        if not parent.exists:
+            raise LDAPContainerError(_(
+                'parent_not_found',
+                default="Parent not found. Can't continue."
+            ))
+        parent[rdn] = LDAPNode()
+        parent[rdn].attrs['objectClass'] = ['organizationalUnit']
+        parent()
+        self.invalidate()
+        message = _(
+            'created_principal_container',
+            default="Created ${rdn}",
+            mapping={'rdn': rdn}
+        )
+        return message
+
+
+class LDAPUsersSettings(LDAPContainerSettings):
 
     @property
     def config_file(self):
         return ldap_cfg.users_config
+
+    @property
+    def container_dn(self):
+        return self.attrs.users_dn
 
     @instance_property
     def metadata(self):
@@ -143,17 +223,6 @@ class LDAPUsersSettings(XMLSettings):
             default='User specific LDAP Settings'
         )
         return metadata
-
-    @property
-    def ldap_users_container_valid(self):
-        try:
-            return LDAPNode(
-                self.attrs.users_dn,
-                self.parent['ldap_server'].ldap_props
-            ).exists
-        except Exception:
-            logger.error(format_traceback())
-            return False
 
     @instance_property
     def ldap_ucfg(self):
@@ -193,11 +262,15 @@ class LDAPUsersSettings(XMLSettings):
         super(LDAPUsersSettings, self).invalidate(attrs=['ldap_ucfg'])
 
 
-class LDAPGroupsSettings(XMLSettings):
+class LDAPGroupsSettings(LDAPContainerSettings):
 
     @property
     def config_file(self):
         return ldap_cfg.groups_config
+
+    @property
+    def container_dn(self):
+        return self.attrs.groups_dn
 
     @instance_property
     def metadata(self):
@@ -210,17 +283,6 @@ class LDAPGroupsSettings(XMLSettings):
             default='Group specific LDAP Settings'
         )
         return metadata
-
-    @property
-    def ldap_groups_container_valid(self):
-        try:
-            return LDAPNode(
-                self.attrs.groups_dn,
-                self.parent['ldap_server'].ldap_props
-            ).exists
-        except Exception:
-            logger.error(format_traceback())
-            return False
 
     @instance_property
     def ldap_gcfg(self):
@@ -247,11 +309,15 @@ class LDAPGroupsSettings(XMLSettings):
         super(LDAPGroupsSettings, self).invalidate(attrs=['ldap_gcfg'])
 
 
-class LDAPRolesSettings(XMLSettings):
+class LDAPRolesSettings(LDAPContainerSettings):
 
     @property
     def config_file(self):
         return ldap_cfg.roles_config
+
+    @property
+    def container_dn(self):
+        return self.attrs.roles_dn
 
     @instance_property
     def metadata(self):
@@ -264,17 +330,6 @@ class LDAPRolesSettings(XMLSettings):
             default='Role specific LDAP Settings'
         )
         return metadata
-
-    @property
-    def ldap_roles_container_valid(self):
-        try:
-            return LDAPNode(
-                self.attrs.roles_dn,
-                self.parent['ldap_server'].ldap_props
-            ).exists
-        except Exception:
-            logger.error(format_traceback())
-            return False
 
     @instance_property
     def ldap_rcfg(self):

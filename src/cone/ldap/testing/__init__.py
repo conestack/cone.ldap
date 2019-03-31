@@ -1,5 +1,5 @@
 from cone.app.testing import Security
-from node.ext.ldap.testing import LDIF_groupOfNames_10_10
+from node.ext.ldap.testing import LDIF_base
 from plone.testing import Layer
 import os
 
@@ -13,7 +13,7 @@ ldap_roles_config = os.path.join(base_path, 'ldap_roles.xml')
 
 
 class LDAPLayer(Security, Layer):
-    defaultBases = (LDIF_groupOfNames_10_10,)
+    defaultBases = (LDIF_base,)
 
     def __init__(self):
         Layer.__init__(self)

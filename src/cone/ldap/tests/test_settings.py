@@ -1,6 +1,8 @@
 from cone.app import get_root
 from cone.app.model import XMLProperties
 from cone.ldap import testing
+from cone.ldap.settings import LDAPContainerError
+from cone.ldap.settings import LDAPContainerSettings
 from cone.ldap.settings import LDAPGroupsSettings
 from cone.ldap.settings import LDAPRolesSettings
 from cone.ldap.settings import LDAPServerSettings
@@ -57,8 +59,9 @@ class TestSettings(NodeTestCase):
 
     def test_UGMGeneralSettings(self):
         settings = get_root()['settings']['ugm']
-        self.assertTrue(isinstance(settings, UGMGeneralSettings))
         settings.invalidate()
+
+        self.assertTrue(isinstance(settings, UGMGeneralSettings))
 
         md = settings.metadata
         self.assertEqual(md.title, 'ugm_settings_node')
@@ -96,8 +99,9 @@ class TestSettings(NodeTestCase):
 
     def test_LDAPServerSettings(self):
         settings = get_root()['settings']['ldap_server']
-        self.assertTrue(isinstance(settings, LDAPServerSettings))
         settings.invalidate()
+
+        self.assertTrue(isinstance(settings, LDAPServerSettings))
 
         md = settings.metadata
         self.assertEqual(md.title, 'server_settings_node')
@@ -140,10 +144,44 @@ class TestSettings(NodeTestCase):
         settings.attrs.cache = None
         self.assertFalse(settings.ldap_connectivity)
 
+    def test_LDAPContainerSettings(self):
+        settings = LDAPContainerSettings()
+        settings.__parent__ = get_root()['settings']
+
+        self.assertTrue(isinstance(
+            settings.server_settings,
+            LDAPServerSettings
+        ))
+
+        settings.container_dn = None
+        err = self.expect_error(LDAPContainerError, settings.create_container)
+        self.assertEqual(err.error_message, 'no_container_dn_defined')
+        self.assertFalse(settings.container_exists)
+
+        settings.container_dn = 'uid=foo,dc=my-domain,dc=com'
+        err = self.expect_error(LDAPContainerError, settings.create_container)
+        self.assertEqual(err.error_message, 'expected_ou_as_rdn')
+        self.assertFalse(settings.container_exists)
+
+        settings.container_dn = 'ou=container,#'
+        err = self.expect_error(LDAPContainerError, settings.create_container)
+        self.assertEqual(err.error_message, 'invalid_dn')
+        self.assertFalse(settings.container_exists)
+
+        settings.container_dn = 'ou=container,ou=inexistent,dc=my-domain,dc=com'
+        err = self.expect_error(LDAPContainerError, settings.create_container)
+        self.assertEqual(err.error_message, 'parent_not_found')
+        self.assertFalse(settings.container_exists)
+
+        settings.container_dn = 'ou=container,dc=my-domain,dc=com'
+        settings.create_container()
+        self.assertTrue(settings.container_exists)
+
     def test_LDAPUsersSettings(self):
         settings = get_root()['settings']['ldap_users']
-        self.assertTrue(isinstance(settings, LDAPUsersSettings))
         settings.invalidate()
+
+        self.assertTrue(isinstance(settings, LDAPUsersSettings))
 
         md = settings.metadata
         self.assertEqual(md.title, 'user_settings_node')
@@ -158,7 +196,7 @@ class TestSettings(NodeTestCase):
             'users_scope'
         ])
 
-        attrs.users_dn = 'ou=users,ou=groupOfNames_10_10,dc=my-domain,dc=com'
+        attrs.users_dn = 'ou=users,dc=my-domain,dc=com'
         attrs.users_scope = '1'
         attrs.users_query = ''
         attrs.users_object_classes = [
@@ -193,7 +231,7 @@ class TestSettings(NodeTestCase):
         self.assertEqual(isinstance(ldap_ucfg, UsersConfig), True)
         self.assertEqual(
             ldap_ucfg.baseDN,
-            'ou=users,ou=groupOfNames_10_10,dc=my-domain,dc=com'
+            'ou=users,dc=my-domain,dc=com'
         )
         self.assertEqual(ldap_ucfg.attrmap, {
             'cn': 'cn',
@@ -228,17 +266,20 @@ class TestSettings(NodeTestCase):
         ldap_settings = settings.parent['ldap_server']
         ldap_settings.invalidate()
         settings.invalidate()
-        self.assertTrue(settings.ldap_users_container_valid)
+        self.assertFalse(settings.container_exists)
+        settings.create_container()
+        self.assertTrue(settings.container_exists)
 
         ldap_settings.invalidate()
         settings.invalidate()
         ldap_settings.attrs.cache = None
-        self.assertFalse(settings.ldap_users_container_valid)
+        self.assertFalse(settings.container_exists)
 
     def test_LDAPGroupsSettings(self):
         settings = get_root()['settings']['ldap_groups']
-        self.assertTrue(isinstance(settings, LDAPGroupsSettings))
         settings.invalidate()
+
+        self.assertTrue(isinstance(settings, LDAPGroupsSettings))
 
         md = settings.metadata
         self.assertEqual(md.title, 'group_settings_node')
@@ -254,7 +295,7 @@ class TestSettings(NodeTestCase):
             'groups_scope'
         ])
 
-        attrs.groups_dn = 'ou=groups,ou=groupOfNames_10_10,dc=my-domain,dc=com'
+        attrs.groups_dn = 'ou=groups,dc=my-domain,dc=com'
         attrs.groups_scope = '1'
         attrs.groups_query = ''
         attrs.groups_object_classes = ['groupOfNames']
@@ -276,7 +317,7 @@ class TestSettings(NodeTestCase):
 
         self.assertEqual(
             ldap_gcfg.baseDN,
-            'ou=groups,ou=groupOfNames_10_10,dc=my-domain,dc=com'
+            'ou=groups,dc=my-domain,dc=com'
         )
         self.assertEqual(ldap_gcfg.attrmap, {
             'rdn': 'cn',
@@ -297,17 +338,20 @@ class TestSettings(NodeTestCase):
         ldap_settings = settings.parent['ldap_server']
         ldap_settings.invalidate()
         settings.invalidate()
-        self.assertTrue(settings.ldap_groups_container_valid)
+        self.assertFalse(settings.container_exists)
+        settings.create_container()
+        self.assertTrue(settings.container_exists)
 
         ldap_settings.invalidate()
         settings.invalidate()
         ldap_settings.attrs.cache = None
-        self.assertFalse(settings.ldap_groups_container_valid)
+        self.assertFalse(settings.container_exists)
 
     def test_LDAPRolesSettings(self):
         settings = get_root()['settings']['ldap_roles']
-        self.assertTrue(isinstance(settings, LDAPRolesSettings))
         settings.invalidate()
+
+        self.assertTrue(isinstance(settings, LDAPRolesSettings))
 
         md = settings.metadata
         self.assertEqual(md.title, 'role_settings_node')
@@ -323,7 +367,7 @@ class TestSettings(NodeTestCase):
             'roles_scope'
         ])
 
-        attrs.roles_dn = 'ou=roles,ou=groupOfNames_10_10,dc=my-domain,dc=com'
+        attrs.roles_dn = 'ou=roles,dc=my-domain,dc=com'
         attrs.roles_scope = '1'
         attrs.roles_query = ''
         attrs.roles_object_classes = ['groupOfUniqueNames']
@@ -338,7 +382,7 @@ class TestSettings(NodeTestCase):
 
         self.assertEqual(
             ldap_rcfg.baseDN,
-            'ou=roles,ou=groupOfNames_10_10,dc=my-domain,dc=com'
+            'ou=roles,dc=my-domain,dc=com'
         )
         self.assertEqual(ldap_rcfg.attrmap, {
             'rdn': 'cn',
@@ -358,9 +402,11 @@ class TestSettings(NodeTestCase):
         ldap_settings = settings.parent['ldap_server']
         ldap_settings.invalidate()
         settings.invalidate()
-        self.assertTrue(settings.ldap_roles_container_valid)
+        self.assertFalse(settings.container_exists)
+        settings.create_container()
+        self.assertTrue(settings.container_exists)
 
         ldap_settings.invalidate()
         settings.invalidate()
         ldap_settings.attrs.cache = None
-        self.assertFalse(settings.ldap_roles_container_valid)
+        self.assertFalse(settings.container_exists)
