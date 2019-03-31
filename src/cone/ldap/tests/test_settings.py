@@ -97,9 +97,9 @@ class TestSettings(NodeTestCase):
     # XXX: end move to cone.ugm
     ###########################
 
+    @testing.invalidate_settings
     def test_LDAPServerSettings(self):
         settings = get_root()['settings']['ldap_server']
-        settings.invalidate()
 
         self.assertTrue(isinstance(settings, LDAPServerSettings))
 
@@ -177,9 +177,9 @@ class TestSettings(NodeTestCase):
         settings.create_container()
         self.assertTrue(settings.container_exists)
 
+    @testing.invalidate_settings
     def test_LDAPUsersSettings(self):
         settings = get_root()['settings']['ldap_users']
-        settings.invalidate()
 
         self.assertTrue(isinstance(settings, LDAPUsersSettings))
 
@@ -275,9 +275,9 @@ class TestSettings(NodeTestCase):
         ldap_settings.attrs.cache = None
         self.assertFalse(settings.container_exists)
 
+    @testing.invalidate_settings
     def test_LDAPGroupsSettings(self):
         settings = get_root()['settings']['ldap_groups']
-        settings.invalidate()
 
         self.assertTrue(isinstance(settings, LDAPGroupsSettings))
 
@@ -347,9 +347,9 @@ class TestSettings(NodeTestCase):
         ldap_settings.attrs.cache = None
         self.assertFalse(settings.container_exists)
 
+    @testing.invalidate_settings
     def test_LDAPRolesSettings(self):
         settings = get_root()['settings']['ldap_roles']
-        settings.invalidate()
 
         self.assertTrue(isinstance(settings, LDAPRolesSettings))
 

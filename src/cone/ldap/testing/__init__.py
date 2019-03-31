@@ -1,3 +1,4 @@
+from cone.app import get_root
 from cone.app.testing import Security
 from node.ext.ldap.testing import LDIF_base
 from plone.testing import Layer
@@ -10,6 +11,20 @@ ldap_server_config = os.path.join(base_path, 'ldap_server.xml')
 ldap_users_config = os.path.join(base_path, 'ldap_users.xml')
 ldap_groups_config = os.path.join(base_path, 'ldap_groups.xml')
 ldap_roles_config = os.path.join(base_path, 'ldap_roles.xml')
+
+
+def invalidate_settings(fn):
+    """Decorator for tests working on settings nodes.
+    """
+    def wrapper(*a, **kw):
+        settings = get_root()['settings']
+        settings['ugm'].invalidate()
+        settings['ldap_server'].invalidate()
+        settings['ldap_users'].invalidate()
+        settings['ldap_groups'].invalidate()
+        settings['ldap_roles'].invalidate()
+        fn(*a, **kw)
+    return wrapper
 
 
 class LDAPLayer(Security, Layer):
