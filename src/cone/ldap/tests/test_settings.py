@@ -57,9 +57,9 @@ class TestSettings(NodeTestCase):
     #######################
     # XXX: move to cone.ugm
 
+    @testing.invalidate_settings
     def test_UGMGeneralSettings(self):
         settings = get_root()['settings']['ugm']
-        settings.invalidate()
 
         self.assertTrue(isinstance(settings, UGMGeneralSettings))
 

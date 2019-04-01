@@ -5,8 +5,12 @@ from cone.app.browser.utils import make_url
 from cone.ldap import testing
 from cone.ldap.browser.settings import CreateContainerAction
 from cone.ldap.browser.settings import CreateContainerTrigger
+from cone.ldap.browser.settings import GeneralSettingsForm
 from cone.ldap.browser.settings import ScopeVocabMixin
+from cone.ldap.settings import ldap_cfg
+from cone.ldap.settings import ugm_cfg
 from cone.tile.tests import TileTestCase
+import os
 
 
 class TestBrowserSettings(TileTestCase):
@@ -91,3 +95,51 @@ class TestBrowserSettings(TileTestCase):
         action = request.environ['cone.app.continuation'][1]
         self.assertTrue(isinstance(action, AjaxAction))
         self.assertEqual(action.selector, '.ldap_cca')
+
+    #######################
+    # XXX: move to cone.ugm
+
+    @testing.custom_config_path
+    @testing.temp_directory
+    def test_GeneralSettingsForm(self, tempdir):
+        config_file = os.path.join(tempdir, 'ugm.xml')
+        ugm_cfg.ugm_settings = config_file
+        with open(config_file, 'w') as f:
+            f.write('<properties></properties>')
+
+        model = get_root()['settings']['ugm']
+        request = self.layer.new_request()
+
+        tile = GeneralSettingsForm()
+        tile.model = model
+        tile.request = request
+        tile.prepare()
+
+        form = tile.form
+        self.assertEqual(form.keys(), [
+            'users_heading',
+            'users_account_expiration',
+            'users_expires_attr',
+            'users_expires_unit',
+            'user_id_autoincrement',
+            'user_id_autoincrement_prefix',
+            'user_id_autoincrement_start',
+            'users_portrait',
+            'users_portrait_attr',
+            'users_portrait_accept',
+            'users_portrait_width',
+            'users_portrait_height',
+            'users_local_management_enabled',
+            'users_exposed_attributes',
+            'users_form_attrmap',
+            'users_listing_columns',
+            'users_listing_default_column',
+            'groups_heading',
+            'groups_form_attrmap',
+            'groups_listing_columns',
+            'groups_listing_default_column',
+            'save'
+        ])
+
+    # XXX: end move to cone.ugm
+    ###########################
