@@ -16,10 +16,12 @@ from cone.tile import tile
 from node.ext.ldap import BASE
 from node.ext.ldap import ONELEVEL
 from node.ext.ldap import SUBTREE
+from node.utils import UNSET
 from odict import odict
 from plumber import plumbing
 from pyramid.i18n import get_localizer
 from pyramid.i18n import TranslationStringFactory
+from yafowil.base import ExtractionError
 
 
 _ = TranslationStringFactory('cone.ldap')
@@ -91,6 +93,28 @@ class GeneralSettingsForm(Form):
     @property
     def message_factory(self):
         return _
+
+    def required_if_users_account_expiration(self, widget, data):
+        extracted = data.extracted
+        if extracted is UNSET:
+            return extracted
+        if data.root['users_account_expiration'].extracted and not extracted:
+            raise ExtractionError(_(
+                'required_if_users_account_expiration',
+                default='Value is required if account expiration is enabled'
+            ))
+        return extracted
+
+    def required_if_users_portrait(self, widget, data):
+        extracted = data.extracted
+        if extracted is UNSET:
+            return extracted
+        if data.root['users_portrait'].extracted and not extracted:
+            raise ExtractionError(_(
+                'required_if_users_portrait',
+                default='Value is required if portrit support is enabled'
+            ))
+        return extracted
 
     def save(self, widget, data):
         data.write(self.model)

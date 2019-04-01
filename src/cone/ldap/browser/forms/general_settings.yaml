@@ -1,5 +1,5 @@
 factory: form
-name: ugm_general_settings
+name: ugm_settings
 props:
     action: context.form_action
     class: ajax
@@ -17,11 +17,15 @@ widgets:
         label: i18n:users_account_expiration:User Accounts expires?
         help: i18n:users_account_expiration_help:Flag whether to consider user expiration
 - users_expires_attr:
-    factory: field:label:help:text
+    factory: field:label:help:error:*expiration:text
     value: expr:context.model.attrs.users_expires_attr
     props:
         label: i18n:users_expires_attr:Attribute containing expiration Time
         help: i18n:users_expires_attr_help:Attribute name containing expires information
+    custom:
+        expiration:
+            extractors:
+                - context.required_if_users_account_expiration
 - users_expires_unit:
     factory: field:label:help:select
     value: expr:context.model.attrs.users_expires_unit
@@ -57,31 +61,49 @@ widgets:
         label: i18n:users_portrait:Portrait Support
         help: i18n:users_portrait_help:Flag whether users can have a portrait
 - users_portrait_attr:
-    factory: field:label:help:text
+    factory: field:label:help:error:*portrait:text
     value: expr:context.model.attrs.users_portrait_attr
     props:
         label: i18n:users_portrait_attr:Attribute containing portrait image
         help: i18n:users_portrait_attr_help:Attribute name containing portrait image
+    custom:
+        portrait:
+            extractors:
+                - context.required_if_users_portrait
 - users_portrait_accept:
-    factory: field:label:help:text
+    factory: field:label:help:error:*portrait:text
     value: expr:context.model.attrs.users_portrait_accept
     props:
         label: i18n:users_portrait_accept:Portrait mimetype
         help: i18n:users_portrait_accept_help:Accepted Image mimetype for portrait property
+    custom:
+        portrait:
+            extractors:
+                - context.required_if_users_portrait
 - users_portrait_width:
-    factory: field:label:help:error:number
+    factory: field:label:help:error:*portrait:text
     value: expr:context.model.attrs.users_portrait_width
     props:
         label: i18n:users_portrait_width:Portrait width
         help: i18n:users_portrait_width_help:Width in pixel portrait gets scaled to
         datatype: expr:int
+    custom:
+        portrait:
+            extractors:
+                - yafowil.common.number_extractor
+                - context.required_if_users_portrait
 - users_portrait_height:
-    factory: field:label:help:error:number
+    factory: field:label:help:error:*portrait:text
     value: expr:context.model.attrs.users_portrait_height
     props:
         label: i18n:users_portrait_height:Portrait height
         help: i18n:users_portrait_height_help:Height in pixel portrait gets scaled to
         datatype: expr:int
+    custom:
+        portrait:
+            extractors:
+                - yafowil.common.number_extractor
+                - context.required_if_users_portrait
 - users_local_management_enabled:
     factory: field:label:help:checkbox
     value: expr:context.model.attrs.users_local_management_enabled == 'True'
@@ -124,11 +146,13 @@ widgets:
         value_label: i18n:display_name:Display name
         persist: True
 - users_listing_default_column:
-    factory: field:label:help:text
+    factory: field:label:help:error:text
     value: expr:context.model.attrs.users_listing_default_column
     props:
         label: i18n:users_listing_default_column:Users listing default column
         help: i18n:users_listing_default_column_help:Default sort column in user listing
+        required: i18n:users_listing_default_column_required:Default sort column in
+            user listing is required
 - groups_heading:
     factory: tag
     props:

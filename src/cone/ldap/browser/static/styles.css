@@ -1,30 +1,30 @@
 /* XXX: move to cone.ugm */
 /* ugm general settings */
-#form-ugm_general_settings .dictwidget th.actions,
-#form-ugm_general_settings .dictwidget td.actions {
+#form-ugm_settings .dictwidget th.actions,
+#form-ugm_settings .dictwidget td.actions {
     width:7em;
     padding:5px 0 0 0;
 }
-#form-ugm_general_settings .dict_actions {
+#form-ugm_settings .dict_actions {
     margin-top:8px;
     padding-right:0;
     width:7em;
 }
-#form-ugm_general_settings tr th:first-child,
-#form-ugm_general_settings tr td:first-child {
+#form-ugm_settings tr th:first-child,
+#form-ugm_settings tr td:first-child {
     padding-left:0;
 }
-#array-ugm_general_settings-users_exposed_attributes td.widget {
+#array-ugm_settings-users_exposed_attributes td.widget {
     padding-bottom:4px;
 }
-#array-ugm_general_settings-users_exposed_attributes td.widget input {
+#array-ugm_settings-users_exposed_attributes td.widget input {
     margin-top:4px;
 }
-#field-ugm_general_settings-users_form_attrmap label,
-#field-ugm_general_settings-users_listing_columns label,
-#field-ugm_general_settings-users_exposed_attributes label,
-#field-ugm_general_settings-groups_form_attrmap label,
-#field-ugm_general_settings-groups_listing_columns label {
+#field-ugm_settings-users_form_attrmap label,
+#field-ugm_settings-users_listing_columns label,
+#field-ugm_settings-users_exposed_attributes label,
+#field-ugm_settings-groups_form_attrmap label,
+#field-ugm_settings-groups_listing_columns label {
     font-size:130%;
     text-decoration:underline;
     margin-top:12px;
