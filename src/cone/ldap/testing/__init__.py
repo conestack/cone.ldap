@@ -1,7 +1,7 @@
 from cone.app import get_root
 from cone.app.testing import Security
 from cone.ldap.settings import ldap_cfg
-from cone.ldap.settings import ugm_cfg
+from cone.ugm.model.settings import ugm_cfg
 from node.ext.ldap.testing import LDIF_base
 from plone.testing import Layer
 import os
@@ -81,7 +81,7 @@ class LDAPLayer(Security, Layer):
 
     def make_app(self):
         super(LDAPLayer, self).make_app(**{
-            'cone.plugins': 'cone.ldap',
+            'cone.plugins': 'cone.ldap\ncone.ugm',
             'ugm.backend': 'ldap',
             'ugm.config': ugm_config,
             'ldap.server_config': ldap_server_config,

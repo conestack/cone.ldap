@@ -7,7 +7,6 @@ from cone.ldap.settings import LDAPGroupsSettings
 from cone.ldap.settings import LDAPRolesSettings
 from cone.ldap.settings import LDAPServerSettings
 from cone.ldap.settings import LDAPUsersSettings
-from cone.ldap.settings import UGMGeneralSettings
 from cone.ldap.settings import XMLSettings
 from node.ext.ldap import LDAPProps
 from node.ext.ldap.ugm import GroupsConfig
