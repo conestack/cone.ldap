@@ -167,7 +167,7 @@ class TestSettings(NodeTestCase):
             'login': 'uid',
         }
 
-        ugm_settings = settings.parent['ugm']
+        ugm_settings = settings.parent['ugm_general']
         ugm_attrs = ugm_settings.attrs
         ugm_attrs.users_form_attrmap = {
             'id': 'id',
@@ -261,7 +261,7 @@ class TestSettings(NodeTestCase):
         }
         attrs.groups_relation = ''
 
-        ugm_settings = settings.parent['ugm']
+        ugm_settings = settings.parent['ugm_general']
         ugm_attrs = ugm_settings.attrs
         ugm_attrs.groups_form_attrmap = {
             'id': 'Id',

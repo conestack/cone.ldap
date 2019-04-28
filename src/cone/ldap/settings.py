@@ -201,7 +201,7 @@ class LDAPUsersSettings(LDAPContainerSettings):
 
     @instance_property
     def ldap_ucfg(self):
-        ugm_config = self.parent['ugm'].attrs
+        ugm_config = self.parent['ugm_general'].attrs
         config = self.attrs
         map = dict()
         for key in config.users_aliases_attrmap.keys():
@@ -261,7 +261,7 @@ class LDAPGroupsSettings(LDAPContainerSettings):
 
     @instance_property
     def ldap_gcfg(self):
-        ugm_config = self.parent['ugm'].attrs
+        ugm_config = self.parent['ugm_general'].attrs
         config = self.attrs
         map = dict()
         for key in config.groups_aliases_attrmap.keys():

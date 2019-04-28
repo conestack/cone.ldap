@@ -19,7 +19,7 @@ ldap_roles_config = os.path.join(base_path, 'ldap_roles.xml')
 
 def _invalidate_settings():
     settings = get_root()['settings']
-    settings['ugm'].invalidate()
+    settings['ugm_general'].invalidate()
     settings['ldap_server'].invalidate()
     settings['ldap_users'].invalidate()
     settings['ldap_groups'].invalidate()
