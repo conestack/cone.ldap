@@ -12,6 +12,7 @@ from node.ext.ldap.ugm import RolesConfig
 from node.ext.ldap.ugm import UsersConfig
 from node.ext.ldap.ugm._api import EXPIRATION_DAYS
 from node.utils import instance_property
+from odict import odict
 from pyramid.i18n import TranslationStringFactory
 import logging
 import os
@@ -38,6 +39,8 @@ factory_defaults.role = dict()
 
 
 class XMLSettings(BaseNode):
+    """XXX: Duplicate code as cone.ugm.model.settings.XMLSettings
+    """
     config_file = None
 
     def __call__(self):
@@ -203,28 +206,28 @@ class LDAPUsersSettings(LDAPContainerSettings):
     def ldap_ucfg(self):
         ugm_config = self.parent['ugm_general'].attrs
         config = self.attrs
-        map = dict()
+        amap = odict()
         for key in config.users_aliases_attrmap.keys():
-            map[key] = config.users_aliases_attrmap[key]
+            amap[key] = config.users_aliases_attrmap[key]
         for key in ugm_config.users_form_attrmap.keys():
             if key in ['id', 'login']:
                 continue
-            map[key] = key
+            amap[key] = key
         if ugm_config.users_exposed_attributes:
             for key in ugm_config.users_exposed_attributes:
-                map[key] = key
+                amap[key] = key
         expiresAttr = None
         expiresUnit = EXPIRATION_DAYS
         if ugm_config.users_account_expiration == 'True':
             expiresAttr = ugm_config.users_expires_attr
             expiresUnit = int(ugm_config.users_expires_unit)
-            map[expiresAttr] = expiresAttr
+            amap[expiresAttr] = expiresAttr
         if ugm_config.users_portrait == 'True':
             imageAttr = ugm_config.users_portrait_attr
-            map[imageAttr] = imageAttr
+            amap[imageAttr] = imageAttr
         return UsersConfig(
             baseDN=config.users_dn,
-            attrmap=map,
+            attrmap=amap,
             scope=int(config.users_scope),
             queryFilter=config.users_query,
             objectClasses=config.users_object_classes,
@@ -263,16 +266,16 @@ class LDAPGroupsSettings(LDAPContainerSettings):
     def ldap_gcfg(self):
         ugm_config = self.parent['ugm_general'].attrs
         config = self.attrs
-        map = dict()
+        amap = odict()
         for key in config.groups_aliases_attrmap.keys():
-            map[key] = config.groups_aliases_attrmap[key]
+            amap[key] = config.groups_aliases_attrmap[key]
         for key in ugm_config.groups_form_attrmap.keys():
             if key in ['id']:
                 continue
-            map[key] = key
+            amap[key] = key
         return GroupsConfig(
             baseDN=config.groups_dn,
-            attrmap=map,
+            attrmap=amap,
             scope=int(config.groups_scope),
             queryFilter=config.groups_query,
             objectClasses=config.groups_object_classes,
@@ -309,12 +312,12 @@ class LDAPRolesSettings(LDAPContainerSettings):
     @instance_property
     def ldap_rcfg(self):
         config = self.attrs
-        map = dict()
+        amap = odict()
         for key in config.roles_aliases_attrmap.keys():
-            map[key] = config.roles_aliases_attrmap[key]
+            amap[key] = config.roles_aliases_attrmap[key]
         return RolesConfig(
             baseDN=config.roles_dn,
-            attrmap=map,
+            attrmap=amap,
             scope=int(config.roles_scope),
             queryFilter=config.roles_query,
             objectClasses=config.roles_object_classes,

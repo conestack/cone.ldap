@@ -189,18 +189,18 @@ class TestSettings(NodeTestCase):
             ldap_ucfg.baseDN,
             'ou=users,dc=my-domain,dc=com'
         )
-        self.assertEqual(ldap_ucfg.attrmap, {
-            'cn': 'cn',
-            'userPassword': 'userPassword',
-            'jpegPhoto': 'jpegPhoto',
-            'shadowExpire': 'shadowExpire',
-            'sn': 'sn',
-            'mail': 'mail',
-            'login': 'uid',
-            'rdn': 'uid',
-            'id': 'uid',
-            'homePhone': 'homePhone'
-        })
+        self.assertEqual(sorted(ldap_ucfg.attrmap.items()), [
+            ('cn', 'cn'),
+            ('homePhone', 'homePhone'),
+            ('id', 'uid'),
+            ('jpegPhoto', 'jpegPhoto'),
+            ('login', 'uid'),
+            ('mail', 'mail'),
+            ('rdn', 'uid'),
+            ('shadowExpire', 'shadowExpire'),
+            ('sn', 'sn'),
+            ('userPassword', 'userPassword')
+        ])
         self.assertEqual(ldap_ucfg.scope, 1)
         self.assertEqual(ldap_ucfg.queryFilter, '')
         self.assertEqual(sorted(ldap_ucfg.objectClasses), [
@@ -275,11 +275,11 @@ class TestSettings(NodeTestCase):
             ldap_gcfg.baseDN,
             'ou=groups,dc=my-domain,dc=com'
         )
-        self.assertEqual(ldap_gcfg.attrmap, {
-            'rdn': 'cn',
-            'id': 'cn',
-            'description': 'description'
-        })
+        self.assertEqual(sorted(ldap_gcfg.attrmap.items()), [
+            ('description', 'description'),
+            ('id', 'cn'),
+            ('rdn', 'cn')
+        ])
         self.assertEqual(ldap_gcfg.scope, 1)
         self.assertEqual(ldap_gcfg.queryFilter, '')
         self.assertEqual(ldap_gcfg.objectClasses, ['groupOfNames'])
@@ -340,10 +340,10 @@ class TestSettings(NodeTestCase):
             ldap_rcfg.baseDN,
             'ou=roles,dc=my-domain,dc=com'
         )
-        self.assertEqual(ldap_rcfg.attrmap, {
-            'rdn': 'cn',
-            'id': 'cn'
-        })
+        self.assertEqual(sorted(ldap_rcfg.attrmap.items()), [
+            ('id', 'cn'),
+            ('rdn', 'cn')
+        ])
         self.assertEqual(ldap_rcfg.scope, 1)
         self.assertEqual(ldap_rcfg.queryFilter, '')
         self.assertEqual(ldap_rcfg.objectClasses, ['groupOfUniqueNames'])
