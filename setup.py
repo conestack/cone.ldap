@@ -32,7 +32,7 @@ setup(
     author='Robert Niederreiter',
     author_email='dev@bluedynamics.com',
     url=u'http://github.com/bluedynamics/cone.ldap',
-    license='LGPLv3',
+    license='Simplified BSD',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     namespace_packages=['cone'],
