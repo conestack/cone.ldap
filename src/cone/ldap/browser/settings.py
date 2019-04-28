@@ -15,6 +15,7 @@ from cone.tile import tile
 from node.ext.ldap import BASE
 from node.ext.ldap import ONELEVEL
 from node.ext.ldap import SUBTREE
+from node.utils import UNSET
 from odict import odict
 from plumber import plumbing
 from pyramid.i18n import get_localizer
@@ -94,12 +95,18 @@ class ServerSettingsForm(Form):
         return _
 
     def save(self, widget, data):
-        data.write(self.model)
-        # password = data.fetch('ldap_server_settings.password').extracted
-        # if password is not UNSET:
-        #     setattr(model.attrs, 'password', password)
-        self.model()
-        self.model.invalidate()
+        model = self.model
+        for attr_name in ['uri', 'user']:
+            val = data.fetch('ldap_server_settings.%s' % attr_name).extracted
+            setattr(model.attrs, attr_name, val)
+        cache = data.fetch('ldap_server_settings.cache').extracted
+        cache = str(int(cache))
+        setattr(model.attrs, 'cache', cache)
+        password = data.fetch('ldap_server_settings.password').extracted
+        if password is not UNSET:
+            setattr(model.attrs, 'password', password)
+        model()
+        model.invalidate()
 
 
 @tile(
@@ -146,9 +153,20 @@ class UsersSettingsForm(Form, ScopeVocabMixin):
         return users_aliases_attrmap
 
     def save(self, widget, data):
-        data.write(self.model)
-        self.model()
-        self.model.invalidate()
+        model = self.model
+        for attr_name in [
+            'users_dn',
+            'users_scope',
+            'users_query',
+            'users_object_classes',
+            'users_aliases_attrmap'
+        ]:
+            val = data.fetch('ldap_users_settings.%s' % attr_name).extracted
+            if attr_name == 'users_object_classes':
+                val = [v.strip() for v in val.split(',') if v.strip()]
+            setattr(model.attrs, attr_name, val)
+        model()
+        model.invalidate()
 
 
 @tile(
@@ -193,9 +211,21 @@ class GroupsSettingsForm(Form, ScopeVocabMixin):
         return groups_aliases_attrmap
 
     def save(self, widget, data):
-        data.write(self.model)
-        self.model()
-        self.model.invalidate()
+        model = self.model
+        for attr_name in [
+            'groups_dn',
+            'groups_scope',
+            'groups_query',
+            'groups_object_classes',
+            'groups_aliases_attrmap'
+            # 'groups_relation'
+        ]:
+            val = data.fetch('ldap_groups_settings.%s' % attr_name).extracted
+            if attr_name == 'groups_object_classes':
+                val = [v.strip() for v in val.split(',') if v.strip()]
+            setattr(model.attrs, attr_name, val)
+        model()
+        model.invalidate()
 
 
 @tile(
@@ -240,6 +270,18 @@ class RolesSettingsForm(Form, ScopeVocabMixin):
         return roles_aliases_attrmap
 
     def save(self, widget, data):
-        data.write(self.model)
-        self.model()
-        self.model.invalidate()
+        model = self.model
+        for attr_name in [
+            'roles_dn',
+            'roles_scope',
+            'roles_query',
+            'roles_object_classes',
+            'roles_aliases_attrmap'
+            # 'roles_relation',
+        ]:
+            val = data.fetch('ldap_roles_settings.%s' % attr_name).extracted
+            if attr_name == 'roles_object_classes':
+                val = [v.strip() for v in val.split(',') if v.strip()]
+            setattr(model.attrs, attr_name, val)
+        model()
+        model.invalidate()
