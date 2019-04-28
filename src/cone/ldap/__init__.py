@@ -1,7 +1,7 @@
 from cone.app import cfg
 from cone.app import get_root
 from cone.app import main_hook
-from cone.app import register_plugin_config
+from cone.app import register_config
 from cone.app.ugm import ugm_backend
 from cone.app.ugm import UGMFactory
 from cone.ldap import browser
@@ -20,19 +20,6 @@ logger = logging.getLogger('cone.ldap')
 
 @main_hook
 def initialize_ldap(config, global_config, settings):
-
-    #######################
-    # XXX: move to cone.ugm
-
-    from cone.ldap.settings import ugm_cfg
-    from cone.ldap.settings import UGMGeneralSettings
-
-    ugm_cfg.ugm_settings = settings.get('ugm.config', '')
-    register_plugin_config('ugm', UGMGeneralSettings)
-
-    # XXX: end move to cone.ugm
-    ###########################
-
     # Set LDAP related config file paths
     ldap_cfg.server_config = settings.get('ldap.server_config', '')
     ldap_cfg.users_config = settings.get('ldap.users_config', '')
@@ -40,14 +27,14 @@ def initialize_ldap(config, global_config, settings):
     ldap_cfg.roles_config = settings.get('ldap.roles_config', '')
 
     # Register general LDAP server settings
-    register_plugin_config('ldap_server', LDAPServerSettings)
+    register_config('ldap_server', LDAPServerSettings)
 
     # Register user, groud and role related settings only if LDAP used
     # as UGM backend
     if settings.get('ugm.backend') == 'ldap':
-        register_plugin_config('ldap_users', LDAPUsersSettings)
-        register_plugin_config('ldap_groups', LDAPGroupsSettings)
-        register_plugin_config('ldap_roles', LDAPRolesSettings)
+        register_config('ldap_users', LDAPUsersSettings)
+        register_config('ldap_groups', LDAPGroupsSettings)
+        register_config('ldap_roles', LDAPRolesSettings)
 
         # custom UGM styles
         cfg.merged.css.protected.append((static_resources, 'styles.css'))

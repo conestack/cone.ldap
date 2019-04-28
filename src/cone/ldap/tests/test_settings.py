@@ -54,49 +54,6 @@ class TestSettings(NodeTestCase):
 
         shutil.rmtree(tempdir)
 
-    #######################
-    # XXX: move to cone.ugm
-
-    @testing.invalidate_settings
-    def test_UGMGeneralSettings(self):
-        settings = get_root()['settings']['ugm']
-
-        self.assertTrue(isinstance(settings, UGMGeneralSettings))
-
-        md = settings.metadata
-        self.assertEqual(md.title, 'ugm_settings_node')
-        self.assertEqual(md.description, 'ugm_settings_node_description')
-
-        attrs = settings.attrs
-        self.assertEqual(sorted(attrs.keys()), [
-            'groups_form_attrmap',
-            'groups_listing_columns',
-            'groups_listing_default_column',
-            'user_id_autoincrement',
-            'user_id_autoincrement_prefix',
-            'user_id_autoincrement_start',
-            'users_account_expiration',
-            'users_expires_attr',
-            'users_expires_unit',
-            'users_exposed_attributes',
-            'users_form_attrmap',
-            'users_listing_columns',
-            'users_listing_default_column',
-            'users_local_management_enabled',
-            'users_portrait',
-            'users_portrait_accept',
-            'users_portrait_attr',
-            'users_portrait_height',
-            'users_portrait_width'
-        ])
-
-        self.assertTrue(attrs is settings.attrs)
-        settings.invalidate()
-        self.assertFalse(attrs is settings.attrs)
-
-    # XXX: end move to cone.ugm
-    ###########################
-
     @testing.invalidate_settings
     def test_LDAPServerSettings(self):
         settings = get_root()['settings']['ldap_server']

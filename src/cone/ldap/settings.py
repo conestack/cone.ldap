@@ -59,35 +59,6 @@ class XMLSettings(BaseNode):
                 delattr(self, _attr)
 
 
-########################
-# XXX: move to cone.ugm
-
-ugm_cfg = Properties()
-ugm_cfg.ugm_settings = ''
-
-
-class UGMGeneralSettings(XMLSettings):
-
-    @property
-    def config_file(self):
-        return ugm_cfg.ugm_settings
-
-    @instance_property
-    def metadata(self):
-        metadata = Metadata()
-        metadata.title = _(
-            'ugm_settings_node',
-            default='UGM Settings')
-        metadata.description = _(
-            'ugm_settings_node_description',
-            default='General user and group management settings'
-        )
-        return metadata
-
-# XXX: end move to cone.ugm
-###########################
-
-
 class LDAPServerSettings(XMLSettings):
 
     @property

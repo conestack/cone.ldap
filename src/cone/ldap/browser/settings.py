@@ -10,18 +10,15 @@ from cone.ldap.settings import LDAPGroupsSettings
 from cone.ldap.settings import LDAPRolesSettings
 from cone.ldap.settings import LDAPServerSettings
 from cone.ldap.settings import LDAPUsersSettings
-from cone.ldap.settings import UGMGeneralSettings
 from cone.tile import Tile
 from cone.tile import tile
 from node.ext.ldap import BASE
 from node.ext.ldap import ONELEVEL
 from node.ext.ldap import SUBTREE
-from node.utils import UNSET
 from odict import odict
 from plumber import plumbing
 from pyramid.i18n import get_localizer
 from pyramid.i18n import TranslationStringFactory
-from yafowil.base import ExtractionError
 
 
 _ = TranslationStringFactory('cone.ldap')
@@ -70,59 +67,6 @@ class CreateContainerAction(Tile):
             ))
             ajax_message(self.request, message, 'error')
         return u''
-
-
-########################
-# XXX: move to cone.ugm
-
-@tile(
-    name='content',
-    path='templates/general_settings.pt',
-    interface=UGMGeneralSettings,
-    permission='manage')
-class GeneralSettingsContent(ProtectedContentTile):
-    pass
-
-
-@tile(name='editform', interface=UGMGeneralSettings, permission='manage')
-@plumbing(SettingsBehavior, YAMLForm)
-class GeneralSettingsForm(Form):
-    action_resource = u'edit'
-    form_template = 'cone.ldap.browser:forms/general_settings.yaml'
-
-    @property
-    def message_factory(self):
-        return _
-
-    def required_if_users_account_expiration(self, widget, data):
-        extracted = data.extracted
-        if extracted is UNSET:
-            return extracted
-        if data.root['users_account_expiration'].extracted and not extracted:
-            raise ExtractionError(_(
-                'required_if_users_account_expiration',
-                default='Value is required if account expiration is enabled'
-            ))
-        return extracted
-
-    def required_if_users_portrait(self, widget, data):
-        extracted = data.extracted
-        if extracted is UNSET:
-            return extracted
-        if data.root['users_portrait'].extracted and not extracted:
-            raise ExtractionError(_(
-                'required_if_users_portrait',
-                default='Value is required if portrit support is enabled'
-            ))
-        return extracted
-
-    def save(self, widget, data):
-        data.write(self.model)
-        self.model()
-        self.model.invalidate()
-
-# XXX: end move to cone.ugm
-###########################
 
 
 @tile(
