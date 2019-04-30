@@ -1,5 +1,5 @@
 <properties>
-  <users_exposed_attributes></users_exposed_attributes>
+  <users_exposed_attributes/>
   <users_account_expiration>True</users_account_expiration>
   <users_expires_attr>shadowExpire</users_expires_attr>
   <users_expires_unit>0</users_expires_unit>
