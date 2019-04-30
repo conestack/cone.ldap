@@ -1,8 +1,7 @@
-from cone.app.model import BaseNode
 from cone.app.model import Metadata
 from cone.app.model import Properties
-from cone.app.model import XMLProperties
 from cone.app.utils import format_traceback
+from cone.ugm.settings import UGMSettings
 from ldap.functions import explode_dn
 from node.ext.ldap import LDAPNode
 from node.ext.ldap import LDAPProps
@@ -12,9 +11,9 @@ from node.ext.ldap.ugm import RolesConfig
 from node.ext.ldap.ugm import UsersConfig
 from node.ext.ldap.ugm._api import EXPIRATION_DAYS
 from node.utils import instance_property
+from odict import odict
 from pyramid.i18n import TranslationStringFactory
 import logging
-import os
 
 
 logger = logging.getLogger('cone.ldap')
@@ -37,58 +36,7 @@ factory_defaults.group = dict()
 factory_defaults.role = dict()
 
 
-class XMLSettings(BaseNode):
-    config_file = None
-
-    def __call__(self):
-        self.attrs()
-
-    @instance_property
-    def attrs(self):
-        config_file = self.config_file
-        if not os.path.isfile(config_file):
-            msg = 'LDAP configuration {} does not exist.'.format(config_file)
-            raise ValueError(msg)
-        return XMLProperties(config_file)
-
-    def invalidate(self, attrs=[]):
-        attrs.append('attrs')
-        for attr in attrs:
-            _attr = '_{}'.format(attr)
-            if hasattr(self, _attr):
-                delattr(self, _attr)
-
-
-########################
-# XXX: move to cone.ugm
-
-ugm_cfg = Properties()
-ugm_cfg.ugm_settings = ''
-
-
-class UGMGeneralSettings(XMLSettings):
-
-    @property
-    def config_file(self):
-        return ugm_cfg.ugm_settings
-
-    @instance_property
-    def metadata(self):
-        metadata = Metadata()
-        metadata.title = _(
-            'ugm_settings_node',
-            default='UGM Settings')
-        metadata.description = _(
-            'ugm_settings_node_description',
-            default='General user and group management settings'
-        )
-        return metadata
-
-# XXX: end move to cone.ugm
-###########################
-
-
-class LDAPServerSettings(XMLSettings):
+class LDAPServerSettings(UGMSettings):
 
     @property
     def config_file(self):
@@ -141,7 +89,7 @@ class LDAPContainerError(Exception):
         self.error_message = error_message
 
 
-class LDAPContainerSettings(XMLSettings):
+class LDAPContainerSettings(UGMSettings):
     container_dn = None
 
     @property
@@ -230,30 +178,30 @@ class LDAPUsersSettings(LDAPContainerSettings):
 
     @instance_property
     def ldap_ucfg(self):
-        ugm_config = self.parent['ugm'].attrs
+        ugm_config = self.parent['ugm_general'].attrs
         config = self.attrs
-        map = dict()
+        amap = odict()
         for key in config.users_aliases_attrmap.keys():
-            map[key] = config.users_aliases_attrmap[key]
+            amap[key] = config.users_aliases_attrmap[key]
         for key in ugm_config.users_form_attrmap.keys():
             if key in ['id', 'login']:
                 continue
-            map[key] = key
+            amap[key] = key
         if ugm_config.users_exposed_attributes:
             for key in ugm_config.users_exposed_attributes:
-                map[key] = key
+                amap[key] = key
         expiresAttr = None
         expiresUnit = EXPIRATION_DAYS
         if ugm_config.users_account_expiration == 'True':
             expiresAttr = ugm_config.users_expires_attr
             expiresUnit = int(ugm_config.users_expires_unit)
-            map[expiresAttr] = expiresAttr
+            amap[expiresAttr] = expiresAttr
         if ugm_config.users_portrait == 'True':
             imageAttr = ugm_config.users_portrait_attr
-            map[imageAttr] = imageAttr
+            amap[imageAttr] = imageAttr
         return UsersConfig(
             baseDN=config.users_dn,
-            attrmap=map,
+            attrmap=amap,
             scope=int(config.users_scope),
             queryFilter=config.users_query,
             objectClasses=config.users_object_classes,
@@ -290,18 +238,18 @@ class LDAPGroupsSettings(LDAPContainerSettings):
 
     @instance_property
     def ldap_gcfg(self):
-        ugm_config = self.parent['ugm'].attrs
+        ugm_config = self.parent['ugm_general'].attrs
         config = self.attrs
-        map = dict()
+        amap = odict()
         for key in config.groups_aliases_attrmap.keys():
-            map[key] = config.groups_aliases_attrmap[key]
+            amap[key] = config.groups_aliases_attrmap[key]
         for key in ugm_config.groups_form_attrmap.keys():
             if key in ['id']:
                 continue
-            map[key] = key
+            amap[key] = key
         return GroupsConfig(
             baseDN=config.groups_dn,
-            attrmap=map,
+            attrmap=amap,
             scope=int(config.groups_scope),
             queryFilter=config.groups_query,
             objectClasses=config.groups_object_classes,
@@ -338,12 +286,12 @@ class LDAPRolesSettings(LDAPContainerSettings):
     @instance_property
     def ldap_rcfg(self):
         config = self.attrs
-        map = dict()
+        amap = odict()
         for key in config.roles_aliases_attrmap.keys():
-            map[key] = config.roles_aliases_attrmap[key]
+            amap[key] = config.roles_aliases_attrmap[key]
         return RolesConfig(
             baseDN=config.roles_dn,
-            attrmap=map,
+            attrmap=amap,
             scope=int(config.roles_scope),
             queryFilter=config.roles_query,
             objectClasses=config.roles_object_classes,

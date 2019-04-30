@@ -6,11 +6,11 @@ from cone.app.browser.form import YAMLForm
 from cone.app.browser.layout import ProtectedContentTile
 from cone.app.browser.settings import SettingsBehavior
 from cone.app.browser.utils import make_url
+from cone.app.ugm import ugm_backend
 from cone.ldap.settings import LDAPGroupsSettings
 from cone.ldap.settings import LDAPRolesSettings
 from cone.ldap.settings import LDAPServerSettings
 from cone.ldap.settings import LDAPUsersSettings
-from cone.ldap.settings import UGMGeneralSettings
 from cone.tile import Tile
 from cone.tile import tile
 from node.ext.ldap import BASE
@@ -21,10 +21,14 @@ from odict import odict
 from plumber import plumbing
 from pyramid.i18n import get_localizer
 from pyramid.i18n import TranslationStringFactory
-from yafowil.base import ExtractionError
 
 
 _ = TranslationStringFactory('cone.ldap')
+
+
+def initialize_ugm_backend():
+    if ugm_backend.name == 'ldap':
+        ugm_backend.initialize()
 
 
 class ScopeVocabMixin(object):
@@ -69,60 +73,8 @@ class CreateContainerAction(Tile):
                 mapping={'error': localizer.translate(e.error_message)}
             ))
             ajax_message(self.request, message, 'error')
+        # XXX: initialize UGM backend?
         return u''
-
-
-########################
-# XXX: move to cone.ugm
-
-@tile(
-    name='content',
-    path='templates/general_settings.pt',
-    interface=UGMGeneralSettings,
-    permission='manage')
-class GeneralSettingsContent(ProtectedContentTile):
-    pass
-
-
-@tile(name='editform', interface=UGMGeneralSettings, permission='manage')
-@plumbing(SettingsBehavior, YAMLForm)
-class GeneralSettingsForm(Form):
-    action_resource = u'edit'
-    form_template = 'cone.ldap.browser:forms/general_settings.yaml'
-
-    @property
-    def message_factory(self):
-        return _
-
-    def required_if_users_account_expiration(self, widget, data):
-        extracted = data.extracted
-        if extracted is UNSET:
-            return extracted
-        if data.root['users_account_expiration'].extracted and not extracted:
-            raise ExtractionError(_(
-                'required_if_users_account_expiration',
-                default='Value is required if account expiration is enabled'
-            ))
-        return extracted
-
-    def required_if_users_portrait(self, widget, data):
-        extracted = data.extracted
-        if extracted is UNSET:
-            return extracted
-        if data.root['users_portrait'].extracted and not extracted:
-            raise ExtractionError(_(
-                'required_if_users_portrait',
-                default='Value is required if portrit support is enabled'
-            ))
-        return extracted
-
-    def save(self, widget, data):
-        data.write(self.model)
-        self.model()
-        self.model.invalidate()
-
-# XXX: end move to cone.ugm
-###########################
 
 
 @tile(
@@ -150,12 +102,19 @@ class ServerSettingsForm(Form):
         return _
 
     def save(self, widget, data):
-        data.write(self.model)
-        # password = data.fetch('ldap_server_settings.password').extracted
-        # if password is not UNSET:
-        #     setattr(model.attrs, 'password', password)
-        self.model()
-        self.model.invalidate()
+        model = self.model
+        for attr_name in ['uri', 'user']:
+            val = data.fetch('ldap_server_settings.%s' % attr_name).extracted
+            setattr(model.attrs, attr_name, val)
+        cache = data.fetch('ldap_server_settings.cache').extracted
+        cache = str(int(cache))
+        setattr(model.attrs, 'cache', cache)
+        password = data.fetch('ldap_server_settings.password').extracted
+        if password is not UNSET:
+            setattr(model.attrs, 'password', password)
+        model()
+        model.invalidate()
+        initialize_ugm_backend()
 
 
 @tile(
@@ -202,9 +161,21 @@ class UsersSettingsForm(Form, ScopeVocabMixin):
         return users_aliases_attrmap
 
     def save(self, widget, data):
-        data.write(self.model)
-        self.model()
-        self.model.invalidate()
+        model = self.model
+        for attr_name in [
+            'users_dn',
+            'users_scope',
+            'users_query',
+            'users_object_classes',
+            'users_aliases_attrmap'
+        ]:
+            val = data.fetch('ldap_users_settings.%s' % attr_name).extracted
+            if attr_name == 'users_object_classes':
+                val = [v.strip() for v in val.split(',') if v.strip()]
+            setattr(model.attrs, attr_name, val)
+        model()
+        model.invalidate()
+        initialize_ugm_backend()
 
 
 @tile(
@@ -249,9 +220,22 @@ class GroupsSettingsForm(Form, ScopeVocabMixin):
         return groups_aliases_attrmap
 
     def save(self, widget, data):
-        data.write(self.model)
-        self.model()
-        self.model.invalidate()
+        model = self.model
+        for attr_name in [
+            'groups_dn',
+            'groups_scope',
+            'groups_query',
+            'groups_object_classes',
+            'groups_aliases_attrmap'
+            # 'groups_relation'
+        ]:
+            val = data.fetch('ldap_groups_settings.%s' % attr_name).extracted
+            if attr_name == 'groups_object_classes':
+                val = [v.strip() for v in val.split(',') if v.strip()]
+            setattr(model.attrs, attr_name, val)
+        model()
+        model.invalidate()
+        initialize_ugm_backend()
 
 
 @tile(
@@ -296,6 +280,19 @@ class RolesSettingsForm(Form, ScopeVocabMixin):
         return roles_aliases_attrmap
 
     def save(self, widget, data):
-        data.write(self.model)
-        self.model()
-        self.model.invalidate()
+        model = self.model
+        for attr_name in [
+            'roles_dn',
+            'roles_scope',
+            'roles_query',
+            'roles_object_classes',
+            'roles_aliases_attrmap'
+            # 'roles_relation',
+        ]:
+            val = data.fetch('ldap_roles_settings.%s' % attr_name).extracted
+            if attr_name == 'roles_object_classes':
+                val = [v.strip() for v in val.split(',') if v.strip()]
+            setattr(model.attrs, attr_name, val)
+        model()
+        model.invalidate()
+        initialize_ugm_backend()

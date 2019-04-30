@@ -1,5 +1,4 @@
 from cone.app import get_root
-from cone.app.model import XMLProperties
 from cone.ldap import testing
 from cone.ldap.settings import LDAPContainerError
 from cone.ldap.settings import LDAPContainerSettings
@@ -7,95 +6,15 @@ from cone.ldap.settings import LDAPGroupsSettings
 from cone.ldap.settings import LDAPRolesSettings
 from cone.ldap.settings import LDAPServerSettings
 from cone.ldap.settings import LDAPUsersSettings
-from cone.ldap.settings import UGMGeneralSettings
-from cone.ldap.settings import XMLSettings
 from node.ext.ldap import LDAPProps
 from node.ext.ldap.ugm import GroupsConfig
 from node.ext.ldap.ugm import RolesConfig
 from node.ext.ldap.ugm import UsersConfig
 from node.tests import NodeTestCase
-import os
-import shutil
-import tempfile
 
 
 class TestSettings(NodeTestCase):
     layer = testing.ldap_layer
-
-    def test_XMLSettings(self):
-        tempdir = tempfile.mkdtemp()
-        path = os.path.join(tempdir, 'settings.xml')
-
-        class MyXMLSettings(XMLSettings):
-            config_file = path
-
-        settings = MyXMLSettings()
-        expected = 'LDAP configuration {} does not exist.'.format(path)
-        err = self.expect_error(ValueError, lambda: settings.attrs)
-        self.assertEqual(str(err), expected)
-
-        with open(path, 'w') as f:
-            f.write('<properties />')
-
-        attrs = settings.attrs
-        self.assertTrue(isinstance(attrs, XMLProperties))
-
-        attrs.foo = 'foo'
-        settings()
-
-        with open(path, 'r') as f:
-            content = f.read()
-        expected = '<properties>\n  <foo>foo</foo>\n</properties>\n'
-        self.assertEqual(content, expected)
-
-        self.assertTrue(attrs is settings.attrs)
-        settings.invalidate()
-        self.assertFalse(attrs is settings.attrs)
-
-        shutil.rmtree(tempdir)
-
-    #######################
-    # XXX: move to cone.ugm
-
-    @testing.invalidate_settings
-    def test_UGMGeneralSettings(self):
-        settings = get_root()['settings']['ugm']
-
-        self.assertTrue(isinstance(settings, UGMGeneralSettings))
-
-        md = settings.metadata
-        self.assertEqual(md.title, 'ugm_settings_node')
-        self.assertEqual(md.description, 'ugm_settings_node_description')
-
-        attrs = settings.attrs
-        self.assertEqual(sorted(attrs.keys()), [
-            'groups_form_attrmap',
-            'groups_listing_columns',
-            'groups_listing_default_column',
-            'user_id_autoincrement',
-            'user_id_autoincrement_prefix',
-            'user_id_autoincrement_start',
-            'users_account_expiration',
-            'users_expires_attr',
-            'users_expires_unit',
-            'users_exposed_attributes',
-            'users_form_attrmap',
-            'users_listing_columns',
-            'users_listing_default_column',
-            'users_local_management_enabled',
-            'users_portrait',
-            'users_portrait_accept',
-            'users_portrait_attr',
-            'users_portrait_height',
-            'users_portrait_width'
-        ])
-
-        self.assertTrue(attrs is settings.attrs)
-        settings.invalidate()
-        self.assertFalse(attrs is settings.attrs)
-
-    # XXX: end move to cone.ugm
-    ###########################
 
     @testing.invalidate_settings
     def test_LDAPServerSettings(self):
@@ -211,7 +130,7 @@ class TestSettings(NodeTestCase):
             'login': 'uid',
         }
 
-        ugm_settings = settings.parent['ugm']
+        ugm_settings = settings.parent['ugm_general']
         ugm_attrs = ugm_settings.attrs
         ugm_attrs.users_form_attrmap = {
             'id': 'id',
@@ -233,18 +152,18 @@ class TestSettings(NodeTestCase):
             ldap_ucfg.baseDN,
             'ou=users,dc=my-domain,dc=com'
         )
-        self.assertEqual(ldap_ucfg.attrmap, {
-            'cn': 'cn',
-            'userPassword': 'userPassword',
-            'jpegPhoto': 'jpegPhoto',
-            'shadowExpire': 'shadowExpire',
-            'sn': 'sn',
-            'mail': 'mail',
-            'login': 'uid',
-            'rdn': 'uid',
-            'id': 'uid',
-            'homePhone': 'homePhone'
-        })
+        self.assertEqual(sorted(ldap_ucfg.attrmap.items()), [
+            ('cn', 'cn'),
+            ('homePhone', 'homePhone'),
+            ('id', 'uid'),
+            ('jpegPhoto', 'jpegPhoto'),
+            ('login', 'uid'),
+            ('mail', 'mail'),
+            ('rdn', 'uid'),
+            ('shadowExpire', 'shadowExpire'),
+            ('sn', 'sn'),
+            ('userPassword', 'userPassword')
+        ])
         self.assertEqual(ldap_ucfg.scope, 1)
         self.assertEqual(ldap_ucfg.queryFilter, '')
         self.assertEqual(sorted(ldap_ucfg.objectClasses), [
@@ -305,7 +224,7 @@ class TestSettings(NodeTestCase):
         }
         attrs.groups_relation = ''
 
-        ugm_settings = settings.parent['ugm']
+        ugm_settings = settings.parent['ugm_general']
         ugm_attrs = ugm_settings.attrs
         ugm_attrs.groups_form_attrmap = {
             'id': 'Id',
@@ -319,11 +238,11 @@ class TestSettings(NodeTestCase):
             ldap_gcfg.baseDN,
             'ou=groups,dc=my-domain,dc=com'
         )
-        self.assertEqual(ldap_gcfg.attrmap, {
-            'rdn': 'cn',
-            'id': 'cn',
-            'description': 'description'
-        })
+        self.assertEqual(sorted(ldap_gcfg.attrmap.items()), [
+            ('description', 'description'),
+            ('id', 'cn'),
+            ('rdn', 'cn')
+        ])
         self.assertEqual(ldap_gcfg.scope, 1)
         self.assertEqual(ldap_gcfg.queryFilter, '')
         self.assertEqual(ldap_gcfg.objectClasses, ['groupOfNames'])
@@ -384,10 +303,10 @@ class TestSettings(NodeTestCase):
             ldap_rcfg.baseDN,
             'ou=roles,dc=my-domain,dc=com'
         )
-        self.assertEqual(ldap_rcfg.attrmap, {
-            'rdn': 'cn',
-            'id': 'cn'
-        })
+        self.assertEqual(sorted(ldap_rcfg.attrmap.items()), [
+            ('id', 'cn'),
+            ('rdn', 'cn')
+        ])
         self.assertEqual(ldap_rcfg.scope, 1)
         self.assertEqual(ldap_rcfg.queryFilter, '')
         self.assertEqual(ldap_rcfg.objectClasses, ['groupOfUniqueNames'])

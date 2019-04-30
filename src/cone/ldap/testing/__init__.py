@@ -1,7 +1,7 @@
 from cone.app import get_root
 from cone.app.testing import Security
 from cone.ldap.settings import ldap_cfg
-from cone.ldap.settings import ugm_cfg
+from cone.ugm.settings import ugm_cfg
 from node.ext.ldap.testing import LDIF_base
 from plone.testing import Layer
 import os
@@ -19,7 +19,7 @@ ldap_roles_config = os.path.join(base_path, 'ldap_roles.xml')
 
 def _invalidate_settings():
     settings = get_root()['settings']
-    settings['ugm'].invalidate()
+    settings['ugm_general'].invalidate()
     settings['ldap_server'].invalidate()
     settings['ldap_users'].invalidate()
     settings['ldap_groups'].invalidate()
@@ -81,7 +81,7 @@ class LDAPLayer(Security, Layer):
 
     def make_app(self):
         super(LDAPLayer, self).make_app(**{
-            'cone.plugins': 'cone.ldap',
+            'cone.plugins': 'cone.ldap\ncone.ugm',
             'ugm.backend': 'ldap',
             'ugm.config': ugm_config,
             'ldap.server_config': ldap_server_config,

@@ -5,12 +5,10 @@ from cone.app.browser.utils import make_url
 from cone.ldap import testing
 from cone.ldap.browser.settings import CreateContainerAction
 from cone.ldap.browser.settings import CreateContainerTrigger
-from cone.ldap.browser.settings import GeneralSettingsForm
 from cone.ldap.browser.settings import ScopeVocabMixin
-from cone.ldap.settings import ldap_cfg
-from cone.ldap.settings import ugm_cfg
+from cone.tile import render_tile
 from cone.tile.tests import TileTestCase
-import os
+from pyramid.httpexceptions import HTTPForbidden
 
 
 class TestBrowserSettings(TileTestCase):
@@ -96,50 +94,110 @@ class TestBrowserSettings(TileTestCase):
         self.assertTrue(isinstance(action, AjaxAction))
         self.assertEqual(action.selector, '.ldap_cca')
 
-    #######################
-    # XXX: move to cone.ugm
-
-    @testing.custom_config_path
-    @testing.temp_directory
-    def test_GeneralSettingsForm(self, tempdir):
-        config_file = os.path.join(tempdir, 'ugm.xml')
-        ugm_cfg.ugm_settings = config_file
-        with open(config_file, 'w') as f:
-            f.write('<properties></properties>')
-
-        model = get_root()['settings']['ugm']
+    def test_server_settings_tiles(self):
+        root = get_root()
+        server_settings = root['settings']['ldap_server']
         request = self.layer.new_request()
+        # Unauthenticated content tile raises error
+        self.expectError(
+            HTTPForbidden,
+            render_tile,
+            server_settings,
+            request,
+            'content'
+        )
+        # Form tile raise if not manager
+        with self.layer.authenticated('editor'):
+            self.expectError(
+                HTTPForbidden,
+                render_tile,
+                server_settings,
+                request,
+                'editform'
+            )
+        # Authenticate and render tile
+        # with self.layer.authenticated('manager'):
+        #     res = render_tile(server_settings, request, 'editform')
+        # expected = 'form action="http://example.com/settings/ldap_server/edit"'
+        # self.assertTrue(res.find(expected) > -1)
 
-        tile = GeneralSettingsForm()
-        tile.model = model
-        tile.request = request
-        tile.prepare()
+    def test_users_settings_tiles(self):
+        root = get_root()
+        users_settings = root['settings']['ldap_users']
+        request = self.layer.new_request()
+        # Unauthenticated content tile raises error
+        self.expectError(
+            HTTPForbidden,
+            render_tile,
+            users_settings,
+            request,
+            'content'
+        )
+        # Form tile raise if not manager
+        with self.layer.authenticated('editor'):
+            self.expectError(
+                HTTPForbidden,
+                render_tile,
+                users_settings,
+                request,
+                'editform'
+            )
+        # Authenticate and render tile
+        # with self.layer.authenticated('manager'):
+        #     res = render_tile(users_settings, request, 'editform')
+        # expected = 'form action="http://example.com/settings/ldap_users/edit"'
+        # self.assertTrue(res.find(expected) > -1)
 
-        form = tile.form
-        self.assertEqual(form.keys(), [
-            'users_heading',
-            'users_account_expiration',
-            'users_expires_attr',
-            'users_expires_unit',
-            'user_id_autoincrement',
-            'user_id_autoincrement_prefix',
-            'user_id_autoincrement_start',
-            'users_portrait',
-            'users_portrait_attr',
-            'users_portrait_accept',
-            'users_portrait_width',
-            'users_portrait_height',
-            'users_local_management_enabled',
-            'users_exposed_attributes',
-            'users_form_attrmap',
-            'users_listing_columns',
-            'users_listing_default_column',
-            'groups_heading',
-            'groups_form_attrmap',
-            'groups_listing_columns',
-            'groups_listing_default_column',
-            'save'
-        ])
+    def test_groups_settings_tiles(self):
+        root = get_root()
+        groups_settings = root['settings']['ldap_groups']
+        request = self.layer.new_request()
+        # Unauthenticated content tile raises error
+        self.expectError(
+            HTTPForbidden,
+            render_tile,
+            groups_settings,
+            request,
+            'content'
+        )
+        # Form tile raise if not manager
+        with self.layer.authenticated('editor'):
+            self.expectError(
+                HTTPForbidden,
+                render_tile,
+                groups_settings,
+                request,
+                'editform'
+            )
+        # Authenticate and render tile
+        # with self.layer.authenticated('manager'):
+        #     res = render_tile(groups_settings, request, 'editform')
+        # expected = 'form action="http://example.com/settings/ldap_groups/edit"'
+        # self.assertTrue(res.find(expected) > -1)
 
-    # XXX: end move to cone.ugm
-    ###########################
+    def test_roles_settings_tiles(self):
+        root = get_root()
+        roles_settings = root['settings']['ldap_roles']
+        request = self.layer.new_request()
+        # Unauthenticated content tile raises error
+        self.expectError(
+            HTTPForbidden,
+            render_tile,
+            roles_settings,
+            request,
+            'content'
+        )
+        # Form tile raise if not manager
+        with self.layer.authenticated('editor'):
+            self.expectError(
+                HTTPForbidden,
+                render_tile,
+                roles_settings,
+                request,
+                'editform'
+            )
+        # Authenticate and render tile
+        # with self.layer.authenticated('manager'):
+        #     res = render_tile(roles_settings, request, 'editform')
+        # expected = 'form action="http://example.com/settings/ldap_roles/edit"'
+        # self.assertTrue(res.find(expected) > -1)
