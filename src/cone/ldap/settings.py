@@ -1,8 +1,7 @@
-from cone.app.model import BaseNode
 from cone.app.model import Metadata
 from cone.app.model import Properties
-from cone.app.model import XMLProperties
 from cone.app.utils import format_traceback
+from cone.ugm.model.settings import UGMSettings
 from ldap.functions import explode_dn
 from node.ext.ldap import LDAPNode
 from node.ext.ldap import LDAPProps
@@ -15,7 +14,6 @@ from node.utils import instance_property
 from odict import odict
 from pyramid.i18n import TranslationStringFactory
 import logging
-import os
 
 
 logger = logging.getLogger('cone.ldap')
@@ -38,31 +36,7 @@ factory_defaults.group = dict()
 factory_defaults.role = dict()
 
 
-class XMLSettings(BaseNode):
-    """XXX: Duplicate code as cone.ugm.model.settings.XMLSettings
-    """
-    config_file = None
-
-    def __call__(self):
-        self.attrs()
-
-    @instance_property
-    def attrs(self):
-        config_file = self.config_file
-        if not os.path.isfile(config_file):
-            msg = 'LDAP configuration {} does not exist.'.format(config_file)
-            raise ValueError(msg)
-        return XMLProperties(config_file)
-
-    def invalidate(self, attrs=[]):
-        attrs.append('attrs')
-        for attr in attrs:
-            _attr = '_{}'.format(attr)
-            if hasattr(self, _attr):
-                delattr(self, _attr)
-
-
-class LDAPServerSettings(XMLSettings):
+class LDAPServerSettings(UGMSettings):
 
     @property
     def config_file(self):
@@ -115,7 +89,7 @@ class LDAPContainerError(Exception):
         self.error_message = error_message
 
 
-class LDAPContainerSettings(XMLSettings):
+class LDAPContainerSettings(UGMSettings):
     container_dn = None
 
     @property

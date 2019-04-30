@@ -40,11 +40,11 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'cone.app',
+        'node.ext.ldap',
+        'cone.ugm',
         'yafowil.widget.array',
         'yafowil.widget.dict',
-        'yafowil.yaml',
-        'node.ext.ldap'
+        'yafowil.yaml'
     ],
     extras_require=dict(
         test=[

@@ -6,6 +6,7 @@ from cone.app.browser.form import YAMLForm
 from cone.app.browser.layout import ProtectedContentTile
 from cone.app.browser.settings import SettingsBehavior
 from cone.app.browser.utils import make_url
+from cone.app.ugm import ugm_backend
 from cone.ldap.settings import LDAPGroupsSettings
 from cone.ldap.settings import LDAPRolesSettings
 from cone.ldap.settings import LDAPServerSettings
@@ -23,6 +24,11 @@ from pyramid.i18n import TranslationStringFactory
 
 
 _ = TranslationStringFactory('cone.ldap')
+
+
+def initialize_ugm_backend():
+    if ugm_backend.name == 'ldap':
+        ugm_backend.initialize()
 
 
 class ScopeVocabMixin(object):
@@ -67,6 +73,7 @@ class CreateContainerAction(Tile):
                 mapping={'error': localizer.translate(e.error_message)}
             ))
             ajax_message(self.request, message, 'error')
+        # XXX: initialize UGM backend?
         return u''
 
 
@@ -107,6 +114,7 @@ class ServerSettingsForm(Form):
             setattr(model.attrs, 'password', password)
         model()
         model.invalidate()
+        initialize_ugm_backend()
 
 
 @tile(
@@ -167,6 +175,7 @@ class UsersSettingsForm(Form, ScopeVocabMixin):
             setattr(model.attrs, attr_name, val)
         model()
         model.invalidate()
+        initialize_ugm_backend()
 
 
 @tile(
@@ -226,6 +235,7 @@ class GroupsSettingsForm(Form, ScopeVocabMixin):
             setattr(model.attrs, attr_name, val)
         model()
         model.invalidate()
+        initialize_ugm_backend()
 
 
 @tile(
@@ -285,3 +295,4 @@ class RolesSettingsForm(Form, ScopeVocabMixin):
             setattr(model.attrs, attr_name, val)
         model()
         model.invalidate()
+        initialize_ugm_backend()

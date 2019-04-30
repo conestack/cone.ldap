@@ -1,5 +1,4 @@
 from cone.app import get_root
-from cone.app.model import XMLProperties
 from cone.ldap import testing
 from cone.ldap.settings import LDAPContainerError
 from cone.ldap.settings import LDAPContainerSettings
@@ -7,51 +6,15 @@ from cone.ldap.settings import LDAPGroupsSettings
 from cone.ldap.settings import LDAPRolesSettings
 from cone.ldap.settings import LDAPServerSettings
 from cone.ldap.settings import LDAPUsersSettings
-from cone.ldap.settings import XMLSettings
 from node.ext.ldap import LDAPProps
 from node.ext.ldap.ugm import GroupsConfig
 from node.ext.ldap.ugm import RolesConfig
 from node.ext.ldap.ugm import UsersConfig
 from node.tests import NodeTestCase
-import os
-import shutil
-import tempfile
 
 
 class TestSettings(NodeTestCase):
     layer = testing.ldap_layer
-
-    def test_XMLSettings(self):
-        tempdir = tempfile.mkdtemp()
-        path = os.path.join(tempdir, 'settings.xml')
-
-        class MyXMLSettings(XMLSettings):
-            config_file = path
-
-        settings = MyXMLSettings()
-        expected = 'LDAP configuration {} does not exist.'.format(path)
-        err = self.expect_error(ValueError, lambda: settings.attrs)
-        self.assertEqual(str(err), expected)
-
-        with open(path, 'w') as f:
-            f.write('<properties />')
-
-        attrs = settings.attrs
-        self.assertTrue(isinstance(attrs, XMLProperties))
-
-        attrs.foo = 'foo'
-        settings()
-
-        with open(path, 'r') as f:
-            content = f.read()
-        expected = '<properties>\n  <foo>foo</foo>\n</properties>\n'
-        self.assertEqual(content, expected)
-
-        self.assertTrue(attrs is settings.attrs)
-        settings.invalidate()
-        self.assertFalse(attrs is settings.attrs)
-
-        shutil.rmtree(tempdir)
 
     @testing.invalidate_settings
     def test_LDAPServerSettings(self):
