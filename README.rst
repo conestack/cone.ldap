@@ -5,11 +5,31 @@ Plugin for `cone.app <http://packages.python.org/cone.app>`_ providing LDAP
 integration.
 
 
-LDAP UGM
-========
+Application configuration
+-------------------------
 
-Default values and default value callbacks
-------------------------------------------
+To define the LDAP related configuration locations, provide the following
+settings in your application ini file.
+
+.. code-block:: ini
+
+    # LDAP UGM backend activation
+    ugm.backend = ldap
+
+    # Basic LDAP server configuration
+    ldap.server_config = /path/to/ldap_server.xml
+
+    # LDAP UGM backend related configuration
+    ldap.users_config = /path/to/ldap_users.xml
+    ldap.groups_config = /path/to/ldap_groups.xml
+    ldap.roles_config = /path/to/ldap_roles.xml
+
+Examples of these configuration file can be found at ``cfg`` folder of the
+source package.
+
+
+UGM Default values and default value callbacks
+----------------------------------------------
 
 Depending on the LDAP object classes used for users and groups, more or less
 attributes are required for the entries. Maybe not all of these attributes
