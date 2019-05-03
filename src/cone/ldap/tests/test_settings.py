@@ -132,11 +132,12 @@ class TestSettings(NodeTestCase):
         ugm_attrs = ugm_settings.attrs
         ugm_attrs.users_reserved_attrs = {
             'id': 'uid',
-            'login': 'uid'
+            'login': 'uid',
+            'password': 'userPassword'
         }
         ugm_attrs.users_form_attrmap = {
             'id': 'id',
-            'userPassword': 'Password',
+            'password': 'Password',
             'cn': 'Fullname',
             'sn': 'Surname',
             'mail': 'Email'
@@ -161,10 +162,10 @@ class TestSettings(NodeTestCase):
             ('jpegPhoto', 'jpegPhoto'),
             ('login', 'uid'),
             ('mail', 'mail'),
+            ('password', 'userPassword'),
             ('rdn', 'uid'),
             ('shadowExpire', 'shadowExpire'),
-            ('sn', 'sn'),
-            ('userPassword', 'userPassword')
+            ('sn', 'sn')
         ])
         self.assertEqual(ldap_ucfg.scope, 1)
         self.assertEqual(ldap_ucfg.queryFilter, '')
