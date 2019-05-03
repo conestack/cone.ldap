@@ -155,9 +155,6 @@ class UsersSettingsForm(Form, ScopeVocabMixin):
         attrs = self.model.attrs
         users_aliases_attrmap = odict()
         users_aliases_attrmap['rdn'] = attrs.users_aliases_attrmap.get('rdn')
-        users_aliases_attrmap['id'] = attrs.users_aliases_attrmap.get('id')
-        users_aliases_attrmap['login'] = \
-            attrs.users_aliases_attrmap.get('login')
         return users_aliases_attrmap
 
     def save(self, widget, data):
@@ -216,7 +213,6 @@ class GroupsSettingsForm(Form, ScopeVocabMixin):
         attrs = self.model.attrs
         groups_aliases_attrmap = odict()
         groups_aliases_attrmap['rdn'] = attrs.groups_aliases_attrmap.get('rdn')
-        groups_aliases_attrmap['id'] = attrs.groups_aliases_attrmap.get('id')
         return groups_aliases_attrmap
 
     def save(self, widget, data):
