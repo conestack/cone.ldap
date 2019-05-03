@@ -125,13 +125,15 @@ class TestSettings(NodeTestCase):
             'inetOrgPerson'
         ]
         attrs.users_aliases_attrmap = {
-            'rdn': 'uid',
-            'id': 'uid',
-            'login': 'uid',
+            'rdn': 'uid'
         }
 
         ugm_settings = settings.parent['ugm_general']
         ugm_attrs = ugm_settings.attrs
+        ugm_attrs.users_reserved_attrs = {
+            'id': 'uid',
+            'login': 'uid'
+        }
         ugm_attrs.users_form_attrmap = {
             'id': 'id',
             'userPassword': 'Password',
@@ -219,13 +221,15 @@ class TestSettings(NodeTestCase):
         attrs.groups_query = ''
         attrs.groups_object_classes = ['groupOfNames']
         attrs.groups_aliases_attrmap = {
-            'rdn': 'cn',
-            'id': 'cn'
+            'rdn': 'cn'
         }
         attrs.groups_relation = ''
 
         ugm_settings = settings.parent['ugm_general']
         ugm_attrs = ugm_settings.attrs
+        ugm_attrs.groups_reserved_attrs = {
+            'id': 'cn'
+        }
         ugm_attrs.groups_form_attrmap = {
             'id': 'Id',
             'description': 'Description'

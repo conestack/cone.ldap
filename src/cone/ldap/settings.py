@@ -2,6 +2,7 @@ from cone.app.model import Metadata
 from cone.app.model import Properties
 from cone.app.utils import format_traceback
 from cone.ugm.settings import UGMSettings
+from cone.ugm.utils import general_settings
 from ldap.functions import explode_dn
 from node.ext.ldap import LDAPNode
 from node.ext.ldap import LDAPProps
@@ -66,12 +67,12 @@ class LDAPServerSettings(UGMSettings):
 
     @instance_property
     def ldap_props(self):
-        config = self.attrs
+        settings = self.attrs
         return LDAPProps(
-            uri=config.uri,
-            user=config.user,
-            password=config.password,
-            cache=int(config.cache)
+            uri=settings.uri,
+            user=settings.user,
+            password=settings.password,
+            cache=int(settings.cache)
         )
 
     def invalidate(self):
@@ -178,36 +179,35 @@ class LDAPUsersSettings(LDAPContainerSettings):
 
     @instance_property
     def ldap_ucfg(self):
-        ugm_config = self.parent['ugm_general'].attrs
-        config = self.attrs
-        amap = odict()
-        for key in config.users_aliases_attrmap.keys():
-            amap[key] = config.users_aliases_attrmap[key]
-        for key in ugm_config.users_form_attrmap.keys():
-            if key in ['id', 'login']:
+        ugm_settings = general_settings(self).attrs
+        settings = self.attrs
+        attr_map = odict(settings.users_aliases_attrmap.items())
+        attr_map.update(ugm_settings.users_reserved_attrs)
+        for attr in ugm_settings.users_form_attrmap:
+            if attr in ugm_settings.users_reserved_attrs:
                 continue
-            amap[key] = key
-        if ugm_config.users_exposed_attributes:
-            for key in ugm_config.users_exposed_attributes:
-                amap[key] = key
-        expiresAttr = None
-        expiresUnit = EXPIRATION_DAYS
-        if ugm_config.users_account_expiration == 'True':
-            expiresAttr = ugm_config.users_expires_attr
-            expiresUnit = int(ugm_config.users_expires_unit)
-            amap[expiresAttr] = expiresAttr
-        if ugm_config.users_portrait == 'True':
-            imageAttr = ugm_config.users_portrait_attr
-            amap[imageAttr] = imageAttr
+            attr_map[attr] = attr
+        if ugm_settings.users_exposed_attributes:
+            for attr in ugm_settings.users_exposed_attributes:
+                attr_map[attr] = attr
+        expires_attr = None
+        expires_unit = EXPIRATION_DAYS
+        if ugm_settings.users_account_expiration == 'True':
+            expires_attr = ugm_settings.users_expires_attr
+            expires_unit = int(ugm_settings.users_expires_unit)
+            attr_map[expires_attr] = expires_attr
+        if ugm_settings.users_portrait == 'True':
+            image_attr = ugm_settings.users_portrait_attr
+            attr_map[image_attr] = image_attr
         return UsersConfig(
-            baseDN=config.users_dn,
-            attrmap=amap,
-            scope=int(config.users_scope),
-            queryFilter=config.users_query,
-            objectClasses=config.users_object_classes,
+            baseDN=settings.users_dn,
+            attrmap=attr_map,
+            scope=int(settings.users_scope),
+            queryFilter=settings.users_query,
+            objectClasses=settings.users_object_classes,
             defaults=factory_defaults.user,
-            expiresAttr=expiresAttr,
-            expiresUnit=expiresUnit
+            expiresAttr=expires_attr,
+            expiresUnit=expires_unit
         )
 
     def invalidate(self):
@@ -238,22 +238,21 @@ class LDAPGroupsSettings(LDAPContainerSettings):
 
     @instance_property
     def ldap_gcfg(self):
-        ugm_config = self.parent['ugm_general'].attrs
-        config = self.attrs
-        amap = odict()
-        for key in config.groups_aliases_attrmap.keys():
-            amap[key] = config.groups_aliases_attrmap[key]
-        for key in ugm_config.groups_form_attrmap.keys():
-            if key in ['id']:
+        ugm_settings = general_settings(self).attrs
+        settings = self.attrs
+        attr_map = odict(settings.groups_aliases_attrmap.items())
+        attr_map.update(ugm_settings.groups_reserved_attrs)
+        for attr in ugm_settings.groups_form_attrmap:
+            if attr in ugm_settings.groups_reserved_attrs:
                 continue
-            amap[key] = key
+            attr_map[attr] = attr
         return GroupsConfig(
-            baseDN=config.groups_dn,
-            attrmap=amap,
-            scope=int(config.groups_scope),
-            queryFilter=config.groups_query,
-            objectClasses=config.groups_object_classes,
-            # member_relation=config.groups_relation,
+            baseDN=settings.groups_dn,
+            attrmap=attr_map,
+            scope=int(settings.groups_scope),
+            queryFilter=settings.groups_query,
+            objectClasses=settings.groups_object_classes,
+            # member_relation=settings.groups_relation,
             defaults=factory_defaults.group
         )
 
@@ -285,17 +284,15 @@ class LDAPRolesSettings(LDAPContainerSettings):
 
     @instance_property
     def ldap_rcfg(self):
-        config = self.attrs
-        amap = odict()
-        for key in config.roles_aliases_attrmap.keys():
-            amap[key] = config.roles_aliases_attrmap[key]
+        settings = self.attrs
+        attr_map = odict(settings.roles_aliases_attrmap.items())
         return RolesConfig(
-            baseDN=config.roles_dn,
-            attrmap=amap,
-            scope=int(config.roles_scope),
-            queryFilter=config.roles_query,
-            objectClasses=config.roles_object_classes,
-            # member_relation=config.roles_relation,
+            baseDN=settings.roles_dn,
+            attrmap=attr_map,
+            scope=int(settings.roles_scope),
+            queryFilter=settings.roles_query,
+            objectClasses=settings.roles_object_classes,
+            # member_relation=settings.roles_relation,
             defaults=factory_defaults.role
         )
 
