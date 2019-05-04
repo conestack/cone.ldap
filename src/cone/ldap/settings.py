@@ -184,6 +184,11 @@ class LDAPUsersSettings(LDAPContainerSettings):
         attr_map = odict(settings.users_aliases_attrmap.items())
         if ugm_settings.users_login_name_attr:
             attr_map['login'] = ugm_settings.users_login_name_attr
+        else:
+            # XXX Not sure whether login attr fallback is needed. Keep for now
+            #     since this is the behavior as before introducing
+            #     users_login_name_attr setting.
+            attr_map['login'] = attr_map['id']
         for attr in ugm_settings.users_form_attrmap:
             if attr in attr_map:
                 continue
