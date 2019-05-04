@@ -154,7 +154,9 @@ class UsersSettingsForm(Form, ScopeVocabMixin):
     def users_aliases_attrmap(self):
         attrs = self.model.attrs
         users_aliases_attrmap = odict()
-        users_aliases_attrmap['rdn'] = attrs.users_aliases_attrmap.get('rdn')
+        for attr_name in ['rdn', 'id', 'password']:
+            value = attrs.users_aliases_attrmap.get(attr_name)
+            users_aliases_attrmap[attr_name] = value
         return users_aliases_attrmap
 
     def save(self, widget, data):
@@ -212,7 +214,9 @@ class GroupsSettingsForm(Form, ScopeVocabMixin):
     def groups_aliases_attrmap(self):
         attrs = self.model.attrs
         groups_aliases_attrmap = odict()
-        groups_aliases_attrmap['rdn'] = attrs.groups_aliases_attrmap.get('rdn')
+        for attr_name in ['rdn', 'id']:
+            value = attrs.groups_aliases_attrmap.get(attr_name)
+            groups_aliases_attrmap[attr_name] = value
         return groups_aliases_attrmap
 
     def save(self, widget, data):
@@ -271,8 +275,9 @@ class RolesSettingsForm(Form, ScopeVocabMixin):
     def roles_aliases_attrmap(self):
         attrs = self.model.attrs
         roles_aliases_attrmap = odict()
-        roles_aliases_attrmap['rdn'] = attrs.roles_aliases_attrmap.get('rdn')
-        roles_aliases_attrmap['id'] = attrs.roles_aliases_attrmap.get('id')
+        for attr_name in ['rdn', 'id']:
+            value = attrs.roles_aliases_attrmap.get(attr_name)
+            roles_aliases_attrmap[attr_name] = value
         return roles_aliases_attrmap
 
     def save(self, widget, data):

@@ -182,13 +182,16 @@ class LDAPUsersSettings(LDAPContainerSettings):
         ugm_settings = general_settings(self).attrs
         settings = self.attrs
         attr_map = odict(settings.users_aliases_attrmap.items())
-        attr_map.update(ugm_settings.users_reserved_attrs)
+        if ugm_settings.users_login_name_attr:
+            attr_map['login'] = ugm_settings.users_login_name_attr
         for attr in ugm_settings.users_form_attrmap:
-            if attr in ugm_settings.users_reserved_attrs:
+            if attr in attr_map:
                 continue
             attr_map[attr] = attr
         if ugm_settings.users_exposed_attributes:
             for attr in ugm_settings.users_exposed_attributes:
+                if attr in attr_map:
+                    continue
                 attr_map[attr] = attr
         expires_attr = None
         expires_unit = EXPIRATION_DAYS
@@ -241,9 +244,8 @@ class LDAPGroupsSettings(LDAPContainerSettings):
         ugm_settings = general_settings(self).attrs
         settings = self.attrs
         attr_map = odict(settings.groups_aliases_attrmap.items())
-        attr_map.update(ugm_settings.groups_reserved_attrs)
         for attr in ugm_settings.groups_form_attrmap:
-            if attr in ugm_settings.groups_reserved_attrs:
+            if attr in attr_map:
                 continue
             attr_map[attr] = attr
         return GroupsConfig(
