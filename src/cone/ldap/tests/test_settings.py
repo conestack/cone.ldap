@@ -161,7 +161,8 @@ class TestSettings(NodeTestCase):
             ('password', 'userPassword'),
             ('rdn', 'uid'),
             ('shadowExpire', 'shadowExpire'),
-            ('sn', 'sn')
+            ('sn', 'sn'),
+            ('uid', 'uid')
         ])
         self.assertEqual(ldap_ucfg.scope, 1)
         self.assertEqual(ldap_ucfg.queryFilter, '')
