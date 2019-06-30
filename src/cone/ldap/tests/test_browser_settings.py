@@ -59,8 +59,6 @@ class TestBrowserSettings(TileTestCase):
                 url = make_url(self.request, node=self.model)
                 return AjaxAction(url, 'content', 'inner', '.ldap_cca')
 
-        self.assertFalse(settings.container_exists)
-
         cca = MyCreateContainerAction()
 
         request = self.layer.new_request()

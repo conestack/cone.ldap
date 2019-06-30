@@ -185,6 +185,7 @@ class TestSettings(NodeTestCase):
         ldap_settings = settings.parent['ldap_server']
         ldap_settings.invalidate()
         settings.invalidate()
+        settings.attrs.users_dn = 'ou=users-container,dc=my-domain,dc=com'
         self.assertFalse(settings.container_exists)
         settings.create_container()
         self.assertTrue(settings.container_exists)
@@ -256,6 +257,7 @@ class TestSettings(NodeTestCase):
         ldap_settings = settings.parent['ldap_server']
         ldap_settings.invalidate()
         settings.invalidate()
+        settings.attrs.groups_dn = 'ou=groups-container,dc=my-domain,dc=com'
         self.assertFalse(settings.container_exists)
         settings.create_container()
         self.assertTrue(settings.container_exists)
@@ -320,6 +322,7 @@ class TestSettings(NodeTestCase):
         ldap_settings = settings.parent['ldap_server']
         ldap_settings.invalidate()
         settings.invalidate()
+        settings.attrs.roles_dn = 'ou=roles-container,dc=my-domain,dc=com'
         self.assertFalse(settings.container_exists)
         settings.create_container()
         self.assertTrue(settings.container_exists)
