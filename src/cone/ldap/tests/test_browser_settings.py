@@ -8,6 +8,7 @@ from cone.ldap.browser.settings import CreateContainerTrigger
 from cone.ldap.browser.settings import ScopeVocabMixin
 from cone.tile import render_tile
 from cone.tile.tests import TileTestCase
+from cone.ugm.testing import principals
 from pyramid.httpexceptions import HTTPForbidden
 
 
@@ -92,6 +93,15 @@ class TestBrowserSettings(TileTestCase):
         self.assertTrue(isinstance(action, AjaxAction))
         self.assertEqual(action.selector, '.ldap_cca')
 
+    @principals(
+        users={
+            'editor': {},
+            'manager': {}
+        },
+        roles={
+            'editor': ['editor'],
+            'manager': ['manager']
+        })
     def test_server_settings_tiles(self):
         root = get_root()
         server_settings = root['settings']['ldap_server']
@@ -114,11 +124,20 @@ class TestBrowserSettings(TileTestCase):
                 'editform'
             )
         # Authenticate and render tile
-        # with self.layer.authenticated('manager'):
-        #     res = render_tile(server_settings, request, 'editform')
-        # expected = 'form action="http://example.com/settings/ldap_server/edit"'
-        # self.assertTrue(res.find(expected) > -1)
+        with self.layer.authenticated('manager'):
+            res = render_tile(server_settings, request, 'editform')
+        expected = 'form action="http://example.com/settings/ldap_server/edit"'
+        self.assertTrue(res.find(expected) > -1)
 
+    @principals(
+        users={
+            'editor': {},
+            'manager': {}
+        },
+        roles={
+            'editor': ['editor'],
+            'manager': ['manager']
+        })
     def test_users_settings_tiles(self):
         root = get_root()
         users_settings = root['settings']['ldap_users']
@@ -141,11 +160,20 @@ class TestBrowserSettings(TileTestCase):
                 'editform'
             )
         # Authenticate and render tile
-        # with self.layer.authenticated('manager'):
-        #     res = render_tile(users_settings, request, 'editform')
-        # expected = 'form action="http://example.com/settings/ldap_users/edit"'
-        # self.assertTrue(res.find(expected) > -1)
+        with self.layer.authenticated('manager'):
+            res = render_tile(users_settings, request, 'editform')
+        expected = 'form action="http://example.com/settings/ldap_users/edit"'
+        self.assertTrue(res.find(expected) > -1)
 
+    @principals(
+        users={
+            'editor': {},
+            'manager': {}
+        },
+        roles={
+            'editor': ['editor'],
+            'manager': ['manager']
+        })
     def test_groups_settings_tiles(self):
         root = get_root()
         groups_settings = root['settings']['ldap_groups']
@@ -168,11 +196,20 @@ class TestBrowserSettings(TileTestCase):
                 'editform'
             )
         # Authenticate and render tile
-        # with self.layer.authenticated('manager'):
-        #     res = render_tile(groups_settings, request, 'editform')
-        # expected = 'form action="http://example.com/settings/ldap_groups/edit"'
-        # self.assertTrue(res.find(expected) > -1)
+        with self.layer.authenticated('manager'):
+            res = render_tile(groups_settings, request, 'editform')
+        expected = 'form action="http://example.com/settings/ldap_groups/edit"'
+        self.assertTrue(res.find(expected) > -1)
 
+    @principals(
+        users={
+            'editor': {},
+            'manager': {}
+        },
+        roles={
+            'editor': ['editor'],
+            'manager': ['manager']
+        })
     def test_roles_settings_tiles(self):
         root = get_root()
         roles_settings = root['settings']['ldap_roles']
@@ -195,7 +232,7 @@ class TestBrowserSettings(TileTestCase):
                 'editform'
             )
         # Authenticate and render tile
-        # with self.layer.authenticated('manager'):
-        #     res = render_tile(roles_settings, request, 'editform')
-        # expected = 'form action="http://example.com/settings/ldap_roles/edit"'
-        # self.assertTrue(res.find(expected) > -1)
+        with self.layer.authenticated('manager'):
+            res = render_tile(roles_settings, request, 'editform')
+        expected = 'form action="http://example.com/settings/ldap_roles/edit"'
+        self.assertTrue(res.find(expected) > -1)
