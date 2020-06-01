@@ -3,6 +3,7 @@ from cone.app.testing import Security
 from cone.app.ugm import ugm_backend
 from cone.ldap.settings import ldap_cfg
 from cone.ugm.settings import ugm_cfg
+from cone.ugm import testing
 from node.ext.ldap.testing import LDIF_base
 from node.ext.ldap.ugm.defaults import creation_defaults
 from plone.testing import Layer
@@ -10,8 +11,6 @@ import os
 
 
 base_path = os.path.split(__file__)[0]
-ugm_config = os.path.join(base_path, 'ugm.xml')
-localmanager_config = os.path.join(base_path, 'localmanager.xml')
 ldap_server_config = os.path.join(base_path, 'ldap_server.xml')
 ldap_users_config = os.path.join(base_path, 'ldap_users.xml')
 ldap_groups_config = os.path.join(base_path, 'ldap_groups.xml')
@@ -88,8 +87,8 @@ class LDAPLayer(Security, Layer):
                 'cone.ugm'
             ]),
             'ugm.backend': 'ldap',
-            'ugm.config': ugm_config,
-            'ugm.localmanager_config': localmanager_config,
+            'ugm.config': testing.ugm_config,
+            'ugm.localmanager_config': testing.localmanager_config,
             'ldap.server_config': ldap_server_config,
             'ldap.users_config': ldap_users_config,
             'ldap.groups_config': ldap_groups_config,

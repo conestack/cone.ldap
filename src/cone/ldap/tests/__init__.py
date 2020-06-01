@@ -5,6 +5,7 @@ import unittest
 def test_suite():
     from cone.ldap.tests import test_ldap
     from cone.ldap.tests import test_settings
+    from cone.ldap.tests import test_ugm
 
     from cone.ldap.tests import test_browser_settings
 
@@ -12,6 +13,7 @@ def test_suite():
 
     suite.addTest(unittest.findTestCases(test_ldap))
     suite.addTest(unittest.findTestCases(test_settings))
+    suite.addTest(unittest.findTestCases(test_ugm))
 
     suite.addTest(unittest.findTestCases(test_browser_settings))
 
