@@ -21,6 +21,7 @@ from odict import odict
 from plumber import plumbing
 from pyramid.i18n import get_localizer
 from pyramid.i18n import TranslationStringFactory
+from yafowil.base import ExtractionError
 
 
 _ = TranslationStringFactory('cone.ldap')
@@ -75,6 +76,43 @@ class CreateContainerAction(Tile):
             ajax_message(self.request, message, 'error')
         # XXX: initialize UGM backend?
         return u''
+
+
+class AliasesMixin(object):
+    reserved_alias_names = []
+    aliases_attribute = ''
+
+    @property
+    def reserved_aliases_value(self):
+        attrs = self.model.attrs
+        value = getattr(attrs, self.aliases_attribute)
+        reserved_aliases = odict()
+        for attr_name in self.reserved_alias_names:
+            reserved_aliases[attr_name] = value.get(attr_name)
+        return reserved_aliases
+
+    @property
+    def additional_aliases_value(self):
+        attrs = self.model.attrs
+        value = getattr(attrs, self.aliases_attribute)
+        additional_aliases = odict()
+        for attr_name in value.keys():
+            if attr_name in self.reserved_alias_names:
+                continue
+            additional_aliases[attr_name] = value.get(attr_name)
+        return additional_aliases
+
+    def additional_aliases_extractor(self, widget, data):
+        extracted = data.extracted
+        if extracted is UNSET:
+            return extracted
+        for val in extracted.values():
+            if not val.strip():
+                raise ExtractionError(_(
+                    'additional_aliases_empty_string',
+                    default='Additional aliases must not be empty'
+                ))
+        return extracted
 
 
 @tile(
@@ -142,22 +180,15 @@ class UsersCreateContainerAction(CreateContainerAction):
 
 @tile(name='editform', interface=LDAPUsersSettings, permission='manage')
 @plumbing(SettingsBehavior, YAMLForm)
-class UsersSettingsForm(Form, ScopeVocabMixin):
+class UsersSettingsForm(Form, ScopeVocabMixin, AliasesMixin):
     action_resource = u'edit'
     form_template = 'cone.ldap.browser:forms/users_settings.yaml'
+    reserved_alias_names = ['rdn', 'id', 'password']
+    aliases_attribute = 'users_aliases_attrmap'
 
     @property
     def message_factory(self):
         return _
-
-    @property
-    def users_aliases_attrmap(self):
-        attrs = self.model.attrs
-        users_aliases_attrmap = odict()
-        for attr_name in ['rdn', 'id', 'password']:
-            value = attrs.users_aliases_attrmap.get(attr_name)
-            users_aliases_attrmap[attr_name] = value
-        return users_aliases_attrmap
 
     def save(self, widget, data):
         model = self.model
@@ -165,13 +196,15 @@ class UsersSettingsForm(Form, ScopeVocabMixin):
             'users_dn',
             'users_scope',
             'users_query',
-            'users_object_classes',
-            'users_aliases_attrmap'
+            'users_object_classes'
         ]:
             val = data.fetch('ldap_users_settings.%s' % attr_name).extracted
             if attr_name == 'users_object_classes':
                 val = [v.strip() for v in val.split(',') if v.strip()]
             setattr(model.attrs, attr_name, val)
+        attr_map = data.fetch('ldap_users_settings.users_additional_aliases').extracted
+        attr_map.update(data.fetch('ldap_users_settings.users_reserved_aliases').extracted)
+        model.attrs.users_aliases_attrmap = attr_map
         model()
         model.invalidate()
         initialize_ugm_backend()
@@ -202,22 +235,15 @@ class GroupsCreateContainerAction(CreateContainerAction):
 
 @tile(name='editform', interface=LDAPGroupsSettings, permission='manage')
 @plumbing(SettingsBehavior, YAMLForm)
-class GroupsSettingsForm(Form, ScopeVocabMixin):
+class GroupsSettingsForm(Form, ScopeVocabMixin, AliasesMixin):
     action_resource = u'edit'
     form_template = 'cone.ldap.browser:forms/groups_settings.yaml'
+    reserved_alias_names = ['rdn', 'id']
+    aliases_attribute = 'groups_aliases_attrmap'
 
     @property
     def message_factory(self):
         return _
-
-    @property
-    def groups_aliases_attrmap(self):
-        attrs = self.model.attrs
-        groups_aliases_attrmap = odict()
-        for attr_name in ['rdn', 'id']:
-            value = attrs.groups_aliases_attrmap.get(attr_name)
-            groups_aliases_attrmap[attr_name] = value
-        return groups_aliases_attrmap
 
     def save(self, widget, data):
         model = self.model
@@ -225,14 +251,16 @@ class GroupsSettingsForm(Form, ScopeVocabMixin):
             'groups_dn',
             'groups_scope',
             'groups_query',
-            'groups_object_classes',
-            'groups_aliases_attrmap'
+            'groups_object_classes'
             # 'groups_relation'
         ]:
             val = data.fetch('ldap_groups_settings.%s' % attr_name).extracted
             if attr_name == 'groups_object_classes':
                 val = [v.strip() for v in val.split(',') if v.strip()]
             setattr(model.attrs, attr_name, val)
+        attr_map = data.fetch('ldap_groups_settings.groups_additional_aliases').extracted
+        attr_map.update(data.fetch('ldap_groups_settings.groups_reserved_aliases').extracted)
+        model.attrs.groups_aliases_attrmap = attr_map
         model()
         model.invalidate()
         initialize_ugm_backend()

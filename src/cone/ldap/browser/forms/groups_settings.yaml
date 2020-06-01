@@ -30,16 +30,27 @@ widgets:
     props:
         label: i18n:groups_object_classes:Object classes for group creation
         help: i18n:groups_object_classes_help:LDAP object class names
-- groups_aliases_attrmap:
+- groups_reserved_aliases:
     factory: field:label:help:error:dict
-    value: expr:context.groups_aliases_attrmap
+    value: expr:context.reserved_aliases_value
     props:
-        label: i18n:groups_aliases_attrmap:Group attribute aliases
-        help: i18n:groups_aliases_attrmap_help:Aliases for reserved attribute keys
-        required: i18n:groups_aliases_attrmap_required:Group attribute aliases values are mandatory
+        label: i18n:groups_reserved_aliases:Reserved group attribute aliases
+        help: i18n:groups_reserved_aliases_help:Aliases for reserved attribute aliases
+        required: i18n:groups_reserved_aliases_required:Attribute aliases values are mandatory
         static: True
         key_label: i18n:reserved_key:Reserved key
         value_label: i18n:ldap_attr_name:LDAP attribute name
+- groups_additional_aliases:
+    factory: field:label:help:error:*validate:dict
+    value: expr:context.additional_aliases_value
+    props:
+        label: i18n:groups_additional_aliases:Additional group attribute aliases
+        help: i18n:groups_aliases_attrmap_help:Additional aliases for attribute aliases
+        key_label: i18n:reserved_key:Additional key
+        value_label: i18n:ldap_attr_name:LDAP attribute name
+    custom:
+        validate:
+            extractors: [context.additional_aliases_extractor]
 #- groups_relation:
 #    factory: field:label:text
 #    value: expr:context.model.attrs.groups_relation

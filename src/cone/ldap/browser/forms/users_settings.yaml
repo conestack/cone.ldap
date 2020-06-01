@@ -30,16 +30,27 @@ widgets:
     props:
         label: i18n:users_object_classes:Object classes for user creation
         help: i18n:users_object_classes_help:LDAP object class names
-- users_aliases_attrmap:
+- users_reserved_aliases:
     factory: field:label:help:error:dict
-    value: expr:context.users_aliases_attrmap
+    value: expr:context.reserved_aliases_value
     props:
-        label: i18n:users_aliases_attrmap:User attribute aliases
-        help: i18n:users_aliases_attrmap_help:Aliases for reserved attribute keys
-        required: i18n:users_aliases_attrmap_required:User attribute aliases values are mandatory
+        label: i18n:users_reserved_aliases:Reserved user attribute aliases
+        help: i18n:users_reserved_aliases_help:Aliases for reserved attribute aliases
+        required: i18n:users_reserved_aliases_required:Attribute aliases values are mandatory
         static: True
         key_label: i18n:reserved_key:Reserved key
         value_label: i18n:ldap_attr_name:LDAP attribute name
+- users_additional_aliases:
+    factory: field:label:help:error:*validate:dict
+    value: expr:context.additional_aliases_value
+    props:
+        label: i18n:users_additional_aliases:Additional user attribute aliases
+        help: i18n:users_aliases_attrmap_help:Additional aliases for attribute aliases
+        key_label: i18n:reserved_key:Additional key
+        value_label: i18n:ldap_attr_name:LDAP attribute name
+    custom:
+        validate:
+            extractors: [context.additional_aliases_extractor]
 - save:
     factory: submit
     props:
