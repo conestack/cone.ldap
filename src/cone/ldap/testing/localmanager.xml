@@ -1,0 +1,20 @@
+<localmanager>
+  <admin_group_1>
+    <target>
+      <item>managed_group_0</item>
+      <item>managed_group_1</item>
+    </target>
+    <default>
+      <item>managed_group_1</item>
+    </default>
+  </admin_group_1>
+  <admin_group_2>
+    <target>
+      <item>managed_group_1</item>
+      <item>managed_group_2</item>
+    </target>
+    <default>
+      <item>managed_group_2</item>
+    </default>
+  </admin_group_2>
+</localmanager>
