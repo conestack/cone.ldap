@@ -1,0 +1,366 @@
+#
+# SOME DESCRIPTIVE TITLE
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE 1.0\n"
+"POT-Creation-Date: 2020-06-01 20:04+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Lingua 4.14\n"
+
+#. Default: LDAP Server
+#: ./src/cone/ldap/settings.py:49
+msgid "server_settings_node"
+msgstr ""
+
+#. Default: General LDAP Server Settings
+#: ./src/cone/ldap/settings.py:53
+msgid "server_settings_node_description"
+msgstr ""
+
+#. Default: No container DN defined.
+#: ./src/cone/ldap/settings.py:121
+msgid "no_container_dn_defined"
+msgstr ""
+
+#. Default: Expected 'ou' as RDN Attribute.
+#: ./src/cone/ldap/settings.py:126
+msgid "expected_ou_as_rdn"
+msgstr ""
+
+#. Default: Invalid DN.
+#: ./src/cone/ldap/settings.py:134
+msgid "invalid_dn"
+msgstr ""
+
+#. Default: Parent not found. Can't continue.
+#: ./src/cone/ldap/settings.py:141
+msgid "parent_not_found"
+msgstr ""
+
+#. Default: Created ${rdn}
+#: ./src/cone/ldap/settings.py:149
+msgid "created_principal_container"
+msgstr ""
+
+#. Default: LDAP Users
+#: ./src/cone/ldap/settings.py:170
+msgid "user_settings_node"
+msgstr ""
+
+#. Default: User specific LDAP Settings
+#: ./src/cone/ldap/settings.py:174
+msgid "user_settings_node_description"
+msgstr ""
+
+#. Default: LDAP Groups
+#: ./src/cone/ldap/settings.py:243
+msgid "group_settings_node"
+msgstr ""
+
+#. Default: Group specific LDAP Settings
+#: ./src/cone/ldap/settings.py:246
+msgid "group_settings_node_description"
+msgstr ""
+
+#. Default: LDAP Roles
+#: ./src/cone/ldap/settings.py:288
+msgid "role_settings_node"
+msgstr ""
+
+#. Default: Role specific LDAP Settings
+#: ./src/cone/ldap/settings.py:291
+msgid "role_settings_node_description"
+msgstr ""
+
+#. Default: Cannot create container: ${error}
+#: ./src/cone/ldap/browser/settings.py:71
+msgid "cannot_create_container"
+msgstr ""
+
+#. Default: Additional aliases must not be empty
+#: ./src/cone/ldap/browser/settings.py:111
+msgid "additional_aliases_empty_string"
+msgstr ""
+
+#. Default: Down
+#: ./src/cone/ldap/browser/settings.py:129
+msgid "server_down"
+msgstr ""
+
+#. Default: Inexistent
+#: ./src/cone/ldap/browser/settings.py:169
+#: ./src/cone/ldap/browser/settings.py:224
+#: ./src/cone/ldap/browser/settings.py:280
+msgid "inexistent"
+msgstr ""
+
+#. Default: Groups container DN
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:11
+msgid "groups_dn"
+msgstr ""
+
+#. Default: LDAP DN of container with groups
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:12
+msgid "groups_dn_help"
+msgstr ""
+
+#. Default: No groups DN defined
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:13
+msgid "groups_dn_required"
+msgstr ""
+
+#. Default: Groups search scope
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:18
+msgid "groups_scope"
+msgstr ""
+
+#. Default: LDAP search scope for groups
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:19
+msgid "groups_scope_help"
+msgstr ""
+
+#. Default: Groups search query filter
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:25
+msgid "groups_query"
+msgstr ""
+
+#. Default: Custom LDAP query for group objects
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:26
+msgid "groups_query_help"
+msgstr ""
+
+#. Default: Object classes for group creation
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:31
+msgid "groups_object_classes"
+msgstr ""
+
+#. Default: LDAP object class names
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:32
+msgid "groups_object_classes_help"
+msgstr ""
+
+#. Default: Reserved group attribute aliases
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:37
+msgid "groups_reserved_aliases"
+msgstr ""
+
+#. Default: Aliases for reserved attribute aliases
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:38
+msgid "groups_reserved_aliases_help"
+msgstr ""
+
+#. Default: Attribute aliases values are mandatory
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:39
+msgid "groups_reserved_aliases_required"
+msgstr ""
+
+#. Default: Reserved key
+#. Default: Additional key
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:41
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:49
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:41
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:41
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:49
+msgid "reserved_key"
+msgstr ""
+
+#. Default: LDAP attribute name
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:42
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:50
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:42
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:42
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:50
+msgid "ldap_attr_name"
+msgstr ""
+
+#. Default: Additional group attribute aliases
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:47
+msgid "groups_additional_aliases"
+msgstr ""
+
+#. Default: Additional aliases for attribute aliases
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:48
+msgid "groups_aliases_attrmap_help"
+msgstr ""
+
+#. Default: Save
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:65
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:54
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:36
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:60
+msgid "save"
+msgstr ""
+
+#. Default: Roles container DN
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:11
+msgid "roles_dn"
+msgstr ""
+
+#. Default: LDAP DN of container with roles
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:12
+msgid "roles_dn_help"
+msgstr ""
+
+#. Default: No Roles DN defined
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:13
+msgid "roles_dn_required"
+msgstr ""
+
+#. Default: Roles search scope
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:18
+msgid "roles_scope"
+msgstr ""
+
+#. Default: LDAP search scope for roles
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:19
+msgid "roles_scope_help"
+msgstr ""
+
+#. Default: Roles search query filter
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:25
+msgid "roles_query"
+msgstr ""
+
+#. Default: Custom LDAP query for role objects
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:26
+msgid "roles_query_help"
+msgstr ""
+
+#. Default: Object classes for role creation
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:31
+msgid "roles_object_classes"
+msgstr ""
+
+#. Default: LDAP object class names
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:32
+msgid "roles_object_classes_help"
+msgstr ""
+
+#. Default: Role attribute aliases
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:37
+msgid "roles_aliases_attrmap"
+msgstr ""
+
+#. Default: Aliases for reserved attribute keys
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:38
+msgid "roles_aliases_attrmap_help"
+msgstr ""
+
+#. Default: Role attribute aliases values are mandatory
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:39
+msgid "roles_aliases_attrmap_required"
+msgstr ""
+
+#. Default: LDAP URI
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:11
+msgid "ldap_uri"
+msgstr ""
+
+#. Default: No URI defined
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:12
+msgid "ldap_uri_required"
+msgstr ""
+
+#. Default: LDAP manager user
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:17
+msgid "ldap_manager_user"
+msgstr ""
+
+#. Default: No user defined
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:18
+msgid "ldap_manager_user_required"
+msgstr ""
+
+#. Default: LDAP manager password
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:23
+msgid "ldap_manager_password"
+msgstr ""
+
+#. Default: No password defined
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:24
+msgid "ldap_manager_password_required"
+msgstr ""
+
+#. Default: Enable caching for LDAP query results
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:29
+msgid "ldap_cache_query_results"
+msgstr ""
+
+#. Default: Users container DN
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:11
+msgid "users_dn"
+msgstr ""
+
+#. Default: LDAP DN of container with users
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:12
+msgid "users_dn_help"
+msgstr ""
+
+#. Default: No users DN defined
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:13
+msgid "users_dn_required"
+msgstr ""
+
+#. Default: Users search scope
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:18
+msgid "users_scope"
+msgstr ""
+
+#. Default: LDAP search scope for users
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:19
+msgid "users_scope_help"
+msgstr ""
+
+#. Default: Users search query filter
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:25
+msgid "users_query"
+msgstr ""
+
+#. Default: Custom LDAP query for user objects
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:26
+msgid "users_query_help"
+msgstr ""
+
+#. Default: Object classes for user creation
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:31
+msgid "users_object_classes"
+msgstr ""
+
+#. Default: LDAP object class names
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:32
+msgid "users_object_classes_help"
+msgstr ""
+
+#. Default: Reserved user attribute aliases
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:37
+msgid "users_reserved_aliases"
+msgstr ""
+
+#. Default: Aliases for reserved attribute aliases
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:38
+msgid "users_reserved_aliases_help"
+msgstr ""
+
+#. Default: Attribute aliases values are mandatory
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:39
+msgid "users_reserved_aliases_required"
+msgstr ""
+
+#. Default: Additional user attribute aliases
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:47
+msgid "users_additional_aliases"
+msgstr ""
+
+#. Default: Additional aliases for attribute aliases
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:48
+msgid "users_aliases_attrmap_help"
+msgstr ""
