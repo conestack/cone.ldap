@@ -153,8 +153,8 @@ msgstr "LDAP Objektklassen für neue Gruppen"
 #: src/cone/ldap/browser/forms/groups_settings.yaml:32
 msgid "groups_object_classes_help"
 msgstr ""
-"Diese Objektklassen werden auf neuen Gruppen gesetzt bzw beim "
-"aktualisieren von Gruppen aktualisiert."
+"Diese Objektklassen werden auf neuen Gruppen gesetzt bzw beim aktualisieren "
+"von Gruppen aktualisiert."
 
 # Group attribute aliases
 #. Default: Reserved group attribute aliases
@@ -265,8 +265,8 @@ msgstr "LDAP Objektklassen für neue Rollen"
 #: src/cone/ldap/browser/forms/roles_settings.yaml:32
 msgid "roles_object_classes_help"
 msgstr ""
-"Diese Objektklassen werden auf neuen Rollen gesetzt bzw beim "
-"aktualisieren von Rollen aktualisiert."
+"Diese Objektklassen werden auf neuen Rollen gesetzt bzw beim aktualisieren "
+"von Rollen aktualisiert."
 
 #. Default: Role attribute aliases
 #: src/cone/ldap/browser/forms/roles_settings.yaml:37

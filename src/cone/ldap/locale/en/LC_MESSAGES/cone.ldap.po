@@ -145,7 +145,6 @@ msgstr "Custom LDAP query for group objects"
 # Object classes for Role creation
 #. Default: Object classes for group creation
 #: src/cone/ldap/browser/forms/groups_settings.yaml:31
-
 msgid "groups_object_classes"
 msgstr "Object classes for group creation"
 
@@ -359,7 +358,6 @@ msgstr "Users search query filter"
 # Custom LDAP query for user objects
 #. Default: Custom LDAP query for user objects
 #: src/cone/ldap/browser/forms/users_settings.yaml:26
-
 msgid "users_query_help"
 msgstr "Custom LDAP query for user objects"
 
