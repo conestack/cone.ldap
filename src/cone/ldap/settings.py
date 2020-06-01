@@ -206,10 +206,12 @@ class LDAPUsersSettings(LDAPContainerSettings):
         if ugm_settings.users_account_expiration == 'True':
             expires_attr = ugm_settings.users_expires_attr
             expires_unit = int(ugm_settings.users_expires_unit)
-            attr_map[expires_attr] = expires_attr
+            if expires_attr not in attr_map:
+                attr_map[expires_attr] = expires_attr
         if ugm_settings.users_portrait == 'True':
             image_attr = ugm_settings.users_portrait_attr
-            attr_map[image_attr] = image_attr
+            if image_attr not in attr_map:
+                attr_map[image_attr] = image_attr
         return UsersConfig(
             baseDN=settings.users_dn,
             attrmap=attr_map,
