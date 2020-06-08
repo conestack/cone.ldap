@@ -7,7 +7,7 @@ export SLAPD_URIS=ldap://127.0.0.1:12345
 export ADDITIONAL_LDIF_LAYERS=
 
 ./bin/py -m cone.ugm.tests.__init__
-#./bin/py -m cone.ldap.tests.__init__
+./bin/py -m cone.ldap.tests.__init__
 
 unset LDAP_ADD_BIN
 unset LDAP_DELETE_BIN
