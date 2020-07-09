@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 export LDAP_ADD_BIN=parts/openldap/bin/ldapadd
 export LDAP_DELETE_BIN=parts/openldap/bin/ldapdelete

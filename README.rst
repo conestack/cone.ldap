@@ -1,6 +1,3 @@
-cone.ldap
-=========
-
 Plugin for `cone.app <http://packages.python.org/cone.app>`_ providing LDAP
 integration.
 
