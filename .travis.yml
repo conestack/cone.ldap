@@ -20,34 +20,25 @@ before_script:
   - export TZ=Europe/Vienna
 
 install:
-  - pip install coverage
-  - pip install coveralls
-  - pip install pyramid==1.9.4
+  - virtualenv .
+  - bin/pip install coverage
+  - bin/pip install coveralls
+  - bin/pip install pyramid==1.9.4
   - |
     if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then
-        pip install repoze.zcml==0.4
-        pip install repoze.workflow==0.6.1
+        bin/pip install repoze.zcml==0.4
+        bin/pip install repoze.workflow==0.6.1
     else
-        pip install repoze.zcml==1.1
-        pip install repoze.workflow==1.1
+        bin/pip install repoze.zcml==1.1
+        bin/pip install repoze.workflow==1.1
     fi
-  - pip install --upgrade pip setuptools zc.buildout
-  - buildout -N
+  - bin/pip install --upgrade pip setuptools zc.buildout
+  - bin/buildout -N
 
 script:
-  - export LDAP_ADD_BIN=parts/openldap/bin/ldapadd
-  - export LDAP_DELETE_BIN=parts/openldap/bin/ldapdelete
-  - export SLAPD_BIN=parts/openldap/libexec/slapd
-  - export SLAPD_URIS=ldap://127.0.0.1:12345
-  - export ADDITIONAL_LDIF_LAYERS=
-  - python -m cone.ldap.tests.__init__
-  - coverage run --source src/cone/ldap -m cone.ldap.tests.__init__
-  - coverage report
-  - unset LDAP_ADD_BIN
-  - unset LDAP_DELETE_BIN
-  - unset SLAPD_BIN
-  - unset SLAPD_URIS
-  - unset ADDITIONAL_LDIF_LAYERS
+  - bin/py -m cone.ldap.tests.__init__
+  - bin/coverage run --source src/cone/ldap -m cone.ldap.tests.__init__
+  - bin/coverage report
 
 after_success:
-  - coveralls
+  - bin/coveralls
