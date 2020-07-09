@@ -1,5 +1,6 @@
+dist: bionic
 language: python
-sudo: true
+sudo: false
 
 python:
   - "2.7"
@@ -8,10 +9,15 @@ python:
   - "3.7"
   - "3.8"
 
+addons:
+  apt:
+    packages:
+      - libsasl2-dev
+      - libssl-dev
+      - libdb-dev
+
 before_script:
-  - echo 'Europe/Vienna' | sudo tee /etc/timezone
-  - sudo dpkg-reconfigure --frontend noninteractive tzdata
-  - sudo apt-get -y install libsasl2-dev libssl-dev libdb-dev
+  - export TZ=Europe/Vienna
 
 install:
   - pip install coverage
