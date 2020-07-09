@@ -1,3 +1,17 @@
+.. image:: https://img.shields.io/pypi/v/cone.ldap.svg
+    :target: https://pypi.python.org/pypi/cone.ldap
+    :alt: Latest PyPI version
+
+.. image:: https://img.shields.io/pypi/dm/cone.ldap.svg
+    :target: https://pypi.python.org/pypi/cone.ldap
+    :alt: Number of PyPI downloads
+
+.. image:: https://travis-ci.org/bluedynamics/cone.ldap.svg?branch=master
+    :target: https://travis-ci.org/bluedynamics/cone.ldap
+
+.. image:: https://coveralls.io/repos/github/bluedynamics/cone.ldap/badge.svg?branch=master
+    :target: https://coveralls.io/github/bluedynamics/cone.ldap?branch=master
+
 Plugin for `cone.app <http://packages.python.org/cone.app>`_ providing LDAP
 integration.
 
