@@ -25,6 +25,7 @@ install:
   - bin/pip install coveralls
   - bin/pip install pyramid==1.9.4
   - bin/pip install Pillow==6.2.2
+  - bin/pip install natsort==6.2.0
   - |
     if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then
         bin/pip install repoze.zcml==0.4
