@@ -56,9 +56,15 @@ setup(
     ],
     extras_require=dict(
         test=[
-            'cone.app[test]',
-            'cone.ugm[test]'
+            'lxml',
+            'yafowil.yaml',
+            'zope.testrunner'
         ]
     ),
+    tests_require=[
+        'lxml',
+        'yafowil.yaml',
+        'zope.testrunner'
+    ],
     cmdclass=dict(test=Test)
 )
