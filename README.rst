@@ -180,10 +180,3 @@ Contributors
 ============
 
 - Robert Niederreiter (Author)
-
-
-Copyright
-=========
-
-Copyright (c) 2019-2020, BlueDynamics Alliance, Austria
-All rights reserved.
