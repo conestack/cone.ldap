@@ -3,7 +3,6 @@ from cone.app.ugm import ugm_backend
 from cone.ldap.settings import ldap_cfg
 from cone.ugm import testing
 from cone.ugm.settings import ugm_cfg
-from cone.ugm.testing import UGMLayer
 from node.ext.ldap.testing import LDIF_base
 from node.ext.ldap.ugm.defaults import creation_defaults
 from plone.testing import Layer
@@ -74,14 +73,14 @@ creation_defaults['inetOrgPerson']['cn'] = rdn_value
 creation_defaults['inetOrgPerson']['mail'] = create_mail
 
 
-class LDAPLayer(UGMLayer, Layer):
+class LDAPLayer(testing.UGMLayer, Layer):
     defaultBases = (LDIF_base,)
 
     def __init__(self):
         Layer.__init__(self)
 
     def make_app(self):
-        super(UGMLayer, self).make_app(**{
+        super(testing.UGMLayer, self).make_app(**{
             'cone.plugins': '\n'.join([
                 'cone.ugm',
                 'cone.ldap'
@@ -94,7 +93,6 @@ class LDAPLayer(UGMLayer, Layer):
             'ldap.groups_config': ldap_groups_config,
             'ldap.roles_config': ldap_roles_config
         })
-
         settings = get_root()['settings']
         settings['ldap_users'].create_container()
         settings['ldap_groups'].create_container()
