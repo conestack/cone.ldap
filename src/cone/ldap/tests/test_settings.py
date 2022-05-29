@@ -73,22 +73,22 @@ class TestSettings(NodeTestCase):
         ))
 
         settings.container_dn = None
-        err = self.expect_error(LDAPContainerError, settings.create_container)
+        err = self.expectError(LDAPContainerError, settings.create_container)
         self.assertEqual(err.error_message, 'no_container_dn_defined')
         self.assertFalse(settings.container_exists)
 
         settings.container_dn = 'uid=foo,dc=my-domain,dc=com'
-        err = self.expect_error(LDAPContainerError, settings.create_container)
+        err = self.expectError(LDAPContainerError, settings.create_container)
         self.assertEqual(err.error_message, 'expected_ou_as_rdn')
         self.assertFalse(settings.container_exists)
 
         settings.container_dn = 'ou=container,#'
-        err = self.expect_error(LDAPContainerError, settings.create_container)
+        err = self.expectError(LDAPContainerError, settings.create_container)
         self.assertEqual(err.error_message, 'invalid_dn')
         self.assertFalse(settings.container_exists)
 
         settings.container_dn = 'ou=container,ou=inexistent,dc=my-domain,dc=com'
-        err = self.expect_error(LDAPContainerError, settings.create_container)
+        err = self.expectError(LDAPContainerError, settings.create_container)
         self.assertEqual(err.error_message, 'parent_not_found')
         self.assertFalse(settings.container_exists)
 
