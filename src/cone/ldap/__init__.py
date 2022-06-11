@@ -1,11 +1,9 @@
-from cone.app import cfg
 from cone.app import get_root
 from cone.app import main_hook
 from cone.app import register_config
 from cone.app.ugm import ugm_backend
 from cone.app.ugm import UGMFactory
-from cone.ldap import browser
-from cone.ldap.browser import static_resources
+from cone.ldap.browser import configure_resources
 from cone.ldap.settings import ldap_cfg
 from cone.ldap.settings import LDAPGroupsSettings
 from cone.ldap.settings import LDAPRolesSettings
@@ -36,10 +34,10 @@ def initialize_ldap(config, global_config, settings):
         register_config('ldap_groups', LDAPGroupsSettings)
         register_config('ldap_roles', LDAPRolesSettings)
 
-        # custom UGM styles
-        cfg.merged.css.protected.append((static_resources, 'styles.css'))
+    # static resources
+    configure_resources(settings)
 
-    config.scan(browser)
+    config.scan('cone.ldap.browser')
 
 
 @ugm_backend('ldap')
