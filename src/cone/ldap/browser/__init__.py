@@ -23,7 +23,6 @@ cone_ldap_resources = wr.ResourceGroup(
 )
 cone_ldap_resources.add(wr.StyleResource(
     name='cone-ldap-css',
-    depends='jquery-ldap-css',
     resource='cone.ldap.css'
 ))
 
