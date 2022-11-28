@@ -5,10 +5,12 @@
 /coverage/
 /develop-eggs/
 /devsrc/
+/dist/
+/eggs/
 /include/
 /lib/
 /local/
 /parts/
+/pyvenv.cfg
 /share/
-/dist/
 /src/cone.ldap.egg-info/
