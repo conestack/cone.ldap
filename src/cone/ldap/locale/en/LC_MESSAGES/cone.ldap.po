@@ -56,32 +56,32 @@ msgstr "Created ${rdn}"
 #. Default: LDAP Users
 #: src/cone/ldap/settings.py:170
 msgid "user_settings_node"
-msgstr "Users Settings"
+msgstr "LDAP Users"
 
 #. Default: User specific LDAP Settings
 #: src/cone/ldap/settings.py:174
 msgid "user_settings_node_description"
-msgstr "LDAP users settings"
+msgstr "User specific LDAP Settings"
 
 #. Default: LDAP Groups
 #: src/cone/ldap/settings.py:243
 msgid "group_settings_node"
-msgstr "Groups Settings"
+msgstr "LDAP Groups"
 
 #. Default: Group specific LDAP Settings
 #: src/cone/ldap/settings.py:246
 msgid "group_settings_node_description"
-msgstr "LDAP groups settings"
+msgstr "Group specific LDAP Settings"
 
 #. Default: LDAP Roles
 #: src/cone/ldap/settings.py:288
 msgid "role_settings_node"
-msgstr "Roles Settings"
+msgstr "LDAP Roles"
 
 #. Default: Role specific LDAP Settings
 #: src/cone/ldap/settings.py:291
 msgid "role_settings_node_description"
-msgstr "LDAP roles settings"
+msgstr "Role specific LDAP Settings"
 
 #. Default: Cannot create container: ${error}
 #: src/cone/ldap/browser/settings.py:72
@@ -91,7 +91,7 @@ msgstr "Cannot create container: ${error}"
 #. Default: Additional aliases must not be empty
 #: src/cone/ldap/browser/settings.py:112
 msgid "additional_aliases_empty_string"
-msgstr ""
+msgstr "Additional aliases must not be empty"
 
 #. Default: Down
 #: src/cone/ldap/browser/settings.py:130
@@ -104,7 +104,6 @@ msgstr "Down"
 msgid "inexistent"
 msgstr "Inexistent"
 
-# User Accounts expires?
 #. Default: Value is required if account expiration is enabled
 #: src/cone/ldap/browser/settings.py:200
 msgid "required_if_users_account_expiration"
@@ -115,25 +114,21 @@ msgstr "Value is required if account expiration is enabled"
 msgid "roles_dn"
 msgstr "Roles container DN"
 
-# LDAP DN of container with users
 #. Default: LDAP DN of container with roles
 #: src/cone/ldap/browser/forms/roles_settings.yaml:12
 msgid "roles_dn_help"
 msgstr "LDAP DN of container with roles"
 
-# No Roles DN defined
 #. Default: No Roles DN defined
 #: src/cone/ldap/browser/forms/roles_settings.yaml:13
 msgid "roles_dn_required"
 msgstr "No Roles DN defined"
 
-# Roles search scope
 #. Default: Roles search scope
 #: src/cone/ldap/browser/forms/roles_settings.yaml:18
 msgid "roles_scope"
 msgstr "Roles search scope"
 
-# LDAP Search scope for users
 #. Default: LDAP search scope for roles
 #: src/cone/ldap/browser/forms/roles_settings.yaml:19
 msgid "roles_scope_help"
@@ -144,19 +139,16 @@ msgstr "LDAP search scope for roles"
 msgid "roles_query"
 msgstr "Roles search query filter"
 
-# Roles search query filter
 #. Default: Custom LDAP query for role objects
 #: src/cone/ldap/browser/forms/roles_settings.yaml:26
 msgid "roles_query_help"
 msgstr "Custom LDAP query for role objects"
 
-# Object classes for Role creation
 #. Default: Object classes for role creation
 #: src/cone/ldap/browser/forms/roles_settings.yaml:31
 msgid "roles_object_classes"
 msgstr "Object classes for role creation"
 
-# Object classes for Role creation
 #. Default: LDAP object class names
 #: src/cone/ldap/browser/forms/roles_settings.yaml:32
 msgid "roles_object_classes_help"
@@ -165,20 +157,18 @@ msgstr "LDAP object class names"
 #. Default: Role attribute aliases
 #: src/cone/ldap/browser/forms/roles_settings.yaml:37
 msgid "roles_aliases_attrmap"
-msgstr ""
+msgstr "Role attribute aliases"
 
 #. Default: Aliases for reserved attribute keys
 #: src/cone/ldap/browser/forms/roles_settings.yaml:38
 msgid "roles_aliases_attrmap_help"
 msgstr "Aliases for reserved attribute keys"
 
-# Role attribute aliases values are mandatory
 #. Default: Role attribute aliases values are mandatory
 #: src/cone/ldap/browser/forms/roles_settings.yaml:39
 msgid "roles_aliases_attrmap_required"
 msgstr "Role attribute aliases values are mandatory"
 
-# Reserved key
 #. Default: Reserved key
 #. Default: Additional key
 #: src/cone/ldap/browser/forms/roles_settings.yaml:41
@@ -189,7 +179,6 @@ msgstr "Role attribute aliases values are mandatory"
 msgid "reserved_key"
 msgstr "Reserved key"
 
-# LDAP attr name
 #. Default: LDAP attribute name
 #: src/cone/ldap/browser/forms/roles_settings.yaml:42
 #: src/cone/ldap/browser/forms/groups_settings.yaml:42
@@ -197,7 +186,7 @@ msgstr "Reserved key"
 #: src/cone/ldap/browser/forms/users_settings.yaml:42
 #: src/cone/ldap/browser/forms/users_settings.yaml:50
 msgid "ldap_attr_name"
-msgstr "LDAP attr name"
+msgstr "LDAP attribute name"
 
 #. Default: Save
 #: src/cone/ldap/browser/forms/roles_settings.yaml:54
@@ -217,7 +206,6 @@ msgstr "Groups container DN"
 msgid "groups_dn_help"
 msgstr "LDAP DN of container with groups"
 
-# No Groups DN defined
 #. Default: No groups DN defined
 #: src/cone/ldap/browser/forms/groups_settings.yaml:13
 msgid "groups_dn_required"
@@ -228,7 +216,6 @@ msgstr "No groups DN defined"
 msgid "groups_scope"
 msgstr "Groups search scope"
 
-# Groups search scope
 #. Default: LDAP search scope for groups
 #: src/cone/ldap/browser/forms/groups_settings.yaml:19
 msgid "groups_scope_help"
@@ -239,43 +226,36 @@ msgstr "LDAP search scope for groups"
 msgid "groups_query"
 msgstr "Groups search query filter"
 
-# Groups search query filter
 #. Default: Custom LDAP query for group objects
 #: src/cone/ldap/browser/forms/groups_settings.yaml:26
 msgid "groups_query_help"
 msgstr "Custom LDAP query for group objects"
 
-# Object classes for Role creation
 #. Default: Object classes for group creation
 #: src/cone/ldap/browser/forms/groups_settings.yaml:31
 msgid "groups_object_classes"
 msgstr "Object classes for group creation"
 
-# LDAP object classes
 #. Default: LDAP object class names
 #: src/cone/ldap/browser/forms/groups_settings.yaml:32
 msgid "groups_object_classes_help"
-msgstr "LDAP object classes"
+msgstr "LDAP object class names"
 
-# Group attribute aliases
 #. Default: Reserved group attribute aliases
 #: src/cone/ldap/browser/forms/groups_settings.yaml:37
 msgid "groups_reserved_aliases"
 msgstr "Reserved group attribute aliases"
 
-# Aliases for reserved attribute keys
 #. Default: Aliases for reserved attribute aliases
 #: src/cone/ldap/browser/forms/groups_settings.yaml:38
 msgid "groups_reserved_aliases_help"
-msgstr "Aliases for reserved attribute keys"
+msgstr "Aliases for reserved attribute aliases"
 
-# Group attribute aliases values are mandatory
 #. Default: Attribute aliases values are mandatory
 #: src/cone/ldap/browser/forms/groups_settings.yaml:39
 msgid "groups_reserved_aliases_required"
 msgstr "Attribute aliases values are mandatory"
 
-# Group attribute aliases
 #. Default: Additional group attribute aliases
 #: src/cone/ldap/browser/forms/groups_settings.yaml:47
 msgid "groups_additional_aliases"
@@ -284,20 +264,18 @@ msgstr "Additional group attribute aliases"
 #. Default: Additional aliases for attribute aliases
 #: src/cone/ldap/browser/forms/groups_settings.yaml:48
 msgid "groups_aliases_attrmap_help"
-msgstr ""
+msgstr "Additional aliases for attribute aliases"
 
 #. Default: Users container DN
 #: src/cone/ldap/browser/forms/users_settings.yaml:11
 msgid "users_dn"
 msgstr "Users container DN"
 
-# LDAP DN of container with users
 #. Default: LDAP DN of container with users
 #: src/cone/ldap/browser/forms/users_settings.yaml:12
 msgid "users_dn_help"
 msgstr "LDAP DN of container with users"
 
-# No Users DN defined
 #. Default: No users DN defined
 #: src/cone/ldap/browser/forms/users_settings.yaml:13
 msgid "users_dn_required"
@@ -308,7 +286,6 @@ msgstr "No users DN defined"
 msgid "users_scope"
 msgstr "Users search scope"
 
-# LDAP Search scope for users
 #. Default: LDAP search scope for users
 #: src/cone/ldap/browser/forms/users_settings.yaml:19
 msgid "users_scope_help"
@@ -319,115 +296,96 @@ msgstr "LDAP search scope for users"
 msgid "users_query"
 msgstr "Users search query filter"
 
-# Custom LDAP query for user objects
 #. Default: Custom LDAP query for user objects
 #: src/cone/ldap/browser/forms/users_settings.yaml:26
 msgid "users_query_help"
 msgstr "Custom LDAP query for user objects"
 
-# Object classes for User creation
 #. Default: Object classes for user creation
 #: src/cone/ldap/browser/forms/users_settings.yaml:31
 msgid "users_object_classes"
 msgstr "Object classes for user creation"
 
-# LDAP object classes
 #. Default: LDAP object class names
 #: src/cone/ldap/browser/forms/users_settings.yaml:32
 msgid "users_object_classes_help"
 msgstr "LDAP object class names"
 
-# User attribute aliases
 #. Default: Reserved user attribute aliases
 #: src/cone/ldap/browser/forms/users_settings.yaml:37
 msgid "users_reserved_aliases"
 msgstr "Reserved user attribute aliases"
 
-# Aliases for reserved attribute keys
 #. Default: Aliases for reserved attribute aliases
 #: src/cone/ldap/browser/forms/users_settings.yaml:38
 msgid "users_reserved_aliases_help"
 msgstr "Aliases for reserved attribute aliases"
 
-# User attribute aliases values are mandatory
 #. Default: Attribute aliases values are mandatory
 #: src/cone/ldap/browser/forms/users_settings.yaml:39
 msgid "users_reserved_aliases_required"
 msgstr "Attribute aliases values are mandatory"
 
-# User attribute aliases
 #. Default: Additional user attribute aliases
 #: src/cone/ldap/browser/forms/users_settings.yaml:47
 msgid "users_additional_aliases"
 msgstr "Additional user attribute aliases"
 
-# LDAP Search scope for users
 #. Default: Additional aliases for attribute aliases
 #: src/cone/ldap/browser/forms/users_settings.yaml:48
 msgid "users_aliases_attrmap_help"
 msgstr "Additional aliases for attribute aliases"
 
-# User Accounts expires?
 #. Default: Attribute containing expiration Time
 #: src/cone/ldap/browser/forms/users_settings.yaml:58
 msgid "users_expires_attr"
 msgstr "Attribute containing expiration Time"
 
-# Flag whether to consider user expiration
 #. Default: Attribute name containing expires information
 #: src/cone/ldap/browser/forms/users_settings.yaml:59
 msgid "users_expires_attr_help"
 msgstr "Attribute name containing expires information"
 
-# User Accounts expires?
 #. Default: Account expiration unit
 #: src/cone/ldap/browser/forms/users_settings.yaml:68
 msgid "users_expires_unit"
 msgstr "Account expiration unit"
 
-# Flag whether to consider user expiration
 #. Default: Unit of expiration value
 #: src/cone/ldap/browser/forms/users_settings.yaml:69
 msgid "users_expires_unit_help"
 msgstr "Unit of expiration value"
 
-# LDAP URI
 #. Default: LDAP URI
 #: src/cone/ldap/browser/forms/server_settings.yaml:11
 msgid "ldap_uri"
 msgstr "LDAP URI"
 
-# No URI defined
 #. Default: No URI defined
 #: src/cone/ldap/browser/forms/server_settings.yaml:12
 msgid "ldap_uri_required"
 msgstr "No URI defined"
 
-# LDAP Manager User
 #. Default: LDAP manager user
 #: src/cone/ldap/browser/forms/server_settings.yaml:17
 msgid "ldap_manager_user"
 msgstr "LDAP Manager User"
 
-# No user defined
 #. Default: No user defined
 #: src/cone/ldap/browser/forms/server_settings.yaml:18
 msgid "ldap_manager_user_required"
 msgstr "No user defined"
 
-# LDAP Manager Password
 #. Default: LDAP manager password
 #: src/cone/ldap/browser/forms/server_settings.yaml:23
 msgid "ldap_manager_password"
 msgstr "LDAP Manager Password"
 
-# No password defined
 #. Default: No password defined
 #: src/cone/ldap/browser/forms/server_settings.yaml:24
 msgid "ldap_manager_password_required"
 msgstr "No password defined"
 
-# No user defined
 #. Default: Enable caching for LDAP query results
 #: src/cone/ldap/browser/forms/server_settings.yaml:29
 msgid "ldap_cache_query_results"
@@ -448,7 +406,7 @@ msgstr "Check Groups DN:"
 #: src/cone/ldap/browser/templates/users_settings.pt:19
 #: src/cone/ldap/browser/templates/roles_settings.pt:19
 msgid "server_not_reachable"
-msgstr ""
+msgstr "Server not reachable"
 
 #. Default: Create groups container?
 #: src/cone/ldap/browser/templates/groups_settings.pt:25
