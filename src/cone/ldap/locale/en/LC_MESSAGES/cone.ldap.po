@@ -86,7 +86,7 @@ msgstr "LDAP roles settings"
 #. Default: Cannot create container: ${error}
 #: src/cone/ldap/browser/settings.py:72
 msgid "cannot_create_container"
-msgstr "Can't create container: ${error}"
+msgstr "Cannot create container: ${error}"
 
 #. Default: Additional aliases must not be empty
 #: src/cone/ldap/browser/settings.py:112
