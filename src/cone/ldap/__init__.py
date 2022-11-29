@@ -39,6 +39,9 @@ def initialize_ldap(config, global_config, settings):
         # custom UGM styles
         cfg.merged.css.protected.append((static_resources, 'styles.css'))
 
+    # add translation
+    config.add_translation_dirs('cone.ldap:locale/')
+
     config.scan(browser)
 
 
