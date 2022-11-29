@@ -36,4 +36,6 @@
       <value>jpegPhoto</value>
     </elem>
   </users_aliases_attrmap>
+  <users_expires_attr>shadowExpire</users_expires_attr>
+  <users_expires_unit>0</users_expires_unit>
 </properties>

@@ -110,6 +110,8 @@ class TestSettings(NodeTestCase):
         self.assertEqual(sorted(attrs.keys()), [
             'users_aliases_attrmap',
             'users_dn',
+            'users_expires_attr',
+            'users_expires_unit',
             'users_object_classes',
             'users_query',
             'users_scope'
