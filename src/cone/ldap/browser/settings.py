@@ -1,6 +1,6 @@
+from cone.app.browser.ajax import AjaxAction
 from cone.app.browser.ajax import ajax_continue
 from cone.app.browser.ajax import ajax_message
-from cone.app.browser.ajax import AjaxAction
 from cone.app.browser.form import Form
 from cone.app.browser.form import YAMLForm
 from cone.app.browser.layout import ProtectedContentTile
@@ -13,14 +13,15 @@ from cone.ldap.settings import LDAPServerSettings
 from cone.ldap.settings import LDAPUsersSettings
 from cone.tile import Tile
 from cone.tile import tile
+from cone.ugm.utils import general_settings
 from node.ext.ldap import BASE
 from node.ext.ldap import ONELEVEL
 from node.ext.ldap import SUBTREE
 from node.utils import UNSET
 from odict import odict
 from plumber import plumbing
-from pyramid.i18n import get_localizer
 from pyramid.i18n import TranslationStringFactory
+from pyramid.i18n import get_localizer
 from yafowil.base import ExtractionError
 
 
@@ -190,13 +191,27 @@ class UsersSettingsForm(Form, ScopeVocabMixin, AliasesMixin):
     def message_factory(self):
         return _
 
+    def required_if_users_account_expiration(self, widget, data):
+        extracted = data.extracted
+        if extracted is UNSET:
+            return extracted
+        settings = general_settings(self.model)
+        if settings.attrs.users_account_expiration == 'True' and not extracted:
+            raise ExtractionError(_(
+                'required_if_users_account_expiration',
+                default='Value is required if account expiration is enabled'
+            ))
+        return extracted
+
     def save(self, widget, data):
         model = self.model
         for attr_name in [
             'users_dn',
             'users_scope',
             'users_query',
-            'users_object_classes'
+            'users_object_classes',
+            'users_expires_attr',
+            'users_expires_unit'
         ]:
             val = data.fetch('ldap_users_settings.%s' % attr_name).extracted
             if attr_name == 'users_object_classes':

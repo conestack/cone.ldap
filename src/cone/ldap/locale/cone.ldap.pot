@@ -364,3 +364,28 @@ msgstr ""
 #: ./src/cone/ldap/browser/forms/users_settings.yaml:48
 msgid "users_aliases_attrmap_help"
 msgstr ""
+
+#. Default: Attribute containing expiration Time
+#: ./src/cone/ugm/browser/forms/general_settings.yaml:22
+msgid "users_expires_attr"
+msgstr ""
+
+#. Default: Attribute name containing expires information
+#: ./src/cone/ugm/browser/forms/general_settings.yaml:23
+msgid "users_expires_attr_help"
+msgstr ""
+
+#. Default: Account expiration unit
+#: ./src/cone/ugm/browser/forms/general_settings.yaml:32
+msgid "users_expires_unit"
+msgstr ""
+
+#. Default: Unit of expiration value
+#: ./src/cone/ugm/browser/forms/general_settings.yaml:33
+msgid "users_expires_unit_help"
+msgstr ""
+
+#. Default: Value is required if account expiration is enabled
+#: ./src/cone/ugm/browser/settings.py:43
+msgid "required_if_users_account_expiration"
+msgstr ""
