@@ -46,7 +46,7 @@ widgets:
     props:
         label: i18n:groups_additional_aliases:Additional group attribute aliases
         help: i18n:groups_aliases_attrmap_help:Additional aliases for attribute aliases
-        key_label: i18n:reserved_key:Additional key
+        key_label: i18n:additional_key:Additional key
         value_label: i18n:ldap_attr_name:LDAP attribute name
     custom:
         validate:

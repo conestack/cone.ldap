@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cone.ugm 0.9.4dev\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-11-29 14:38+0100\n"
+"POT-Creation-Date: 2022-11-29 17:15+0100\n"
 "PO-Revision-Date: 2012-07-30 14:02+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -170,12 +170,9 @@ msgid "roles_aliases_attrmap_required"
 msgstr "Role attribute aliases values are mandatory"
 
 #. Default: Reserved key
-#. Default: Additional key
 #: src/cone/ldap/browser/forms/roles_settings.yaml:41
 #: src/cone/ldap/browser/forms/groups_settings.yaml:41
-#: src/cone/ldap/browser/forms/groups_settings.yaml:49
 #: src/cone/ldap/browser/forms/users_settings.yaml:41
-#: src/cone/ldap/browser/forms/users_settings.yaml:49
 msgid "reserved_key"
 msgstr "Reserved key"
 
@@ -265,6 +262,12 @@ msgstr "Additional group attribute aliases"
 #: src/cone/ldap/browser/forms/groups_settings.yaml:48
 msgid "groups_aliases_attrmap_help"
 msgstr "Additional aliases for attribute aliases"
+
+#. Default: Additional key
+#: src/cone/ldap/browser/forms/groups_settings.yaml:49
+#: src/cone/ldap/browser/forms/users_settings.yaml:49
+msgid "additional_key"
+msgstr "Additional key"
 
 #. Default: Users container DN
 #: src/cone/ldap/browser/forms/users_settings.yaml:11
