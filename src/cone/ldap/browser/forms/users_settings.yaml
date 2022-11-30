@@ -46,11 +46,28 @@ widgets:
     props:
         label: i18n:users_additional_aliases:Additional user attribute aliases
         help: i18n:users_aliases_attrmap_help:Additional aliases for attribute aliases
-        key_label: i18n:reserved_key:Additional key
+        key_label: i18n:additional_key:Additional key
         value_label: i18n:ldap_attr_name:LDAP attribute name
     custom:
         validate:
             extractors: [context.additional_aliases_extractor]
+- users_expires_attr:
+    factory: field:label:help:error:*expiration:text
+    value: expr:context.model.attrs.users_expires_attr
+    props:
+        label: i18n:users_expires_attr:Attribute containing expiration Time
+        help: i18n:users_expires_attr_help:Attribute name containing expires information
+    custom:
+        expiration:
+            extractors:
+                - context.required_if_users_account_expiration
+- users_expires_unit:
+    factory: field:label:help:select
+    value: expr:int(context.model.attrs.users_expires_unit)
+    props:
+        label: i18n:users_expires_unit:Account expiration unit
+        help: i18n:users_expires_unit_help:Unit of expiration value
+        vocabulary: expr:((0, 'Days since Epoch'), (1, 'Seconds since epoch'))
 - save:
     factory: submit
     props:

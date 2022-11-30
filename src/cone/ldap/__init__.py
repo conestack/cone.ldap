@@ -34,6 +34,9 @@ def initialize_ldap(config, global_config, settings):
         register_config('ldap_groups', LDAPGroupsSettings)
         register_config('ldap_roles', LDAPRolesSettings)
 
+    # add translation
+    config.add_translation_dirs('cone.ldap:locale/')
+
     # static resources
     configure_resources(settings)
 
