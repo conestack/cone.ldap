@@ -1,7 +1,13 @@
 Changes
 =======
 
-0.2 (unreleased)
+0.3 (unreleased)
+----------------
+
+- Nothing changed yet.
+
+
+0.2 (2022-12-05)
 ----------------
 
 - Move ``users_expires_attr`` and ``users_expires_unit`` settings from cone.ugm,
