@@ -38,7 +38,7 @@ def initialize_ldap(config, global_config, settings):
     config.add_translation_dirs('cone.ldap:locale/')
 
     # static resources
-    configure_resources(settings)
+    configure_resources(config, settings)
 
     config.scan('cone.ldap.browser')
 
