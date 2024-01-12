@@ -1,5 +1,5 @@
-from cone.app.model import Metadata
 from cone.app.model import Properties
+from cone.app.model import node_info
 from cone.app.utils import format_traceback
 from cone.ugm.settings import UGMSettings
 from cone.ugm.utils import general_settings
@@ -37,24 +37,19 @@ factory_defaults.group = dict()
 factory_defaults.role = dict()
 
 
+@node_info(
+    name='ldap_server_settings',
+    title=_('server_settings_node', default='LDAP Server Settings'),
+    description=_(
+        'server_settings_node_description',
+        default='General LDAP Server Settings'
+    ))
 class LDAPServerSettings(UGMSettings):
+    category = _('ldap', default='LDAP')
 
     @property
     def config_file(self):
         return ldap_cfg.server_config
-
-    @instance_property
-    def metadata(self):
-        metadata = Metadata()
-        metadata.title = _(
-            'server_settings_node',
-            default='LDAP Server'
-        )
-        metadata.description = _(
-            'server_settings_node_description',
-            default='General LDAP Server Settings'
-        )
-        return metadata
 
     @property
     def ldap_connectivity(self):
@@ -154,7 +149,15 @@ class LDAPContainerSettings(UGMSettings):
         return message
 
 
+@node_info(
+    name='ldap_user_settings',
+    title=_('user_settings_node', default='LDAP User Settings'),
+    description=_(
+        'user_settings_node_description',
+        default='User specific LDAP Settings'
+    ))
 class LDAPUsersSettings(LDAPContainerSettings):
+    category = _('ldap', default='LDAP')
 
     @property
     def config_file(self):
@@ -163,19 +166,6 @@ class LDAPUsersSettings(LDAPContainerSettings):
     @property
     def container_dn(self):
         return self.attrs.users_dn
-
-    @instance_property
-    def metadata(self):
-        metadata = Metadata()
-        metadata.title = _(
-            'user_settings_node',
-            default='LDAP Users'
-        )
-        metadata.description = _(
-            'user_settings_node_description',
-            default='User specific LDAP Settings'
-        )
-        return metadata
 
     @instance_property
     def ldap_ucfg(self):
@@ -227,7 +217,15 @@ class LDAPUsersSettings(LDAPContainerSettings):
         super(LDAPUsersSettings, self).invalidate(attrs=['ldap_ucfg'])
 
 
+@node_info(
+    name='ldap_group_settings',
+    title=_('group_settings_node', default='LDAP Group Settings'),
+    description=_(
+        'group_settings_node_description',
+        default='Group specific LDAP Settings'
+    ))
 class LDAPGroupsSettings(LDAPContainerSettings):
+    category = _('ldap', default='LDAP')
 
     @property
     def config_file(self):
@@ -236,18 +234,6 @@ class LDAPGroupsSettings(LDAPContainerSettings):
     @property
     def container_dn(self):
         return self.attrs.groups_dn
-
-    @instance_property
-    def metadata(self):
-        metadata = Metadata()
-        metadata.title = _(
-            'group_settings_node',
-            default='LDAP Groups')
-        metadata.description = _(
-            'group_settings_node_description',
-            default='Group specific LDAP Settings'
-        )
-        return metadata
 
     @instance_property
     def ldap_gcfg(self):
@@ -272,7 +258,15 @@ class LDAPGroupsSettings(LDAPContainerSettings):
         super(LDAPGroupsSettings, self).invalidate(attrs=['ldap_gcfg'])
 
 
+@node_info(
+    name='ldap_role_settings',
+    title=_('role_settings_node', default='LDAP Role Settings'),
+    description=_(
+        'role_settings_node_description',
+        default='Role specific LDAP Settings'
+    ))
 class LDAPRolesSettings(LDAPContainerSettings):
+    category = _('ldap', default='LDAP')
 
     @property
     def config_file(self):
@@ -281,18 +275,6 @@ class LDAPRolesSettings(LDAPContainerSettings):
     @property
     def container_dn(self):
         return self.attrs.roles_dn
-
-    @instance_property
-    def metadata(self):
-        metadata = Metadata()
-        metadata.title = _(
-            'role_settings_node',
-            default='LDAP Roles')
-        metadata.description = _(
-            'role_settings_node_description',
-            default='Role specific LDAP Settings'
-        )
-        return metadata
 
     @instance_property
     def ldap_rcfg(self):

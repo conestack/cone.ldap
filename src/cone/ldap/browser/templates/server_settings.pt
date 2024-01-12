@@ -4,7 +4,7 @@
            omit-tag="True">
   <div>
 
-    <h1 i18n:translate="ldap_server_settings">LDAP Server Settings</h1>
+    <h1 tal:content="context.form_heading">Title</h1>
 
     <p>
       <strong i18n:translate="server_connection">Server Connection:</strong>
@@ -15,7 +15,7 @@
       </strong>
     </p>
 
-    <tal:settings replace="structure tile('editform')" />
+    <tal:form replace="structure context.rendered_form" />
 
   </div>
 </tal:block>
