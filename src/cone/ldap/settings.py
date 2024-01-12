@@ -43,7 +43,8 @@ factory_defaults.role = dict()
     description=_(
         'server_settings_node_description',
         default='General LDAP Server Settings'
-    ))
+    ),
+    icon='glyphicon glyphicon-hdd')
 class LDAPServerSettings(UGMSettings):
     category = _('ldap', default='LDAP')
 
@@ -155,7 +156,8 @@ class LDAPContainerSettings(UGMSettings):
     description=_(
         'user_settings_node_description',
         default='User specific LDAP Settings'
-    ))
+    ),
+    icon='ion-person')
 class LDAPUsersSettings(LDAPContainerSettings):
     category = _('ldap', default='LDAP')
 
@@ -223,7 +225,8 @@ class LDAPUsersSettings(LDAPContainerSettings):
     description=_(
         'group_settings_node_description',
         default='Group specific LDAP Settings'
-    ))
+    ),
+    icon='ion-person-stalker')
 class LDAPGroupsSettings(LDAPContainerSettings):
     category = _('ldap', default='LDAP')
 
@@ -264,7 +267,8 @@ class LDAPGroupsSettings(LDAPContainerSettings):
     description=_(
         'role_settings_node_description',
         default='Role specific LDAP Settings'
-    ))
+    ),
+    icon='glyphicon glyphicon-tasks')
 class LDAPRolesSettings(LDAPContainerSettings):
     category = _('ldap', default='LDAP')
 
