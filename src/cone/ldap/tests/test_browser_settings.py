@@ -1,7 +1,6 @@
 from cone.app import get_root
-from cone.app.browser.ajax import AjaxAction
+from cone.app.browser.ajax import AjaxEvent
 from cone.app.browser.ajax import AjaxMessage
-from cone.app.browser.utils import make_url
 from cone.ldap import testing
 from cone.ldap.browser.settings import CreateContainerAction
 from cone.ldap.browser.settings import CreateContainerTrigger
@@ -44,23 +43,6 @@ class TestBrowserSettings(TileTestCase):
         cca = CreateContainerAction()
         cca.model = settings
         cca.request = self.layer.new_request()
-        err = self.expectError(
-            NotImplementedError,
-            lambda: cca.continuation
-        )
-        expected = (
-            'Abstract ``CreateContainerAction`` '
-            'does not implement ``continuation``'
-        )
-        self.assertEqual(str(err), expected)
-
-        class MyCreateContainerAction(CreateContainerAction):
-            @property
-            def continuation(self):
-                url = make_url(self.request, node=self.model)
-                return AjaxAction(url, 'content', 'inner', '.ldap_cca')
-
-        cca = MyCreateContainerAction()
 
         request = self.layer.new_request()
         settings.attrs.users_dn = 'ou=cca,dc=other-domain,dc=com'
@@ -88,10 +70,12 @@ class TestBrowserSettings(TileTestCase):
         message = request.environ['cone.app.continuation'][0]
         self.assertTrue(isinstance(message, AjaxMessage))
         self.assertEqual(message.flavor, 'info')
-        self.assertEqual(message.payload, 'created_principal_container')
-        action = request.environ['cone.app.continuation'][1]
-        self.assertTrue(isinstance(action, AjaxAction))
-        self.assertEqual(action.selector, '.ldap_cca')
+        self.assertEqual(message.payload, 'Created ou=cca')
+        event = request.environ['cone.app.continuation'][1]
+        self.assertTrue(isinstance(event, AjaxEvent))
+        self.assertEqual(event.target, 'http://example.com/settings/ldap_users')
+        self.assertEqual(event.name, 'contextchanged')
+        self.assertEqual(event.selector, '#layout')
 
     @principals(
         users={

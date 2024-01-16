@@ -4,8 +4,11 @@ Changes
 0.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Adopt Settings UI changes from ``cone.app``.
+  [rnix]
 
+- Use ``webresource`` for resource registration.
+  [rnix]
 
 0.2 (2022-12-05)
 ----------------
