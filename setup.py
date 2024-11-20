@@ -1,6 +1,5 @@
 from setuptools import find_packages
 from setuptools import setup
-from setuptools.command.test import test
 import os
 
 
@@ -16,13 +15,6 @@ longdesc = '\n\n'.join([read_file(name) for name in [
     'CHANGES.rst',
     'LICENSE.rst'
 ]])
-
-
-class Test(test):
-
-    def run_tests(self):
-        from cone.ldap import tests
-        tests.run_tests()
 
 
 setup(
@@ -49,22 +41,9 @@ setup(
     install_requires=[
         'setuptools',
         'node.ext.ldap',
-        'cone.ugm',
-        'yafowil.widget.array',
-        'yafowil.widget.dict',
-        'yafowil.yaml'
+        'cone.ugm'
     ],
     extras_require=dict(
-        test=[
-            'lxml',
-            'yafowil.yaml',
-            'zope.testrunner'
-        ]
-    ),
-    tests_require=[
-        'lxml',
-        'yafowil.yaml',
-        'zope.testrunner'
-    ],
-    cmdclass=dict(test=Test)
+        test=['cone.ugm[test]']
+    )
 )

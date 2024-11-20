@@ -79,7 +79,7 @@ PYTHON_MIN_VERSION?=3.9
 # `VENV_ENABLED` and uv is selected, uv is used to create the virtual
 # environment.
 # Default: pip
-PYTHON_PACKAGE_INSTALLER?=pip
+PYTHON_PACKAGE_INSTALLER?=uv
 
 # Flag whether to use a global installed 'uv' or install
 # it in the virtual environment.
@@ -103,7 +103,7 @@ VENV_CREATE?=true
 # `VENV_CREATE` is false it is expected to point to an existing virtual
 # environment. If `VENV_ENABLED` is `false` it is ignored.
 # Default: .venv
-VENV_FOLDER?=.venv
+VENV_FOLDER?=venv
 
 # mxdev to install in virtual environment.
 # Default: mxdev
@@ -171,25 +171,25 @@ ZEST_RELEASER_FULLRELEASE_OPTIONS?=
 
 # Path of directory containing the message catalogs.
 # Default: locale
-GETTEXT_LOCALES_PATH?=locale
+GETTEXT_LOCALES_PATH?=src/cone/ldap/locale
 
 # Translation domain to use.
 # No default value.
-GETTEXT_DOMAIN?=
+GETTEXT_DOMAIN?=cone.ldap
 
 # Space separated list of language identifiers.
 # No default value.
-GETTEXT_LANGUAGES?=
+GETTEXT_LANGUAGES?=en de
 
 ## i18n.lingua
 
 # Path of directory to extract translatable texts from.
 # Default: src
-LINGUA_SEARCH_PATH?=src
+LINGUA_SEARCH_PATH?=src/cone/ldap
 
 # Python packages containing lingua extensions.
 # No default value.
-LINGUA_PLUGINS?=
+LINGUA_PLUGINS?=yafowil.lingua
 
 # Command line options passed to `pot-create`
 # No default value.
