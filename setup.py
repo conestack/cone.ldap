@@ -44,6 +44,7 @@ setup(
         'cone.ugm'
     ],
     extras_require=dict(
+        dev=['waitress'],
         test=['cone.ugm[test]']
     )
 )
