@@ -1,10 +1,10 @@
 *.egg-info/
 *.pyc
+/.coverage
 /.installed.cfg
 /.mxmake/
 /bin/
 /constraints-mxdev.txt
-/coverage/
 /dist/
 /openldap/
 /requirements-mxdev.txt

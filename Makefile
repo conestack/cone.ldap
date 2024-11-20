@@ -14,6 +14,7 @@
 #: ldap.python-ldap
 #: qa.coverage
 #: qa.test
+#: system.dependencies
 #
 # SETTINGS (ALL CHANGES MADE BELOW SETTINGS WILL BE LOST)
 ##############################################################################
@@ -42,6 +43,12 @@ INCLUDE_MAKEFILE?=include.mk
 # first.
 # No default value.
 EXTRA_PATH?=
+
+## system.dependencies
+
+# Space separated system package names.
+# No default value.
+SYSTEM_DEPENDENCIES?=
 
 ## ldap.openldap
 
@@ -228,6 +235,17 @@ SENTINEL?=$(SENTINEL_FOLDER)/about.txt
 $(SENTINEL): $(firstword $(MAKEFILE_LIST))
 	@mkdir -p $(SENTINEL_FOLDER)
 	@echo "Sentinels for the Makefile process." > $(SENTINEL)
+
+##############################################################################
+# system dependencies
+##############################################################################
+
+.PHONY: system-dependencies
+system-dependencies:
+	@echo "Install system dependencies"
+	@test -z "$(SYSTEM_DEPENDENCIES)" && echo "No System dependencies defined"
+	@test -z "$(SYSTEM_DEPENDENCIES)" \
+		|| sudo apt-get install -y $(SYSTEM_DEPENDENCIES)
 
 ##############################################################################
 # openldap
