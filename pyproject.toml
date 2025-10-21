@@ -33,8 +33,14 @@ test = [
 [project.urls]
 Homepage = "http://github.com/conestack/cone.ldap"
 
+[tool.hatch.build.targets.sdist]
+include = [
+    "/etc",
+    "/cfg",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/cone"]
+
 [tool.zest-releaser]
 create-wheel = true
