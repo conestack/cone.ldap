@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cone.ldap"
+version = "0.3.dev0"
+description = "LDAP integration for cone.app"
+readme = "README.rst"
+license = {text = "Simplified BSD"}
+authors = [{name = "Cone Contributors", email = "dev@conestack.org"}]
+classifiers = [
+    "Environment :: Web Environment",
+    "Programming Language :: Python",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+]
+dependencies = [
+    "node.ext.ldap",
+    "cone.ugm",
+    "yafowil.widget.array",
+    "yafowil.widget.dict",
+    "yafowil.yaml",
+]
+
+[project.optional-dependencies]
+test = [
+    "lxml",
+    "yafowil.yaml",
+    "zope.testrunner",
+]
+
+[project.urls]
+Homepage = "http://github.com/conestack/cone.ldap"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+zip-safe = false
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.zest-releaser]
+create-wheel = true
