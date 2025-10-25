@@ -4,7 +4,8 @@ Changes
 0.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Pin upper versions of dependencies.
+  [rnix]
 
 
 0.2 (2022-12-05)

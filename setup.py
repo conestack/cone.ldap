@@ -48,22 +48,22 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'node.ext.ldap',
-        'cone.ugm',
-        'yafowil.widget.array',
-        'yafowil.widget.dict',
-        'yafowil.yaml'
+        'node.ext.ldap<2.0.0',
+        'cone.ugm<1.1.0',
+        'yafowil.widget.array<2.0.0',
+        'yafowil.widget.dict<2.0.0',
+        'yafowil.yaml<3.0.0'
     ],
     extras_require=dict(
         test=[
             'lxml',
-            'yafowil.yaml',
+            'yafowil.yaml<3.0.0',
             'zope.testrunner'
         ]
     ),
     tests_require=[
         'lxml',
-        'yafowil.yaml',
+        'yafowil.yaml<3.0.0',
         'zope.testrunner'
     ],
     cmdclass=dict(test=Test)
