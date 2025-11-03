@@ -1,8 +1,8 @@
 Changes
 =======
 
-0.3 (unreleased)
-----------------
+1.1.0 (unreleased)
+------------------
 
 - Adopt Settings UI changes from ``cone.app``.
   [rnix]
