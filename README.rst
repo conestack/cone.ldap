@@ -6,11 +6,9 @@
     :target: https://pypi.python.org/pypi/cone.ldap
     :alt: Number of PyPI downloads
 
-.. image:: https://travis-ci.org/bluedynamics/cone.ldap.svg?branch=master
-    :target: https://travis-ci.org/bluedynamics/cone.ldap
-
-.. image:: https://coveralls.io/repos/github/bluedynamics/cone.ldap/badge.svg?branch=master
-    :target: https://coveralls.io/github/bluedynamics/cone.ldap?branch=master
+.. image:: https://github.com/conestack/cone.ldap/actions/workflows/test.yml/badge.svg
+    :target: https://github.com/conestack/cone.ldap/actions/workflows/test.yml
+    :alt: Test cone.ldap
 
 Plugin for `cone.app <http://packages.python.org/cone.app>`_ providing LDAP
 integration.
@@ -46,24 +44,24 @@ On debian based systems install:
 Installation
 ------------
 
-``cone.ldap`` contains a buildout configuration. Download or checkout package
+``cone.ldap`` contains a Makefile. Download or checkout package
 and run:
 
 .. code-block:: shell
 
-    cone.ldap$ ./bootstrap.sh python3
+    cone.ldap$ make install
 
 Start Test LDAP server with appropriate LDIF layer:
 
 .. code-block:: shell
 
-    cone.ldap$ ./bin/testldap start groupOfNames_10_10
+    cone.ldap$ make start-ldap-gon-10-10
 
 Start the application:
 
 .. code-block:: shell
 
-    cone.ldap$ ./bin/pserve cfg/gon_10_10/ldap_gon_10_10.ini
+    cone.ldap$ make run-gon-10-10
 
 and browse ``http://localhost:8081/``. Default ``admin`` user password is
 ``admin``.

@@ -30,9 +30,7 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
-    "lxml",
-    "yafowil.yaml",
-    "zope.testrunner",
+    "cone.ugm[test]",
 ]
 
 [project.urls]
