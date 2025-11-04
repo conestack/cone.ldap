@@ -30,7 +30,6 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
-    "cone.app[test]",
     "cone.ugm[test]",
 ]
 
