@@ -4,6 +4,7 @@
 /.mxmake/
 /build/
 /constraints-mxdev.txt
+/dist/
 /openldap/
 /requirements-mxdev.txt
 /sources/
