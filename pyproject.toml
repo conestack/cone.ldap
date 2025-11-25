@@ -50,9 +50,13 @@ path = "CHANGES.rst"
 path = "LICENSE.rst"
 
 [tool.hatch.build.targets.sdist]
-include = [
-    "/etc",
-    "/cfg",
+exclude = [
+    "/.github/",
+    "/Makefile",
+    "/mx.ini",
+    "/package.json",
+    "/pnpm-lock.yaml",
+    "include.mk",
 ]
 
 [tool.hatch.build.targets.wheel]
