@@ -32,6 +32,7 @@ dependencies = [
 [project.optional-dependencies]
 test = [
     "cone.ugm[test]",
+    "node.ext.ldap[test]",
 ]
 
 [project.urls]
