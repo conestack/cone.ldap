@@ -52,6 +52,7 @@ fragments = [
 exclude = [
     "/.github/",
     "/Makefile",
+    "/cfg/",
     "/mx.ini",
     "/package.json",
     "/pnpm-lock.yaml",
