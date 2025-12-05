@@ -34,6 +34,9 @@ test = [
     "cone.ugm[test]",
     "node.ext.ldap[test]",
 ]
+dev = [
+    "waitress",
+]
 
 [project.urls]
 Homepage = "http://github.com/conestack/cone.ldap"
