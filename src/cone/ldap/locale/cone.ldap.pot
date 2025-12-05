@@ -1,12 +1,12 @@
 #
 # SOME DESCRIPTIVE TITLE
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE 1.0\n"
-"POT-Creation-Date: 2022-11-29 17:15+0100\n"
+"POT-Creation-Date: 2025-12-05 08:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,182 +14,192 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Lingua 4.15.0\n"
+"Generated-By: Lingua 4.14.0\n"
 
-#. Default: LDAP Server
-#: ./src/cone/ldap/settings.py:49
+#. Default: LDAP Server Settings
+#: ./src/cone/ldap/settings.py:42
 msgid "server_settings_node"
 msgstr ""
 
 #. Default: General LDAP Server Settings
-#: ./src/cone/ldap/settings.py:53
+#: ./src/cone/ldap/settings.py:43
 msgid "server_settings_node_description"
 msgstr ""
 
+#. Default: LDAP
+#: ./src/cone/ldap/settings.py:49 ./src/cone/ldap/settings.py:162
+#: ./src/cone/ldap/settings.py:231 ./src/cone/ldap/settings.py:273
+msgid "ldap"
+msgstr ""
+
 #. Default: No container DN defined.
-#: ./src/cone/ldap/settings.py:121
+#: ./src/cone/ldap/settings.py:117
 msgid "no_container_dn_defined"
 msgstr ""
 
 #. Default: Expected 'ou' as RDN Attribute.
-#: ./src/cone/ldap/settings.py:126
+#: ./src/cone/ldap/settings.py:122
 msgid "expected_ou_as_rdn"
 msgstr ""
 
 #. Default: Invalid DN.
-#: ./src/cone/ldap/settings.py:134
+#: ./src/cone/ldap/settings.py:130
 msgid "invalid_dn"
 msgstr ""
 
 #. Default: Parent not found. Can't continue.
-#: ./src/cone/ldap/settings.py:141
+#: ./src/cone/ldap/settings.py:137
 msgid "parent_not_found"
 msgstr ""
 
 #. Default: Created ${rdn}
-#: ./src/cone/ldap/settings.py:149
+#: ./src/cone/ldap/settings.py:145
 msgid "created_principal_container"
 msgstr ""
 
-#. Default: LDAP Users
-#: ./src/cone/ldap/settings.py:170
+#. Default: LDAP User Settings
+#: ./src/cone/ldap/settings.py:155
 msgid "user_settings_node"
 msgstr ""
 
 #. Default: User specific LDAP Settings
-#: ./src/cone/ldap/settings.py:174
+#: ./src/cone/ldap/settings.py:156
 msgid "user_settings_node_description"
 msgstr ""
 
-#. Default: LDAP Groups
-#: ./src/cone/ldap/settings.py:243
+#. Default: LDAP Group Settings
+#: ./src/cone/ldap/settings.py:224
 msgid "group_settings_node"
 msgstr ""
 
 #. Default: Group specific LDAP Settings
-#: ./src/cone/ldap/settings.py:246
+#: ./src/cone/ldap/settings.py:225
 msgid "group_settings_node_description"
 msgstr ""
 
-#. Default: LDAP Roles
-#: ./src/cone/ldap/settings.py:288
+#. Default: LDAP Role Settings
+#: ./src/cone/ldap/settings.py:266
 msgid "role_settings_node"
 msgstr ""
 
 #. Default: Role specific LDAP Settings
-#: ./src/cone/ldap/settings.py:291
+#: ./src/cone/ldap/settings.py:267
 msgid "role_settings_node_description"
 msgstr ""
 
 #. Default: Cannot create container: ${error}
-#: ./src/cone/ldap/browser/settings.py:72
+#: ./src/cone/ldap/browser/settings.py:73
 msgid "cannot_create_container"
 msgstr ""
 
 #. Default: Additional aliases must not be empty
-#: ./src/cone/ldap/browser/settings.py:112
+#: ./src/cone/ldap/browser/settings.py:113
 msgid "additional_aliases_empty_string"
 msgstr ""
 
 #. Default: Down
-#: ./src/cone/ldap/browser/settings.py:130
+#: ./src/cone/ldap/browser/settings.py:136
 msgid "server_down"
 msgstr ""
 
 #. Default: Inexistent
-#: ./src/cone/ldap/browser/settings.py:170
-#: ./src/cone/ldap/browser/settings.py:239
-#: ./src/cone/ldap/browser/settings.py:295
+#: ./src/cone/ldap/browser/settings.py:172
+#: ./src/cone/ldap/browser/settings.py:226
+#: ./src/cone/ldap/browser/settings.py:265
 msgid "inexistent"
 msgstr ""
 
 #. Default: Value is required if account expiration is enabled
-#: ./src/cone/ldap/browser/settings.py:200
+#: ./src/cone/ldap/browser/settings.py:180
 msgid "required_if_users_account_expiration"
 msgstr ""
 
-#. Default: Roles container DN
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:11
-msgid "roles_dn"
+#. Default: Check Roles DN:
+#: ./src/cone/ldap/browser/templates/roles_settings.pt:11
+msgid "check_roles_dn"
 msgstr ""
 
-#. Default: LDAP DN of container with roles
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:12
-msgid "roles_dn_help"
+#. Default: Server not reachable
+#: ./src/cone/ldap/browser/templates/roles_settings.pt:19
+#: ./src/cone/ldap/browser/templates/groups_settings.pt:19
+#: ./src/cone/ldap/browser/templates/users_settings.pt:19
+msgid "server_not_reachable"
 msgstr ""
 
-#. Default: No Roles DN defined
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:13
-msgid "roles_dn_required"
+#. Default: Create roles container?
+#: ./src/cone/ldap/browser/templates/roles_settings.pt:25
+msgid "create_roles_container"
 msgstr ""
 
-#. Default: Roles search scope
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:18
-msgid "roles_scope"
+#. Default: The roles container DN does not exist. The Application can try to
+#. create it. This only works if the parent entry of defined DN exists. The
+#. roles container will be created with objectClass 'organizationalUnit'. Thus,
+#. the RDN name of DN must be 'ou'.
+#: ./src/cone/ldap/browser/templates/roles_settings.pt:28
+msgid "create_roles_container_description"
 msgstr ""
 
-#. Default: LDAP search scope for roles
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:19
-msgid "roles_scope_help"
+#. Default: Create Container
+#: ./src/cone/ldap/browser/templates/roles_settings.pt:36
+#: ./src/cone/ldap/browser/templates/groups_settings.pt:36
+#: ./src/cone/ldap/browser/templates/users_settings.pt:36
+msgid "create_container"
 msgstr ""
 
-#. Default: Roles search query filter
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:25
-msgid "roles_query"
+#. Default: Create roles container now
+#: ./src/cone/ldap/browser/templates/roles_settings.pt:41
+msgid "create_roles_container_now"
 msgstr ""
 
-#. Default: Custom LDAP query for role objects
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:26
-msgid "roles_query_help"
+#. Default: Server Connection:
+#: ./src/cone/ldap/browser/templates/server_settings.pt:10
+msgid "server_connection"
 msgstr ""
 
-#. Default: Object classes for role creation
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:31
-msgid "roles_object_classes"
+#. Default: Check Groups DN:
+#: ./src/cone/ldap/browser/templates/groups_settings.pt:11
+msgid "check_groups_dn"
 msgstr ""
 
-#. Default: LDAP object class names
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:32
-msgid "roles_object_classes_help"
+#. Default: Create groups container?
+#: ./src/cone/ldap/browser/templates/groups_settings.pt:25
+msgid "create_groups_container"
 msgstr ""
 
-#. Default: Role attribute aliases
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:37
-msgid "roles_aliases_attrmap"
+#. Default: The groups container DN does not exist. The Application can try to
+#. create it. This only works if the parent entry of defined DN exists. The
+#. groups container will be created with objectClass 'organizationalUnit'.
+#. Thus, the RDN name of DN must be 'ou'.
+#: ./src/cone/ldap/browser/templates/groups_settings.pt:28
+msgid "create_groups_container_description"
 msgstr ""
 
-#. Default: Aliases for reserved attribute keys
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:38
-msgid "roles_aliases_attrmap_help"
+#. Default: Create groups container now
+#: ./src/cone/ldap/browser/templates/groups_settings.pt:41
+msgid "create_groups_container_now"
 msgstr ""
 
-#. Default: Role attribute aliases values are mandatory
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:39
-msgid "roles_aliases_attrmap_required"
+#. Default: Check Users DN:
+#: ./src/cone/ldap/browser/templates/users_settings.pt:11
+msgid "check_users_dn"
 msgstr ""
 
-#. Default: Reserved key
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:41
-#: ./src/cone/ldap/browser/forms/groups_settings.yaml:41
-#: ./src/cone/ldap/browser/forms/users_settings.yaml:41
-msgid "reserved_key"
+#. Default: Create users container?
+#: ./src/cone/ldap/browser/templates/users_settings.pt:25
+msgid "create_users_container"
 msgstr ""
 
-#. Default: LDAP attribute name
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:42
-#: ./src/cone/ldap/browser/forms/groups_settings.yaml:42
-#: ./src/cone/ldap/browser/forms/groups_settings.yaml:50
-#: ./src/cone/ldap/browser/forms/users_settings.yaml:42
-#: ./src/cone/ldap/browser/forms/users_settings.yaml:50
-msgid "ldap_attr_name"
+#. Default: The users container DN does not exist. The Application can try to
+#. create it. This only works if the parent entry of defined DN exists. The
+#. users container will be created with objectClass 'organizationalUnit'. Thus,
+#. the RDN name of DN must be 'ou'.
+#: ./src/cone/ldap/browser/templates/users_settings.pt:28
+msgid "create_users_container_description"
 msgstr ""
 
-#. Default: Save
-#: ./src/cone/ldap/browser/forms/roles_settings.yaml:54
-#: ./src/cone/ldap/browser/forms/groups_settings.yaml:65
-#: ./src/cone/ldap/browser/forms/users_settings.yaml:77
-#: ./src/cone/ldap/browser/forms/server_settings.yaml:36
-msgid "save"
+#. Default: Create users container now
+#: ./src/cone/ldap/browser/templates/users_settings.pt:41
+msgid "create_users_container_now"
 msgstr ""
 
 #. Default: Groups container DN
@@ -252,6 +262,22 @@ msgstr ""
 msgid "groups_reserved_aliases_required"
 msgstr ""
 
+#. Default: Reserved key
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:41
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:41
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:41
+msgid "reserved_key"
+msgstr ""
+
+#. Default: LDAP attribute name
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:42
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:50
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:42
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:42
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:50
+msgid "ldap_attr_name"
+msgstr ""
+
 #. Default: Additional group attribute aliases
 #: ./src/cone/ldap/browser/forms/groups_settings.yaml:47
 msgid "groups_additional_aliases"
@@ -266,6 +292,109 @@ msgstr ""
 #: ./src/cone/ldap/browser/forms/groups_settings.yaml:49
 #: ./src/cone/ldap/browser/forms/users_settings.yaml:49
 msgid "additional_key"
+msgstr ""
+
+#. Default: Save
+#: ./src/cone/ldap/browser/forms/groups_settings.yaml:65
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:36
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:54
+#: ./src/cone/ldap/browser/forms/users_settings.yaml:77
+msgid "save"
+msgstr ""
+
+#. Default: LDAP URI
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:11
+msgid "ldap_uri"
+msgstr ""
+
+#. Default: No URI defined
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:12
+msgid "ldap_uri_required"
+msgstr ""
+
+#. Default: LDAP manager user
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:17
+msgid "ldap_manager_user"
+msgstr ""
+
+#. Default: No user defined
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:18
+msgid "ldap_manager_user_required"
+msgstr ""
+
+#. Default: LDAP manager password
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:23
+msgid "ldap_manager_password"
+msgstr ""
+
+#. Default: No password defined
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:24
+msgid "ldap_manager_password_required"
+msgstr ""
+
+#. Default: Enable caching for LDAP query results
+#: ./src/cone/ldap/browser/forms/server_settings.yaml:29
+msgid "ldap_cache_query_results"
+msgstr ""
+
+#. Default: Roles container DN
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:11
+msgid "roles_dn"
+msgstr ""
+
+#. Default: LDAP DN of container with roles
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:12
+msgid "roles_dn_help"
+msgstr ""
+
+#. Default: No Roles DN defined
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:13
+msgid "roles_dn_required"
+msgstr ""
+
+#. Default: Roles search scope
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:18
+msgid "roles_scope"
+msgstr ""
+
+#. Default: LDAP search scope for roles
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:19
+msgid "roles_scope_help"
+msgstr ""
+
+#. Default: Roles search query filter
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:25
+msgid "roles_query"
+msgstr ""
+
+#. Default: Custom LDAP query for role objects
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:26
+msgid "roles_query_help"
+msgstr ""
+
+#. Default: Object classes for role creation
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:31
+msgid "roles_object_classes"
+msgstr ""
+
+#. Default: LDAP object class names
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:32
+msgid "roles_object_classes_help"
+msgstr ""
+
+#. Default: Role attribute aliases
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:37
+msgid "roles_aliases_attrmap"
+msgstr ""
+
+#. Default: Aliases for reserved attribute keys
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:38
+msgid "roles_aliases_attrmap_help"
+msgstr ""
+
+#. Default: Role attribute aliases values are mandatory
+#: ./src/cone/ldap/browser/forms/roles_settings.yaml:39
+msgid "roles_aliases_attrmap_required"
 msgstr ""
 
 #. Default: Users container DN
@@ -356,147 +485,4 @@ msgstr ""
 #. Default: Unit of expiration value
 #: ./src/cone/ldap/browser/forms/users_settings.yaml:69
 msgid "users_expires_unit_help"
-msgstr ""
-
-#. Default: LDAP URI
-#: ./src/cone/ldap/browser/forms/server_settings.yaml:11
-msgid "ldap_uri"
-msgstr ""
-
-#. Default: No URI defined
-#: ./src/cone/ldap/browser/forms/server_settings.yaml:12
-msgid "ldap_uri_required"
-msgstr ""
-
-#. Default: LDAP manager user
-#: ./src/cone/ldap/browser/forms/server_settings.yaml:17
-msgid "ldap_manager_user"
-msgstr ""
-
-#. Default: No user defined
-#: ./src/cone/ldap/browser/forms/server_settings.yaml:18
-msgid "ldap_manager_user_required"
-msgstr ""
-
-#. Default: LDAP manager password
-#: ./src/cone/ldap/browser/forms/server_settings.yaml:23
-msgid "ldap_manager_password"
-msgstr ""
-
-#. Default: No password defined
-#: ./src/cone/ldap/browser/forms/server_settings.yaml:24
-msgid "ldap_manager_password_required"
-msgstr ""
-
-#. Default: Enable caching for LDAP query results
-#: ./src/cone/ldap/browser/forms/server_settings.yaml:29
-msgid "ldap_cache_query_results"
-msgstr ""
-
-#. Default: Groups Settings
-#: ./src/cone/ldap/browser/templates/groups_settings.pt:8
-msgid "group_settings"
-msgstr ""
-
-#. Default: Check Groups DN:
-#: ./src/cone/ldap/browser/templates/groups_settings.pt:11
-msgid "check_groups_dn"
-msgstr ""
-
-#. Default: Server not reachable
-#: ./src/cone/ldap/browser/templates/groups_settings.pt:19
-#: ./src/cone/ldap/browser/templates/users_settings.pt:19
-#: ./src/cone/ldap/browser/templates/roles_settings.pt:19
-msgid "server_not_reachable"
-msgstr ""
-
-#. Default: Create groups container?
-#: ./src/cone/ldap/browser/templates/groups_settings.pt:25
-msgid "create_groups_container"
-msgstr ""
-
-#. Default: The groups container DN does not exist. The Application can try to
-#. create it. This only works if the parent entry of defined DN exists. The
-#. groups container will be created with objectClass 'organizationalUnit'.
-#. Thus, the RDN name of DN must be 'ou'.
-#: ./src/cone/ldap/browser/templates/groups_settings.pt:28
-msgid "create_groups_container_description"
-msgstr ""
-
-#. Default: Create Container
-#: ./src/cone/ldap/browser/templates/groups_settings.pt:36
-#: ./src/cone/ldap/browser/templates/users_settings.pt:36
-#: ./src/cone/ldap/browser/templates/roles_settings.pt:36
-msgid "create_container"
-msgstr ""
-
-#. Default: Create groups container now
-#: ./src/cone/ldap/browser/templates/groups_settings.pt:41
-msgid "create_groups_container_now"
-msgstr ""
-
-#. Default: Users Settings
-#: ./src/cone/ldap/browser/templates/users_settings.pt:8
-msgid "users_settings"
-msgstr ""
-
-#. Default: Check Users DN:
-#: ./src/cone/ldap/browser/templates/users_settings.pt:11
-msgid "check_users_dn"
-msgstr ""
-
-#. Default: Create users container?
-#: ./src/cone/ldap/browser/templates/users_settings.pt:25
-msgid "create_users_container"
-msgstr ""
-
-#. Default: The users container DN does not exist. The Application can try to
-#. create it. This only works if the parent entry of defined DN exists. The
-#. users container will be created with objectClass 'organizationalUnit'. Thus,
-#. the RDN name of DN must be 'ou'.
-#: ./src/cone/ldap/browser/templates/users_settings.pt:28
-msgid "create_users_container_description"
-msgstr ""
-
-#. Default: Create users container now
-#: ./src/cone/ldap/browser/templates/users_settings.pt:41
-msgid "create_users_container_now"
-msgstr ""
-
-#. Default: Roles Settings
-#: ./src/cone/ldap/browser/templates/roles_settings.pt:8
-msgid "roles_settings"
-msgstr ""
-
-#. Default: Check Roles DN:
-#: ./src/cone/ldap/browser/templates/roles_settings.pt:11
-msgid "check_roles_dn"
-msgstr ""
-
-#. Default: Create roles container?
-#: ./src/cone/ldap/browser/templates/roles_settings.pt:25
-msgid "create_roles_container"
-msgstr ""
-
-#. Default: The roles container DN does not exist. The Application can try to
-#. create it. This only works if the parent entry of defined DN exists. The
-#. roles container will be created with objectClass 'organizationalUnit'. Thus,
-#. the RDN name of DN must be 'ou'.
-#: ./src/cone/ldap/browser/templates/roles_settings.pt:28
-msgid "create_roles_container_description"
-msgstr ""
-
-#. Default: Create roles container now
-#: ./src/cone/ldap/browser/templates/roles_settings.pt:41
-msgid "create_roles_container_now"
-msgstr ""
-
-#. Default: LDAP Server Settings
-#: ./src/cone/ldap/browser/templates/server_settings.pt:7
-msgid "ldap_server_settings"
-msgstr ""
-
-#. Default: Server Connection:
-#: ./src/cone/ldap/browser/templates/server_settings.pt:10
-msgid "server_connection"
 msgstr ""
