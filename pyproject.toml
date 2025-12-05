@@ -22,11 +22,11 @@ classifiers = [
     "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
 ]
 dependencies = [
-    "node.ext.ldap>1.99",
     "cone.ugm>1.99",
+    "node.ext.ldap>1.99",
     "yafowil.widget.array>1.99",
     "yafowil.widget.dict>1.99",
-    "yafowil.yaml>2.99"
+    "yafowil.yaml>2.99",
 ]
 
 [project.optional-dependencies]
