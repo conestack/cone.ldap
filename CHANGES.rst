@@ -1,7 +1,13 @@
 Changes
 =======
 
-1.1.0 (unreleased)
+2.0.0 (unreleased)
+------------------
+
+- Bootstrap 5 styles.
+
+
+1.1.0 (2026-02-03)
 ------------------
 
 - Refactor package layout to use ``pyproject.toml`` and implicit namespace packages.
