@@ -140,7 +140,8 @@ class TestSettings(NodeTestCase):
             'sn': 'Surname',
             'mail': 'Email'
         }
-        ugm_attrs.users_exposed_attributes = ['homePhone']
+        # ``mail`` is mapped by the form attrmap already, it is not duplicated
+        ugm_attrs.users_exposed_attributes = ['homePhone', 'mail']
         ugm_attrs.users_account_expiration = 'True'
         ugm_attrs.users_expires_attr = 'shadowExpire'
         ugm_attrs.users_expires_unit = '0'

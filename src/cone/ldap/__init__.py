@@ -75,13 +75,13 @@ class LDAPUGMFactory(UGMFactory):
         if groups_settings.container_exists:
             gcfg = groups_settings.ldap_gcfg
         else:
-            logger.warning(u"Configured groups container invalid.")
+            logger.warning("Configured groups container invalid.")
         roles_settings = settings['ldap_roles']
         rcfg = None
         if roles_settings.container_exists:
             rcfg = roles_settings.ldap_rcfg
         else:
-            logger.warning(u"Configured roles container invalid.")
+            logger.warning("Configured roles container invalid.")
         return Ugm(
             name='ldap_ugm',
             props=props,

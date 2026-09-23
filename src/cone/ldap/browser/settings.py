@@ -33,7 +33,7 @@ def initialize_ugm_backend():
         ugm_backend.initialize()
 
 
-class ScopeVocabMixin(object):
+class ScopeVocabMixin:
     scope_vocab = [
         (str(BASE), 'BASE'),
         (str(ONELEVEL), 'ONELEVEL'),
@@ -77,10 +77,10 @@ class CreateContainerAction(Tile):
             ))
             ajax_message(self.request, message, 'error')
         # XXX: initialize UGM backend?
-        return u''
+        return ''
 
 
-class AliasesMixin(object):
+class AliasesMixin:
     reserved_alias_names = []
     aliases_attribute = ''
 
@@ -122,7 +122,7 @@ class AliasesMixin(object):
     path='cone.ldap.browser:templates/server_settings.pt')
 @plumbing(SettingsForm, YAMLForm)
 class ServerSettingsForm(Form):
-    action_resource = u'edit'
+    action_resource = 'edit'
     form_template = 'cone.ldap.browser:forms/server_settings.yaml'
 
     @property
@@ -156,7 +156,7 @@ class ServerSettingsForm(Form):
     path='cone.ldap.browser:templates/users_settings.pt')
 @plumbing(SettingsForm, YAMLForm)
 class UsersSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTrigger):
-    action_resource = u'edit'
+    action_resource = 'edit'
     form_template = 'cone.ldap.browser:forms/users_settings.yaml'
     reserved_alias_names = ['rdn', 'id', 'password']
     aliases_attribute = 'users_aliases_attrmap'
@@ -210,7 +210,7 @@ class UsersSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTrig
     path='cone.ldap.browser:templates/groups_settings.pt')
 @plumbing(SettingsForm, YAMLForm)
 class GroupsSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTrigger):
-    action_resource = u'edit'
+    action_resource = 'edit'
     form_template = 'cone.ldap.browser:forms/groups_settings.yaml'
     reserved_alias_names = ['rdn', 'id']
     aliases_attribute = 'groups_aliases_attrmap'
@@ -251,7 +251,7 @@ class GroupsSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTri
     path='cone.ldap.browser:templates/roles_settings.pt')
 @plumbing(SettingsForm, YAMLForm)
 class RolesSettingsForm(Form, ScopeVocabMixin, CreateContainerTrigger):
-    action_resource = u'edit'
+    action_resource = 'edit'
     form_template = 'cone.ldap.browser:forms/roles_settings.yaml'
 
     @property
