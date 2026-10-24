@@ -43,7 +43,10 @@ class TestLdap(NodeTestCase):
         with self.assertLogs('cone.ldap', level='WARNING') as logs:
             ugm = LDAPUGMFactory({})()
         self.assertEqual(ugm.name, 'ldap_ugm')
-        self.assertEqual([r.getMessage() for r in logs.records][-2:], [
-            'Configured groups container invalid.',
-            'Configured roles container invalid.'
-        ])
+        self.assertEqual(
+            [r.getMessage() for r in logs.records][-2:],
+            [
+                'Configured groups container invalid.',
+                'Configured roles container invalid.',
+            ],
+        )

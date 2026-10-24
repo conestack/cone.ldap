@@ -1,10 +1,10 @@
-from cone.app.browser.ajax import AjaxEvent
 from cone.app.browser.ajax import ajax_continue
 from cone.app.browser.ajax import ajax_message
+from cone.app.browser.ajax import AjaxEvent
 from cone.app.browser.form import Form
 from cone.app.browser.form import YAMLForm
-from cone.app.browser.settings import SettingsForm
 from cone.app.browser.settings import settings_form
+from cone.app.browser.settings import SettingsForm
 from cone.app.browser.utils import make_url
 from cone.app.ugm import ugm_backend
 from cone.ldap.settings import LDAPGroupsSettings
@@ -20,8 +20,8 @@ from node.ext.ldap import SUBTREE
 from node.utils import UNSET
 from odict import odict
 from plumber import plumbing
-from pyramid.i18n import TranslationStringFactory
 from pyramid.i18n import get_localizer
+from pyramid.i18n import TranslationStringFactory
 from yafowil.base import ExtractionError
 
 
@@ -42,7 +42,6 @@ class ScopeVocabMixin:
 
 
 class CreateContainerTrigger(Tile):
-
     @property
     def creation_target(self):
         return make_url(self.request, node=self.model)
@@ -56,7 +55,6 @@ class CreateContainerTrigger(Tile):
 @tile(name='create_container', interface=LDAPGroupsSettings, permission='manage')
 @tile(name='create_container', interface=LDAPRolesSettings, permission='manage')
 class CreateContainerAction(Tile):
-
     @property
     def continuation(self):
         url = make_url(self.request, node=self.model)
@@ -70,11 +68,13 @@ class CreateContainerAction(Tile):
             continuation = self.continuation
             ajax_continue(self.request, continuation)
         except Exception as e:
-            message = localizer.translate(_(
-                'cannot_create_container',
-                default="Cannot create container: ${error}",
-                mapping={'error': localizer.translate(e.error_message)}
-            ))
+            message = localizer.translate(
+                _(
+                    'cannot_create_container',
+                    default='Cannot create container: ${error}',
+                    mapping={'error': localizer.translate(e.error_message)},
+                )
+            )
             ajax_message(self.request, message, 'error')
         # XXX: initialize UGM backend?
         return ''
@@ -110,16 +110,18 @@ class AliasesMixin:
             return extracted
         for val in extracted.values():
             if not val.strip():
-                raise ExtractionError(_(
-                    'additional_aliases_empty_string',
-                    default='Additional aliases must not be empty'
-                ))
+                raise ExtractionError(
+                    _(
+                        'additional_aliases_empty_string',
+                        default='Additional aliases must not be empty',
+                    )
+                )
         return extracted
 
 
 @settings_form(
-    interface=LDAPServerSettings,
-    path='cone.ldap.browser:templates/server_settings.pt')
+    interface=LDAPServerSettings, path='cone.ldap.browser:templates/server_settings.pt'
+)
 @plumbing(SettingsForm, YAMLForm)
 class ServerSettingsForm(Form):
     action_resource = 'edit'
@@ -152,8 +154,8 @@ class ServerSettingsForm(Form):
 
 
 @settings_form(
-    interface=LDAPUsersSettings,
-    path='cone.ldap.browser:templates/users_settings.pt')
+    interface=LDAPUsersSettings, path='cone.ldap.browser:templates/users_settings.pt'
+)
 @plumbing(SettingsForm, YAMLForm)
 class UsersSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTrigger):
     action_resource = 'edit'
@@ -177,10 +179,12 @@ class UsersSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTrig
             return extracted
         settings = general_settings(self.model)
         if settings.attrs.users_account_expiration == 'True' and not extracted:
-            raise ExtractionError(_(
-                'required_if_users_account_expiration',
-                default='Value is required if account expiration is enabled'
-            ))
+            raise ExtractionError(
+                _(
+                    'required_if_users_account_expiration',
+                    default='Value is required if account expiration is enabled',
+                )
+            )
         return extracted
 
     def save(self, widget, data):
@@ -191,14 +195,16 @@ class UsersSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTrig
             'users_query',
             'users_object_classes',
             'users_expires_attr',
-            'users_expires_unit'
+            'users_expires_unit',
         ]:
             val = data.fetch('ldap_users_settings.%s' % attr_name).extracted
             if attr_name == 'users_object_classes':
                 val = [v.strip() for v in val.split(',') if v.strip()]
             setattr(model.attrs, attr_name, val)
         attr_map = data.fetch('ldap_users_settings.users_additional_aliases').extracted
-        attr_map.update(data.fetch('ldap_users_settings.users_reserved_aliases').extracted)
+        attr_map.update(
+            data.fetch('ldap_users_settings.users_reserved_aliases').extracted
+        )
         model.attrs.users_aliases_attrmap = attr_map
         model()
         model.invalidate()
@@ -206,8 +212,8 @@ class UsersSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTrig
 
 
 @settings_form(
-    interface=LDAPGroupsSettings,
-    path='cone.ldap.browser:templates/groups_settings.pt')
+    interface=LDAPGroupsSettings, path='cone.ldap.browser:templates/groups_settings.pt'
+)
 @plumbing(SettingsForm, YAMLForm)
 class GroupsSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTrigger):
     action_resource = 'edit'
@@ -231,7 +237,7 @@ class GroupsSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTri
             'groups_dn',
             'groups_scope',
             'groups_query',
-            'groups_object_classes'
+            'groups_object_classes',
             # 'groups_relation'
         ]:
             val = data.fetch('ldap_groups_settings.%s' % attr_name).extracted
@@ -239,7 +245,9 @@ class GroupsSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTri
                 val = [v.strip() for v in val.split(',') if v.strip()]
             setattr(model.attrs, attr_name, val)
         attr_map = data.fetch('ldap_groups_settings.groups_additional_aliases').extracted
-        attr_map.update(data.fetch('ldap_groups_settings.groups_reserved_aliases').extracted)
+        attr_map.update(
+            data.fetch('ldap_groups_settings.groups_reserved_aliases').extracted
+        )
         model.attrs.groups_aliases_attrmap = attr_map
         model()
         model.invalidate()
@@ -247,8 +255,8 @@ class GroupsSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTri
 
 
 @settings_form(
-    interface=LDAPRolesSettings,
-    path='cone.ldap.browser:templates/roles_settings.pt')
+    interface=LDAPRolesSettings, path='cone.ldap.browser:templates/roles_settings.pt'
+)
 @plumbing(SettingsForm, YAMLForm)
 class RolesSettingsForm(Form, ScopeVocabMixin, CreateContainerTrigger):
     action_resource = 'edit'
@@ -280,7 +288,7 @@ class RolesSettingsForm(Form, ScopeVocabMixin, CreateContainerTrigger):
             'roles_scope',
             'roles_query',
             'roles_object_classes',
-            'roles_aliases_attrmap'
+            'roles_aliases_attrmap',
             # 'roles_relation',
         ]:
             val = data.fetch('ldap_roles_settings.%s' % attr_name).extracted

@@ -45,12 +45,10 @@ def initialize_ldap(config, global_config, settings):
 
 @ugm_backend('ldap')
 class LDAPUGMFactory(UGMFactory):
-    """UGM backend factory for LDAP based UGM implementation.
-    """
+    """UGM backend factory for LDAP based UGM implementation."""
 
     def __init__(self, settings):
-        """UGM Settings are written to config object by main hook.
-        """
+        """UGM Settings are written to config object by main hook."""
 
     def __call__(self):
         settings = get_root()['settings']
@@ -75,17 +73,11 @@ class LDAPUGMFactory(UGMFactory):
         if groups_settings.container_exists:
             gcfg = groups_settings.ldap_gcfg
         else:
-            logger.warning("Configured groups container invalid.")
+            logger.warning('Configured groups container invalid.')
         roles_settings = settings['ldap_roles']
         rcfg = None
         if roles_settings.container_exists:
             rcfg = roles_settings.ldap_rcfg
         else:
-            logger.warning("Configured roles container invalid.")
-        return Ugm(
-            name='ldap_ugm',
-            props=props,
-            ucfg=ucfg,
-            gcfg=gcfg,
-            rcfg=rcfg
-        )
+            logger.warning('Configured roles container invalid.')
+        return Ugm(name='ldap_ugm', props=props, ucfg=ucfg, gcfg=gcfg, rcfg=rcfg)

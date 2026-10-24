@@ -26,20 +26,21 @@ def _invalidate_settings():
 
 
 def invalidate_settings(fn):
-    """Decorator for tests working on settings nodes.
-    """
+    """Decorator for tests working on settings nodes."""
+
     def wrapper(*a, **kw):
         _invalidate_settings()
         try:
             fn(*a, **kw)
         finally:
             _invalidate_settings()
+
     return wrapper
 
 
 def custom_config_path(fn):
-    """Decorator for tests writing to config files.
-    """
+    """Decorator for tests writing to config files."""
+
     def wrapper(*a, **kw):
         ugm_settings = ugm_cfg.ugm_settings
         server_config = ldap_cfg.server_config
@@ -56,6 +57,7 @@ def custom_config_path(fn):
             ldap_cfg.groups_config = groups_config
             ldap_cfg.roles_config = roles_config
             _invalidate_settings()
+
     return wrapper
 
 
@@ -80,19 +82,18 @@ class LDAPLayer(testing.UGMLayer, Layer):
         Layer.__init__(self)
 
     def make_app(self):
-        super(testing.UGMLayer, self).make_app(**{
-            'cone.plugins': '\n'.join([
-                'cone.ugm',
-                'cone.ldap'
-            ]),
-            'ugm.backend': 'ldap',
-            'ugm.config': testing.ugm_config,
-            'ugm.localmanager_config': testing.localmanager_config,
-            'ldap.server_config': ldap_server_config,
-            'ldap.users_config': ldap_users_config,
-            'ldap.groups_config': ldap_groups_config,
-            'ldap.roles_config': ldap_roles_config
-        })
+        super(testing.UGMLayer, self).make_app(
+            **{
+                'cone.plugins': '\n'.join(['cone.ugm', 'cone.ldap']),
+                'ugm.backend': 'ldap',
+                'ugm.config': testing.ugm_config,
+                'ugm.localmanager_config': testing.localmanager_config,
+                'ldap.server_config': ldap_server_config,
+                'ldap.users_config': ldap_users_config,
+                'ldap.groups_config': ldap_groups_config,
+                'ldap.roles_config': ldap_roles_config,
+            }
+        )
         settings = get_root()['settings']
         settings['ldap_users'].create_container()
         settings['ldap_groups'].create_container()

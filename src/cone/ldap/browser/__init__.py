@@ -14,14 +14,9 @@ ldap_sn_field_factory = user_field('sn', backend='ldap')(
 
 resources_dir = os.path.join(os.path.dirname(__file__), 'static')
 cone_ldap_resources = wr.ResourceGroup(
-    name='cone.ldap-ldap',
-    directory=resources_dir,
-    path='ldap'
+    name='cone.ldap-ldap', directory=resources_dir, path='ldap'
 )
-cone_ldap_resources.add(wr.StyleResource(
-    name='cone-ldap-css',
-    resource='cone.ldap.css'
-))
+cone_ldap_resources.add(wr.StyleResource(name='cone-ldap-css', resource='cone.ldap.css'))
 
 
 def configure_resources(config, settings):

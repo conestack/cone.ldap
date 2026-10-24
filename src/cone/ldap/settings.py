@@ -1,5 +1,5 @@
-from cone.app.model import Properties
 from cone.app.model import node_info
+from cone.app.model import Properties
 from cone.app.utils import format_traceback
 from cone.ugm.settings import UGMSettings
 from cone.ugm.utils import general_settings
@@ -41,10 +41,10 @@ factory_defaults.role = dict()
     name='ldap_server_settings',
     title=_('server_settings_node', default='LDAP Server Settings'),
     description=_(
-        'server_settings_node_description',
-        default='General LDAP Server Settings'
+        'server_settings_node_description', default='General LDAP Server Settings'
     ),
-    icon='glyphicon glyphicon-hdd')
+    icon='glyphicon glyphicon-hdd',
+)
 class LDAPServerSettings(UGMSettings):
     category = _('ldap', default='LDAP')
 
@@ -68,7 +68,7 @@ class LDAPServerSettings(UGMSettings):
             uri=settings.uri,
             user=settings.user,
             password=settings.password,
-            cache=int(settings.cache)
+            cache=int(settings.cache),
         )
 
     def invalidate(self):
@@ -96,10 +96,7 @@ class LDAPContainerSettings(UGMSettings):
     @property
     def container_exists(self):
         try:
-            return LDAPNode(
-                self.container_dn,
-                self.server_settings.ldap_props
-            ).exists
+            return LDAPNode(self.container_dn, self.server_settings.ldap_props).exists
         except Exception:
             logger.error(format_traceback())
             return False
@@ -114,38 +111,30 @@ class LDAPContainerSettings(UGMSettings):
         """
         dn = self.container_dn
         if not dn:
-            raise LDAPContainerError(_(
-                'no_container_dn_defined',
-                default='No container DN defined.'
-            ))
+            raise LDAPContainerError(
+                _('no_container_dn_defined', default='No container DN defined.')
+            )
         if not dn.startswith('ou='):
-            raise LDAPContainerError(_(
-                'expected_ou_as_rdn',
-                default="Expected 'ou' as RDN Attribute."
-            ))
+            raise LDAPContainerError(
+                _('expected_ou_as_rdn', default="Expected 'ou' as RDN Attribute.")
+            )
         props = self.server_settings.ldap_props
         try:
             parent_dn = ','.join(explode_dn(dn)[1:])
         except Exception:
-            raise LDAPContainerError(_(
-                'invalid_dn',
-                default='Invalid DN.'
-            ))
+            raise LDAPContainerError(_('invalid_dn', default='Invalid DN.'))
         rdn = explode_dn(dn)[0]
         parent = LDAPNode(parent_dn, props)
         if not parent.exists:
-            raise LDAPContainerError(_(
-                'parent_not_found',
-                default="Parent not found. Can't continue."
-            ))
+            raise LDAPContainerError(
+                _('parent_not_found', default="Parent not found. Can't continue.")
+            )
         parent[rdn] = LDAPNode()
         parent[rdn].attrs['objectClass'] = ['organizationalUnit']
         parent()
         self.invalidate()
         message = _(
-            'created_principal_container',
-            default="Created ${rdn}",
-            mapping={'rdn': rdn}
+            'created_principal_container', default='Created ${rdn}', mapping={'rdn': rdn}
         )
         return message
 
@@ -154,10 +143,10 @@ class LDAPContainerSettings(UGMSettings):
     name='ldap_user_settings',
     title=_('user_settings_node', default='LDAP User Settings'),
     description=_(
-        'user_settings_node_description',
-        default='User specific LDAP Settings'
+        'user_settings_node_description', default='User specific LDAP Settings'
     ),
-    icon='ion-person')
+    icon='ion-person',
+)
 class LDAPUsersSettings(LDAPContainerSettings):
     category = _('ldap', default='LDAP')
 
@@ -212,7 +201,7 @@ class LDAPUsersSettings(LDAPContainerSettings):
             objectClasses=settings.users_object_classes,
             defaults=factory_defaults.user,
             expiresAttr=expires_attr,
-            expiresUnit=expires_unit
+            expiresUnit=expires_unit,
         )
 
     def invalidate(self):
@@ -223,10 +212,10 @@ class LDAPUsersSettings(LDAPContainerSettings):
     name='ldap_group_settings',
     title=_('group_settings_node', default='LDAP Group Settings'),
     description=_(
-        'group_settings_node_description',
-        default='Group specific LDAP Settings'
+        'group_settings_node_description', default='Group specific LDAP Settings'
     ),
-    icon='ion-person-stalker')
+    icon='ion-person-stalker',
+)
 class LDAPGroupsSettings(LDAPContainerSettings):
     category = _('ldap', default='LDAP')
 
@@ -254,7 +243,7 @@ class LDAPGroupsSettings(LDAPContainerSettings):
             queryFilter=settings.groups_query,
             objectClasses=settings.groups_object_classes,
             # member_relation=settings.groups_relation,
-            defaults=factory_defaults.group
+            defaults=factory_defaults.group,
         )
 
     def invalidate(self):
@@ -265,10 +254,10 @@ class LDAPGroupsSettings(LDAPContainerSettings):
     name='ldap_role_settings',
     title=_('role_settings_node', default='LDAP Role Settings'),
     description=_(
-        'role_settings_node_description',
-        default='Role specific LDAP Settings'
+        'role_settings_node_description', default='Role specific LDAP Settings'
     ),
-    icon='glyphicon glyphicon-tasks')
+    icon='glyphicon glyphicon-tasks',
+)
 class LDAPRolesSettings(LDAPContainerSettings):
     category = _('ldap', default='LDAP')
 
@@ -291,7 +280,7 @@ class LDAPRolesSettings(LDAPContainerSettings):
             queryFilter=settings.roles_query,
             objectClasses=settings.roles_object_classes,
             # member_relation=settings.roles_relation,
-            defaults=factory_defaults.role
+            defaults=factory_defaults.role,
         )
 
     def invalidate(self):

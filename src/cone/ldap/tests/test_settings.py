@@ -27,12 +27,7 @@ class TestSettings(NodeTestCase):
         self.assertEqual(md.description, 'server_settings_node_description')
 
         attrs = settings.attrs
-        self.assertEqual(sorted(attrs.keys()), [
-            'cache',
-            'password',
-            'uri',
-            'user'
-        ])
+        self.assertEqual(sorted(attrs.keys()), ['cache', 'password', 'uri', 'user'])
 
         attrs.uri = 'ldap://127.0.0.1:12345'
         attrs.user = 'cn=Manager,dc=my-domain,dc=com'
@@ -67,10 +62,7 @@ class TestSettings(NodeTestCase):
         settings = LDAPContainerSettings()
         settings.__parent__ = get_root()['settings']
 
-        self.assertTrue(isinstance(
-            settings.server_settings,
-            LDAPServerSettings
-        ))
+        self.assertTrue(isinstance(settings.server_settings, LDAPServerSettings))
 
         settings.container_dn = None
         err = self.expectError(LDAPContainerError, settings.create_container)
@@ -107,15 +99,18 @@ class TestSettings(NodeTestCase):
         self.assertEqual(md.description, 'user_settings_node_description')
 
         attrs = settings.attrs
-        self.assertEqual(sorted(attrs.keys()), [
-            'users_aliases_attrmap',
-            'users_dn',
-            'users_expires_attr',
-            'users_expires_unit',
-            'users_object_classes',
-            'users_query',
-            'users_scope'
-        ])
+        self.assertEqual(
+            sorted(attrs.keys()),
+            [
+                'users_aliases_attrmap',
+                'users_dn',
+                'users_expires_attr',
+                'users_expires_unit',
+                'users_object_classes',
+                'users_query',
+                'users_scope',
+            ],
+        )
 
         attrs.users_dn = 'ou=users,dc=my-domain,dc=com'
         attrs.users_scope = '1'
@@ -124,12 +119,12 @@ class TestSettings(NodeTestCase):
             'top',
             'person',
             'organizationalPerson',
-            'inetOrgPerson'
+            'inetOrgPerson',
         ]
         attrs.users_aliases_attrmap = {
             'rdn': 'uid',
             'id': 'uid',
-            'password': 'userPassword'
+            'password': 'userPassword',
         }
 
         ugm_settings = settings.parent['ugm_general']
@@ -138,7 +133,7 @@ class TestSettings(NodeTestCase):
         ugm_attrs.users_form_attrmap = {
             'cn': 'Fullname',
             'sn': 'Surname',
-            'mail': 'Email'
+            'mail': 'Email',
         }
         # ``mail`` is mapped by the form attrmap already, it is not duplicated
         ugm_attrs.users_exposed_attributes = ['homePhone', 'mail']
@@ -150,31 +145,29 @@ class TestSettings(NodeTestCase):
 
         ldap_ucfg = settings.ldap_ucfg
         self.assertEqual(isinstance(ldap_ucfg, UsersConfig), True)
+        self.assertEqual(ldap_ucfg.baseDN, 'ou=users,dc=my-domain,dc=com')
         self.assertEqual(
-            ldap_ucfg.baseDN,
-            'ou=users,dc=my-domain,dc=com'
+            sorted(ldap_ucfg.attrmap.items()),
+            [
+                ('cn', 'cn'),
+                ('homePhone', 'homePhone'),
+                ('id', 'uid'),
+                ('jpegPhoto', 'jpegPhoto'),
+                ('login', 'uid'),
+                ('mail', 'mail'),
+                ('password', 'userPassword'),
+                ('rdn', 'uid'),
+                ('shadowExpire', 'shadowExpire'),
+                ('sn', 'sn'),
+                ('uid', 'uid'),
+            ],
         )
-        self.assertEqual(sorted(ldap_ucfg.attrmap.items()), [
-            ('cn', 'cn'),
-            ('homePhone', 'homePhone'),
-            ('id', 'uid'),
-            ('jpegPhoto', 'jpegPhoto'),
-            ('login', 'uid'),
-            ('mail', 'mail'),
-            ('password', 'userPassword'),
-            ('rdn', 'uid'),
-            ('shadowExpire', 'shadowExpire'),
-            ('sn', 'sn'),
-            ('uid', 'uid')
-        ])
         self.assertEqual(ldap_ucfg.scope, 1)
         self.assertEqual(ldap_ucfg.queryFilter, '')
-        self.assertEqual(sorted(ldap_ucfg.objectClasses), [
-            'inetOrgPerson',
-            'organizationalPerson',
-            'person',
-            'top'
-        ])
+        self.assertEqual(
+            sorted(ldap_ucfg.objectClasses),
+            ['inetOrgPerson', 'organizationalPerson', 'person', 'top'],
+        )
         self.assertEqual(ldap_ucfg.defaults, {})
         self.assertEqual(ldap_ucfg.expiresAttr, 'shadowExpire')
         self.assertEqual(ldap_ucfg.expiresUnit, 0)
@@ -209,43 +202,37 @@ class TestSettings(NodeTestCase):
         self.assertEqual(md.description, 'group_settings_node_description')
 
         attrs = settings.attrs
-        self.assertEqual(sorted(attrs.keys()), [
-            'groups_aliases_attrmap',
-            'groups_dn',
-            'groups_object_classes',
-            'groups_query',
-            'groups_relation',
-            'groups_scope'
-        ])
+        self.assertEqual(
+            sorted(attrs.keys()),
+            [
+                'groups_aliases_attrmap',
+                'groups_dn',
+                'groups_object_classes',
+                'groups_query',
+                'groups_relation',
+                'groups_scope',
+            ],
+        )
 
         attrs.groups_dn = 'ou=groups,dc=my-domain,dc=com'
         attrs.groups_scope = '1'
         attrs.groups_query = ''
         attrs.groups_object_classes = ['groupOfNames']
-        attrs.groups_aliases_attrmap = {
-            'rdn': 'cn',
-            'id': 'cn'
-        }
+        attrs.groups_aliases_attrmap = {'rdn': 'cn', 'id': 'cn'}
         attrs.groups_relation = ''
 
         ugm_settings = settings.parent['ugm_general']
         ugm_attrs = ugm_settings.attrs
-        ugm_attrs.groups_form_attrmap = {
-            'description': 'Description'
-        }
+        ugm_attrs.groups_form_attrmap = {'description': 'Description'}
 
         ldap_gcfg = settings.ldap_gcfg
         self.assertEqual(isinstance(ldap_gcfg, GroupsConfig), True)
 
+        self.assertEqual(ldap_gcfg.baseDN, 'ou=groups,dc=my-domain,dc=com')
         self.assertEqual(
-            ldap_gcfg.baseDN,
-            'ou=groups,dc=my-domain,dc=com'
+            sorted(ldap_gcfg.attrmap.items()),
+            [('description', 'description'), ('id', 'cn'), ('rdn', 'cn')],
         )
-        self.assertEqual(sorted(ldap_gcfg.attrmap.items()), [
-            ('description', 'description'),
-            ('id', 'cn'),
-            ('rdn', 'cn')
-        ])
         self.assertEqual(ldap_gcfg.scope, 1)
         self.assertEqual(ldap_gcfg.queryFilter, '')
         self.assertEqual(ldap_gcfg.objectClasses, ['groupOfNames'])
@@ -281,36 +268,30 @@ class TestSettings(NodeTestCase):
         self.assertEqual(md.description, 'role_settings_node_description')
 
         attrs = settings.attrs
-        self.assertEqual(sorted(attrs.keys()), [
-            'roles_aliases_attrmap',
-            'roles_dn',
-            'roles_object_classes',
-            'roles_query',
-            'roles_relation',
-            'roles_scope'
-        ])
+        self.assertEqual(
+            sorted(attrs.keys()),
+            [
+                'roles_aliases_attrmap',
+                'roles_dn',
+                'roles_object_classes',
+                'roles_query',
+                'roles_relation',
+                'roles_scope',
+            ],
+        )
 
         attrs.roles_dn = 'ou=roles,dc=my-domain,dc=com'
         attrs.roles_scope = '1'
         attrs.roles_query = ''
         attrs.roles_object_classes = ['groupOfUniqueNames']
-        attrs.roles_aliases_attrmap = {
-            'rdn': 'cn',
-            'id': 'cn'
-        }
+        attrs.roles_aliases_attrmap = {'rdn': 'cn', 'id': 'cn'}
         attrs.roles_relation = ''
 
         ldap_rcfg = settings.ldap_rcfg
         self.assertEqual(isinstance(ldap_rcfg, RolesConfig), True)
 
-        self.assertEqual(
-            ldap_rcfg.baseDN,
-            'ou=roles,dc=my-domain,dc=com'
-        )
-        self.assertEqual(sorted(ldap_rcfg.attrmap.items()), [
-            ('id', 'cn'),
-            ('rdn', 'cn')
-        ])
+        self.assertEqual(ldap_rcfg.baseDN, 'ou=roles,dc=my-domain,dc=com')
+        self.assertEqual(sorted(ldap_rcfg.attrmap.items()), [('id', 'cn'), ('rdn', 'cn')])
         self.assertEqual(ldap_rcfg.scope, 1)
         self.assertEqual(ldap_rcfg.queryFilter, '')
         self.assertEqual(ldap_rcfg.objectClasses, ['groupOfUniqueNames'])
