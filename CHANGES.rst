@@ -4,6 +4,10 @@ Changes
 2.0.1 (unreleased)
 ------------------
 
+- Use ``YAMLEditFormTarget`` for the settings forms, ``YAMLForm.form_action``
+  is deprecated.
+  [rnix]
+
 - Sort the imports with ruff (one per line, ``from`` imports first, no
   sections) and format the code with ``ruff format`` (90 characters per line,
   single quotes).

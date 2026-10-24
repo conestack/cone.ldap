@@ -2,6 +2,7 @@ from cone.app.browser.ajax import ajax_continue
 from cone.app.browser.ajax import ajax_message
 from cone.app.browser.ajax import AjaxEvent
 from cone.app.browser.form import Form
+from cone.app.browser.form import YAMLEditFormTarget
 from cone.app.browser.form import YAMLForm
 from cone.app.browser.settings import settings_form
 from cone.app.browser.settings import SettingsForm
@@ -122,7 +123,7 @@ class AliasesMixin:
 @settings_form(
     interface=LDAPServerSettings, path='cone.ldap.browser:templates/server_settings.pt'
 )
-@plumbing(SettingsForm, YAMLForm)
+@plumbing(SettingsForm, YAMLForm, YAMLEditFormTarget)
 class ServerSettingsForm(Form):
     action_resource = 'edit'
     form_template = 'cone.ldap.browser:forms/server_settings.yaml'
@@ -156,7 +157,7 @@ class ServerSettingsForm(Form):
 @settings_form(
     interface=LDAPUsersSettings, path='cone.ldap.browser:templates/users_settings.pt'
 )
-@plumbing(SettingsForm, YAMLForm)
+@plumbing(SettingsForm, YAMLForm, YAMLEditFormTarget)
 class UsersSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTrigger):
     action_resource = 'edit'
     form_template = 'cone.ldap.browser:forms/users_settings.yaml'
@@ -214,7 +215,7 @@ class UsersSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTrig
 @settings_form(
     interface=LDAPGroupsSettings, path='cone.ldap.browser:templates/groups_settings.pt'
 )
-@plumbing(SettingsForm, YAMLForm)
+@plumbing(SettingsForm, YAMLForm, YAMLEditFormTarget)
 class GroupsSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTrigger):
     action_resource = 'edit'
     form_template = 'cone.ldap.browser:forms/groups_settings.yaml'
@@ -257,7 +258,7 @@ class GroupsSettingsForm(Form, ScopeVocabMixin, AliasesMixin, CreateContainerTri
 @settings_form(
     interface=LDAPRolesSettings, path='cone.ldap.browser:templates/roles_settings.pt'
 )
-@plumbing(SettingsForm, YAMLForm)
+@plumbing(SettingsForm, YAMLForm, YAMLEditFormTarget)
 class RolesSettingsForm(Form, ScopeVocabMixin, CreateContainerTrigger):
     action_resource = 'edit'
     form_template = 'cone.ldap.browser:forms/roles_settings.yaml'
