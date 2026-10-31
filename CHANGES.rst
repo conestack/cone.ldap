@@ -4,7 +4,9 @@ Changes
 2.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Build the test LDAP server with OpenLDAP 2.6.16 instead of 2.4.59. The
+  ``configure`` script of OpenLDAP 2.4 fails with GCC 14 and later.
+  [rnix]
 
 
 2.0.1 (2026-10-31)
