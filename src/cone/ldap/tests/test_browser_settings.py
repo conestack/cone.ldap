@@ -269,6 +269,7 @@ class TestBrowserSettings(TileTestCase):
         use_temp_ldap_configs(tempdir)
         model = get_root()['settings']['ldap_server']
         request = self.layer.new_request()
+        request.method = 'POST'
         request.params.update(
             {
                 'ldap_server_settings.uri': 'ldap://127.0.0.1:12345',
@@ -297,10 +298,25 @@ class TestBrowserSettings(TileTestCase):
     @reinitialize_ugm_backend
     @testing.custom_config_path
     @temp_directory
+    def test_users_settings_rendered_on_post_without_input(self, tempdir):
+        use_temp_ldap_configs(tempdir)
+        model = get_root()['settings']['ldap_users']
+        request = self.layer.new_request()
+        request.method = 'POST'
+        with self.layer.authenticated('manager'):
+            res = render_tile(model, request, 'editform')
+        self.assertIn('name="ldap_users_settings.users_dn"', res)
+        self.assertNotIn('must not be empty', res)
+
+    @principals(users={'manager': {}}, roles={'manager': ['manager']})
+    @reinitialize_ugm_backend
+    @testing.custom_config_path
+    @temp_directory
     def test_save_users_settings(self, tempdir):
         use_temp_ldap_configs(tempdir)
         model = get_root()['settings']['ldap_users']
         request = self.layer.new_request()
+        request.method = 'POST'
         request.params.update(users_form_params([('email', 'mail')]))
         ugm = ugm_backend.ugm
         with self.layer.authenticated('manager'):
@@ -327,6 +343,7 @@ class TestBrowserSettings(TileTestCase):
     def test_users_settings_additional_alias_must_not_be_empty(self):
         model = get_root()['settings']['ldap_users']
         request = self.layer.new_request()
+        request.method = 'POST'
         request.params.update(users_form_params([('email', ' ')]))
         with self.layer.authenticated('manager'):
             res = render_tile(model, request, 'editform')
@@ -339,6 +356,7 @@ class TestBrowserSettings(TileTestCase):
         model = get_root()['settings']['ldap_users']
         general_settings(model).attrs.users_account_expiration = 'True'
         request = self.layer.new_request()
+        request.method = 'POST'
         request.params.update(users_form_params([('email', 'mail')], expires_attr=''))
         with self.layer.authenticated('manager'):
             res = render_tile(model, request, 'editform')
@@ -357,6 +375,7 @@ class TestBrowserSettings(TileTestCase):
         model = get_root()['settings']['ldap_users']
         general_settings(model).attrs.users_account_expiration = 'False'
         request = self.layer.new_request()
+        request.method = 'POST'
         request.params.update(users_form_params([('email', 'mail')], expires_attr=''))
         with self.layer.authenticated('manager'):
             res = render_tile(model, request, 'editform')
@@ -374,6 +393,7 @@ class TestBrowserSettings(TileTestCase):
         use_temp_ldap_configs(tempdir)
         model = get_root()['settings']['ldap_groups']
         request = self.layer.new_request()
+        request.method = 'POST'
         request.params.update(
             {
                 'ldap_groups_settings.groups_dn': 'ou=groups,dc=my-domain,dc=com',
@@ -422,6 +442,7 @@ class TestBrowserSettings(TileTestCase):
         use_temp_ldap_configs(tempdir)
         model = get_root()['settings']['ldap_roles']
         request = self.layer.new_request()
+        request.method = 'POST'
         request.params.update(
             {
                 'ldap_roles_settings.roles_dn': 'ou=roles,dc=my-domain,dc=com',
